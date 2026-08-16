@@ -1,0 +1,402 @@
+# Aurora Design System — PROJECT_PLAN
+
+このドキュメントが本プロジェクトの唯一の仕様源(single source of truth)。実装は自分の手で行う。各フェーズの完了条件を満たしたらチェックを入れて次に進む。
+
+## Context
+
+新しいアプリを作るたびに配色・タイポ・コンポーネントの見た目を毎回ゼロから決め直している(「デザインガチャ」)。これを一度で終わらせるため、自分専用のデザインシステムを作る。狙いは3つ同時:
+
+1. **実用** — 自分のWebアプリ / Expoアプリで実際に使うトークン + コンポーネント
+2. **Figma** — 同じトークンを反映したFigmaライブラリ
+3. **ポートフォリオ** — ドキュメントサイト自体を作品として公開する
+
+リポジトリ: `github.com/unz47/design-system`(public)、`~/ghq/github.com/unz47/design-system`
+
+## 確定済みの決定事項
+
+| 項目 | 決定 |
+|---|---|
+| Webスタック | Next.js App Router |
+| ドキュメント | 自作サイト(Storybook不採用 — ポートフォリオとして見せるため) |
+| デザイン方針 | 生成アート寄り。コンポーネント自体はミニマル、ヒーロー/背景でThree.js・シェーダーを使う |
+| パレット | bg `#0B0D10` / text `#E8E6E3` / accent1 `#7DF9C4` / accent2 `#A855F7`(グラデ)。ダーク基調 |
+| v1スコープ | フルセット(20個以上) |
+| トークンの正 | コード(Git)。DTCG形式JSON → Style Dictionary → 各プラットフォーム。Figmaは生成物 |
+| RN展開 | コンポーネントもRN版を作る(トークン共有だけで終わらせない) |
+| デプロイ | 未定 — Phase 6で判断 |
+
+## 環境
+
+Node `v24.16.0` / pnpm `10.30.1` / npmスコープ `@unz47`(空き確認済み) / `gh` 認証済み(unz47)
+
+## 既存21リポから引き継ぐ規約
+
+- pnpm固定、Turborepo v2(`tasks` schema)、`packages/*` + `apps/*`
+- Next 16 / React 19 / TS strict / Tailwind v4 CSS-first
+- モバイルは Expo + NativeWind v4 + Tailwind 3.4(`nekase`, `expense-tracker/mobile`, `Recipe-Book/mobile` が参考実装)
+- shadcn/ui + Radix + cva + clsx + tailwind-merge + lucide-react
+- ESLint 9 flat config、Prettier/Biomeなし。`"verify": "tsc --noEmit && eslint"` が完了ゲート
+- ドキュメントは日本語。`CLAUDE.md` + `PROJECT_PLAN.md` + `.claude/skills/*/SKILL.md`
+
+---
+
+## テーマ: Aurora
+
+CSS変数プレフィクス `--aurora-*`。`expense-tracker` の "Midnight Ledger" 語彙(3層サーフェス / テキスト3階調 / accent+dim+glow / status4色)を一般化。
+
+```
+bg.base       #0B0D10   bg.surface    #12151A   bg.raised     #191D24
+border.subtle #1F242C   border.default#2A3038   border.strong #3A424D
+text.primary  #E8E6E3   text.secondary#A3A19E   text.muted    #6B6966
+accent        #7DF9C4   accent.dim    #4FCE9A   accent.glow   #B4FFDF
+accent.alt    #A855F7   gradient.aurora = 135deg, #7DF9C4 → #A855F7
+success #4ADE80  danger #FB7185  warning #FBBF24  info #60A5FA
+```
+
+lightモードもv1で作る(Figma Variablesのmodeを2つ持たせるため。後付けは高コスト)。docsサイト自体はdark固定でよい。
+
+---
+
+## 1. モノレポ構成
+
+```
+design-system/
+├── pnpm-workspace.yaml / turbo.json / tsconfig.base.json / eslint.config.mjs
+├── .nvmrc (24.16.0) / .changeset/
+├── CLAUDE.md / AGENTS.md / PROJECT_PLAN.md / README.md
+├── .claude/skills/{coding,design,token,component-authoring,figma-sync}-*/SKILL.md
+├── .github/workflows/{ci,release}.yml
+├── packages/
+│   ├── tsconfig/          @unz47/tsconfig       base / react-library / next / react-native
+│   ├── eslint-config/     @unz47/eslint-config  base / react / next
+│   ├── tokens/            @unz47/tokens         ★唯一の真実の源
+│   ├── ui/                @unz47/ui             Web React(ソース配布)
+│   └── ui-native/         @unz47/ui-native      Expo / RN
+└── apps/
+    └── docs/              Next.js App Router
+```
+
+---
+
+## 2. トークン (`packages/tokens`)
+
+`style-dictionary@^5`(ESM、DTCG `$value`/`$type` ネイティブ対応)。
+
+### 3層モデル
+
+```
+primitive  color.mint.400 = #7DF9C4        値そのもの
+    ↓
+semantic   color.accent.default            役割。dark/lightで参照先が変わる
+    ↓
+component  button.primary.bg               コンポーネント固有
+```
+
+- `src/primitive/{color,dimension,radius,typography,motion,shadow,zIndex}.json`
+- `src/semantic/{color.dark,color.light,space,radius,text,elevation,motion}.json`
+- `src/component/{button,input,card,overlay,table}.json`
+
+dark/lightは同じトークンパスで別ファイルに持ち、Style Dictionaryをテーマごとに2回走らせて1ファイルに合成する。Tokens Studioの `$extensions` には依存しない。
+
+### 命名は Tailwind v4 の名前空間に従属させる
+
+v4は `--color-*` / `--spacing-*` / `--radius-*` / `--text-*` / `--shadow-*` / `--ease-*` しかthemeとして認識しない。`space.*`→`--spacing-*`、`text.*.size`→`--text-*`、`elevation.*`→`--shadow-*` にマップする。`z.*` は名前空間が無いので `@utility z-modal {...}` を手書き。
+
+### 出力(`dist/`、gitにcommitする)
+
+| 出力 | 用途 |
+|---|---|
+| `css/variables.css` | 生の値。`:root`(dark) + `[data-theme="light"]` |
+| `css/theme.css` | `@theme inline` でTailwindに橋渡し |
+| `native/preset.js` | NativeWind用 TW3 preset |
+| `native/global.css` | RN用。チャンネル3値の `:root` / `.dark` |
+| `js/index.ts` + `.d.ts` | `StyleSheet` / `react-native-svg` 用のTSオブジェクト |
+| `figma/variables.json` | Figma Plugin API用ペイロード |
+| `shiki/aurora.json` | docsのコードブロック用テーマ |
+
+**`@theme` ではなく `@theme inline` が必須。** 素の `@theme` は宣言時点で値を `:root` にコピーするため、`[data-theme="light"]` で `--aurora-*` を書き換えてもユーティリティが追従しない。2モード持つ設計システムでは `inline` でないとテーマ切替が成立しない。
+
+Web側はTW v4が `color-mix()` で不透明度を処理するのでhexのままでよい。**RN側(TW 3.4)は `<alpha-value>` プレースホルダのためチャンネル3値が必須** — ここが分岐点。`expense-tracker/mobile/tailwind.config.js` の `rgb(var(--color-x) / <alpha-value>)` パターンをそのまま自動生成する。
+
+### 自作が必要なもの
+
+**transform 5個**: `color/rgb-channels`(hex→`"11 13 16"`) / `color/figma-rgba`(→0-1 RGBA) / `name/aurora-css` / `name/tw-namespace` / `name/figma-slash`
+**format 5個**: `tailwind/v4-theme` / `tailwind/v3-preset` / `css/vars-multi-theme` / `css/vars-channels` / `figma/variables`
+
+### `exports`
+
+```json
+{ ".": "./dist/js/index.js", "./theme.css": "...", "./variables.css": "...",
+  "./native/preset": "...", "./native/global.css": "...", "./figma": "..." }
+```
+
+---
+
+## 3. Webコンポーネント (`packages/ui`)
+
+### ビルド戦略: tsupを使わず、TSソースをそのまま配布する
+
+```json
+{ "exports": { ".": "./src/index.ts", "./*": "./src/components/*/index.ts",
+               "./styles.css": "./src/styles/ui.css" },
+  "files": ["src"] }
+```
+消費側は `transpilePackages: ["@unz47/ui"]` + `@source "../../node_modules/@unz47/ui/src"`。
+
+理由: (1) `"use client"` の保全が無料になる — esbuildはバンドル時にディレクティブを落とす事故が典型的で、Radix系は全てclientなので事故率が高い。(2) 消費者が自分のNextアプリだけ。(3) Tailwindのクラス検出がソース走査で単純。(4) turboの依存グラフが `tokens#build` だけになる。
+
+トレードオフ: Next以外(素のVite)から使うには設定が要る。外部公開需要が出たらtsupを足す。
+
+### 1コンポーネントの標準形
+
+```
+button/
+├── button.variants.ts   # cva定義のみ。React非依存 → RSCからも import できる
+├── button.tsx           # "use client" + Slot。React 19なので forwardRef 不要
+└── index.ts
+```
+
+`*.variants.ts` をReact非依存に分離するのは、`buttonVariants` だけをServer Componentから使えるようにするため。最初から徹底する。
+
+規律3点(`component-authoring` skillに記載):
+- クラス文字列に生値(`#7DF9C4`, `p-[13px]`)を書かない。arbitrary valueを書きたくなったらトークン不足のサイン
+- `cn()` = `twMerge(clsx(...))`。`className` は必ず最後にマージ
+- variant名はsemantic(`primary`/`danger`)であって色名(`mint`/`violet`)ではない
+
+### component層トークンの線引き
+
+CSS変数にするのは複数コンポーネントで共有される寸法だけ: `--aurora-control-height-{sm,md,lg}`(Button/Input/Selectトリガの高さを揃える)、`--aurora-overlay-radius`、`--aurora-field-padding-x`。`bg-accent hover:bg-accent-glow` のような役割割り当てはcvaに直接書く。全部を変数化すると数百個になって読めなくなる。
+
+### コンポーネント一覧(ビルド順)
+
+- **Tier 0 — 基盤**: `cn()`, Slot再輸出, `VisuallyHidden`, lucideのsize/stroke規約
+- **Tier 1 — cvaのみ(10)**: Button / Badge / Card(6サブ) / Input / Textarea / Skeleton / Kbd / Spinner / Alert / EmptyState
+- **Tier 2 — Radix単純(11)**: Label / Separator / Checkbox / Switch / RadioGroup / Slider / Progress / Avatar / AspectRatio / Toggle+ToggleGroup / ScrollArea
+- **Tier 3 — Radixオーバーレイ(10)**: Tooltip / Accordion / Tabs / Dialog / AlertDialog / Sheet(Dialog土台) / Popover / DropdownMenu / ContextMenu / Select
+- **Tier 4 — 複合(工数の山)**: Toast(sonner) / Command(cmdk) / Combobox(Command+Popover) / Table(TanStack Table)
+- **v1.1に逃がす**: Calendar(react-day-picker) / DatePicker / Form(RHF+zod) / Pagination / Breadcrumb
+
+**v1受け入れ = Tier 0–3(31個) + Tier 4の4つ = 35個。**
+
+`Table` は `packages/ui` には見た目プリミティブ + `useDataTable` フックまで。ソート/フィルタ付き `DataTable` は docs の `patterns/` にコピペ可能なレシピとして置く(shadcn/ui と同じ分け方)。
+
+---
+
+## 4. RNコンポーネント (`packages/ui-native`)
+
+Radix UIにRN等価物は存在しない。Dialog/Popover/DropdownMenu/Select のフォーカストラップ・ポータル・a11yはRN側でゼロから書くことになる。したがって「35個を2プラットフォームに1:1移植」は追わず、RNで意味のあるものだけを、RNの作法で作る。
+
+### A. 1:1移植する(15個) — cvaベース、Radix不要
+
+Button / Badge / Card / Input / Textarea / Skeleton / Spinner / Alert / EmptyState / Label / Separator / Switch / Checkbox / RadioGroup / Progress
+
+見た目8割・振る舞い2割の層。NativeWindクラスがそのまま効くので、Web版の `*.variants.ts` を**共有できる**(cvaはプラットフォーム非依存)。
+
+### B. RNネイティブに置き換える(6個) — 同名APIだが中身は別
+
+| Web | RN実装 |
+|---|---|
+| `Dialog` / `AlertDialog` | RN `Modal` + backdrop |
+| `Sheet` | `@gorhom/bottom-sheet` または `@expo/ui` |
+| `Select` / `Combobox` | BottomSheet + FlatList |
+| `DatePicker` | `@expo/ui` の `DateTimePicker`(OSネイティブピッカー) |
+| `Tooltip` | 省略(モバイルにホバーが無い) — 代わりに `HelperText` |
+| `Table` | `FlatList` + 横スクロール。`DataTable` は作らない |
+
+### C. RN専用(3個)
+
+`SafeAreaScaffold` / `TabBar`(expo-router連携) / `PressableRow`(設定画面の行)
+
+**合計 約24個。** Web35個と揃わないのは意図的。
+
+注意: NativeWind v4の `content` グロブは `node_modules` を走査しないので、消費側Expoアプリに `"../../node_modules/@unz47/ui-native/src/**/*.tsx"` を追加する必要がある。README冒頭に明記する。
+
+---
+
+## 5. ドキュメントサイト (`apps/docs`)
+
+### ルーティング
+
+```
+/                        ★ 生成アートのヒーロー。ポートフォリオの顔
+/(docs)/foundations/[slug]   colors / typography / spacing / radius / elevation / motion / icons
+/(docs)/components/[slug]    ★ 本体。プレビュー + コード + API表
+/(docs)/patterns/[slug]      ログインフォーム / ダッシュボード / 設定画面
+/(docs)/tokens               全トークンの検索可能な表
+/playground                  propsパネルでvariantを触れる
+/about                       設計判断・技術選定の解説 ← ポートフォリオの中身
+/changelog
+```
+
+### ライブプレビュー: MDX + デモレジストリのハイブリッド
+
+- 散文(日本語)は `content/components/button.mdx`、`@next/mdx` でビルド時コンパイル
+- デモ本体は `src/demos/button/basic.tsx` の実ファイル。`src/registry/index.ts` が索引
+- ソース表示はRSCで `fs.readFileSync`(`?raw` loaderやTurbopackの `rules` に依存しない)
+- ハイライトは `shiki` の `codeToHast` をRSCで実行(ランタイムJSゼロ)
+- デモにiframeは使わない(ポータル・フォーカストラップが壊れる)。`isolate` + `@container` でスコープ
+
+MDXプラグインは `remark-gfm` + `rehype-slug` の2つに絞る。
+
+### 生成アートは `apps/docs/src/art/` に閉じ込める
+
+`packages/ui` の依存に `three` が入った瞬間、消費アプリのバンドルが肥大化して設計システムとして失格になる。完全に切り離す。
+
+- `/`(トップ)のみ `AuroraField` — r3f + shaderMaterial で `#7DF9C4`→`#A855F7` のcurl-noiseフローフィールド、`postprocessing` の Bloom を薄く。`next/dynamic` + `ssr: false` + 静的グラデ画像フォールバックでLCPをブロックしない
+- 各セクション見出しは `noise-veil`(Canvas2D、軽量)。threeを使わない
+- `prefers-reduced-motion: reduce` で必ず静止画に落とす
+- バージョンは `Portfolio-Remake` を踏襲(r3f ^9.5 / drei ^10.7 / three ^0.183)
+
+---
+
+## 6. Figma連携
+
+Figma Variablesの双方向同期は存在しない。REST APIの書き込みはEnterpriseのみ。**Plugin API経由の一方向push**が現実解。
+
+```
+packages/tokens/src/**/*.json  (SoT)
+  → pnpm tokens → dist/figma/variables.json
+  → Claude Code + figma-use / figma-generate-library skill (use_figma で Plugin API 実行)
+  → Figma File "Aurora Design System"
+       Collection: primitive (1 mode)
+       Collection: semantic  (2 modes: Dark/Light)  ← primitive への VARIABLE_ALIAS
+       Collection: component (1 mode)               ← semantic への VARIABLE_ALIAS
+```
+
+- Figma変数名は `/` 区切りなので `name/figma-slash` transform が別途要る
+- 色は0–1 RGBAを要求するので `color/figma-rgba` transform
+- `scopes` と `codeSyntax` を `$extensions` から拾って設定する
+- 同期は idempotent: 名前一致で更新、新規のみ作成、コード側に無い変数は削除せず警告リストに出す
+- CLIは作らない(Plugin APIはサンドボックス内でしか動かずCIから叩けない)。手順は `.claude/skills/figma-sync/SKILL.md` に書く
+- ドリフト検知: トークンソースのSHAを `_meta/tokens-hash` 変数としてFigmaに書き込み、次回比較。「Figma上でVariablesを手編集しない」を規律として明記
+
+---
+
+## 7. ビルド / CI
+
+```json
+{ "tasks": {
+    "build":     { "dependsOn": ["^build"], "outputs": ["dist/**", ".next/**", "!.next/cache/**"] },
+    "typecheck": { "dependsOn": ["^build"] },
+    "lint":      { "dependsOn": ["^build"] },
+    "verify":    { "dependsOn": ["^build", "typecheck", "lint"] },
+    "dev":       { "cache": false, "persistent": true, "dependsOn": ["^build"] },
+    "clean":     { "cache": false } } }
+```
+
+`@unz47/ui` と `ui-native` は `build` を持たない(ソース配布)ので、依存グラフの実質的な辺は `tokens#build` だけ。
+
+CI(`.github/workflows/ci.yml`): `pnpm install --frozen-lockfile` → `pnpm verify` → `pnpm build` → `pnpm tokens:check`
+
+`tokens:check` = `pnpm tokens && git diff --exit-code -- packages/tokens/dist`。`dist/` をcommitする運用にし、手編集されたら落ちるようにする。
+
+リリース: changesets。`linked: [["@unz47/tokens", "@unz47/ui", "@unz47/ui-native"]]` でバージョンを揃える。
+
+デプロイは未定 — Phase 6で判断。docsは実質全て静的なので `output: "export"` → S3+CloudFront(`magic-cercle` のOIDCワークフローが良いテンプレート)も、Amplify(`tech-blog` と同じ手順)も選べる。Amplifyの場合はモノレポで `appRoot` がcwdになる罠があり、コンソール側で `AMPLIFY_MONOREPO_APP_ROOT` の設定も必須。
+
+---
+
+## 8. フェーズ実行計画
+
+各フェーズの完了は `pnpm verify` が緑 **かつ** 下記の受け入れ条件を満たすこと。
+
+### Phase 0 — 足場
+- [ ] `pnpm-workspace.yaml` / `turbo.json` / `tsconfig.base.json` / `eslint.config.mjs` / `.nvmrc` / `.gitignore`
+- [ ] `packages/tsconfig` / `packages/eslint-config`
+- [ ] `CLAUDE.md` / `AGENTS.md` / `README.md`
+- [ ] `gh repo create unz47/design-system --public`
+- **完了**: 空のワークスペースで `pnpm install && pnpm verify` が緑。GitHubにpush済み
+
+### Phase 1 — トークン垂直スライス ★最重要
+- [ ] primitiveはcolor全量+他カテゴリ代表値、semanticはdark/light全項目、component層は構造だけ
+- [ ] transform 5 + format 5 を全実装
+- **完了**:
+  1. `pnpm tokens` で全出力が生成される
+  2. 検証用の最小Nextページで `bg-surface-base text-text-primary` が効き、`data-theme="light"` トグルで色が変わる
+  3. 既存の `nekase` に `file:` でリンクして `presets: [require("@unz47/tokens/native/preset")]` に差し替え、Expoが起動して `bg-accent/20` の不透明度が効く
+
+  → 3番目をPhase 1でやることが決定的に重要。TW v4/v3の乖離はこの計画で最も詰まりやすい箇所。
+
+### Phase 2 — Webコンポーネント最初の3つ
+- [ ] `packages/ui` の exports / `cn()` / `ui.css`
+- [ ] Button・Card・Badge
+- [ ] `component-authoring` skillを書く
+- **完了**: 検証ページで3つが `@unz47/ui` からimportされ描画。`transpilePackages` と `@source` が効いている
+
+### Phase 3 — docsサイト骨格
+- [ ] Nextセットアップ、`(docs)` レイアウト、サイドナビ、registry、DemoFrame、shiki、MDX
+- [ ] 3コンポーネントページが完成形
+- [ ] `/foundations/colors` はトークンから自動生成(手書きしない)
+- **完了**: `pnpm dev` でプレビュー/コード切替/コピーが機能。`pnpm build` が通る
+
+### Phase 4 — Webコンポーネント残り
+- [ ] Tier 1残り → Tier 2 → Tier 3 → Tier 4
+- **完了**: Tier 0–3(31個) + Toast/Command/Combobox/Table
+
+### Phase 5 — RNコンポーネント
+- [ ] `packages/ui-native`。A群15個 → B群6個 → C群3個
+- **完了**: `nekase` の1画面が `@unz47/ui-native` で置き換わって動く
+
+### Phase 6 — アート + Figma + リリース
+- [ ] `src/art/aurora-field`(r3f + shader + Bloom)、`/`・`/about`・`patterns` 3本、OG画像
+- [ ] Figma Variables 3コレクション + Tier 1–2コンポーネント構築、`figma-sync` skill
+- [ ] changesets導入、`0.1.0` publish
+- [ ] デプロイ先を決定
+- **完了**: トップが見せられる状態(Lighthouse Perf ≥85、A11y 100)。Figmaが公開リンクで見られる。npm経由で既存アプリが動く
+
+---
+
+## 9. 検証
+
+| レイヤー | 手順 | 「動いた」の定義 |
+|---|---|---|
+| トークン生成 | `pnpm tokens` | 全出力が生成、JSONを手で追える |
+| → Web | docs `/foundations/colors` | 色チップが自動生成、手書きhexゼロ |
+| テーマ切替 | `data-theme` トグル | 全ページの色が入れ替わる。localStorage永続化 + FOUCなし |
+| → RN | `nekase` で `pnpm start` | `bg-accent/20` `rounded-lg` が正しい値。Webと目視一致 |
+| 型 / Lint | `pnpm verify` | 全パッケージ緑 |
+| RSC境界 | `pnpm --filter docs build` | `"use client"` 欠落のビルドエラーが出ない |
+| a11y | 各demoでキーボード操作 | Tab/Esc/矢印が効く。フォーカスリングが `--color-focus-ring` |
+| パッケージ消費 | `pnpm pack` → 既存アプリで `pnpm add ./*.tgz` | 外部リポからimportできる |
+| Figma | Variablesパネル | 3コレクション、semanticにDark/Light 2mode、エイリアスが繋がっている |
+
+### リグレッション防止(3つだけ作る)
+
+1. `pnpm tokens:check` — CI で再ビルドして `git diff --exit-code`
+2. `packages/tokens/src/__tests__/contract.test.ts`(vitest) — semantic必須キーがdark/light両方に存在 / component層がsemantic以外を参照していない / 全 `$value` が解決する / v4出力の `--color-*` 名の集合とv3 presetから導出されるクラス名の集合が一致する
+3. `apps/docs/src/registry/__tests__/coverage.test.ts` — exportとregistryのキーを突き合わせ、demo/MDXが無いコンポーネントがあれば落ちる
+
+視覚回帰テスト(Playwright screenshot)はv1ではやらない。
+
+---
+
+## 10. 痛い目を見る3箇所
+
+### 10.1 Tailwind v4 と v3 の二重出力の乖離 ← 最大のリスク
+
+v4は `@theme` の `--color-*` からクラスを自動生成(名前空間固定)、v3は `theme.extend.colors` のネスト構造から生成(`DEFAULT` キーの特殊扱いあり)。フラットなkebab名からv3のネスト構造を復元するロジックが `tailwind-v3-preset.mjs` の実質的な中身になる。
+
+さらにv4が持ちv3が持たない機能(`@utility`、`color-mix()` opacity、`--spacing-*` の動的スケール)があり、「Webで書けるクラスがRNで書けない」ケースが必ず出る。
+
+対策: クロスプラットフォームで使ってよいユーティリティの部分集合を `design-conventions` skillに明記 / contractテストで集合一致を自動検査 / 揃わないと諦める領域(shadow, backdrop-filter, container query)を先に列挙して割り切る。
+
+### 10.2 `"use client"` と RSC境界(ソース配布の裏返し)
+
+`transpilePackages` を忘れた消費アプリで「Unexpected token」等が出る。エラーが原因を指さないので3か月後に必ず30分溶かす。
+対策: `packages/ui/README.md` 冒頭に消費側セットアップ3行 / `apps/docs/next.config.ts` を参照実装と位置づけてリンク。
+
+### 10.3 RN側の工数が見積もりを超える
+
+B群(Modal/BottomSheet/ネイティブピッカー)は「Web版の移植」ではなく新規実装。特にSelect/ComboboxのBottomSheet + FlatListは1つあたり1.5日かかりうる。
+対策: A群15個を先に全部終わらせてから B群に入る。間に合わなければv1.1に落とす。
+
+### その他
+- `react-day-picker@9` と React 19 のpeer互換をv1.1着手前に確認
+- Amplifyを選ぶ場合、`appRoot` がcwdになるので `cd ../..` が要る
+
+---
+
+## 11. Phase 0 で確定させること
+
+- npmスコープ: `@unz47/*`(空き確認済み)
+- リポジトリ名: `design-system`、テーマ名: `Aurora`
