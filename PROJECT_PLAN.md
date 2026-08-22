@@ -21,6 +21,7 @@
 | デザイン方針 | 生成アート寄り。コンポーネント自体はミニマル、ヒーロー/背景でThree.js・シェーダーを使う |
 | パレット | bg `#0B0D10` / text `#E8E6E3` / accent1 `#7DF9C4` / accent2 `#A855F7`(グラデ)。ダーク基調 |
 | v1スコープ | フルセット(20個以上) |
+| ヘッドレスUI | **Base UI**(`@base-ui/react`)。Radixは不採用 |
 | トークンの正 | コード(Git)。DTCG形式JSON → Style Dictionary → 各プラットフォーム。Figmaは生成物 |
 | RN展開 | コンポーネントもRN版を作る(トークン共有だけで終わらせない) |
 | デプロイ | 未定 — Phase 6で判断 |
@@ -34,9 +35,29 @@ Node `v24.16.0` / pnpm `10.30.1` / npmスコープ `@unz47`(空き確認済み) 
 - pnpm固定、Turborepo v2(`tasks` schema)、`packages/*` + `apps/*`
 - Next 16 / React 19 / TS strict / Tailwind v4 CSS-first
 - モバイルは Expo + NativeWind v4 + Tailwind 3.4(`nekase`, `expense-tracker/mobile`, `Recipe-Book/mobile` が参考実装)
-- shadcn/ui + Radix + cva + clsx + tailwind-merge + lucide-react
+- shadcn/ui + cva + clsx + tailwind-merge + lucide-react(既存リポはRadix、本プロジェクトはBase UIに変更 — 下記参照)
 - ESLint 9 flat config、Prettier/Biomeなし。`"verify": "tsc --noEmit && eslint"` が完了ゲート
 - ドキュメントは日本語。`CLAUDE.md` + `PROJECT_PLAN.md` + `.claude/skills/*/SKILL.md`
+
+### なぜRadixではなくBase UIか(2026-08-22決定)
+
+既存21リポ(`expense-tracker`など)はRadix UIを使っているが、本プロジェクトは**意図的にBase UIを選ぶ**。理由:
+
+1. **shadcn/uiが2026年7月にデフォルトプリミティブをRadixからBase UIに切り替えた。** Base UIはMUIチーム(中身は元Radixの開発者)が作った後継で、2025年12月に安定版v1.0。
+2. **Tier 4の最大リスク(Combobox/multi-select)が解消する。** RadixはWorkOS買収後、複雑系コンポーネントの更新が鈍化しているが、Base UIはCombobox/multi-selectをネイティブ実装している。
+3. **AIコーディングツールとの相性。** v0.dev/Cursor/Claude Code/Lovable/BoltはいずれもshadcnUI形式(プレーンなTSXファイルとしてリポジトリに存在)をデフォルト出力にしており、この流れはBase UI移行後も続く。`packages/ui`をソース配布(tsupでバンドルしない)方針にしているのと相性が良い。Base UI自体も公式`llms.txt`とコミュニティMCPサーバーを持ち、AI支援での実装がしやすい。
+
+**API上の違い(実装時に注意)**: RadixはSlot + `asChild` prop で合成するが、Base UIは **`render` prop**(要素またはレンダー関数を渡す)で合成する。`asChild`もSlotコンポーネントも存在しない。
+
+```tsx
+// Base UIの合成パターン(RadixのasChildに相当)
+<Menu.Trigger render={<MyButton size="md" />}>Open menu</Menu.Trigger>
+
+// 状態を使う場合はレンダー関数
+<Switch.Thumb render={(props, state) => <span {...props}>{state.checked ? "on" : "off"}</span>} />
+```
+
+パッケージは単一(`@base-ui/react`)で、コンポーネントごとにサブパス importする: `import { Popover } from "@base-ui/react/popover"`。各コンポーネントは `.Root` / `.Trigger` / `.Portal` / `.Popup` のようなドット記法のサブパーツで構成される(Radixの個別コンポーネント構成と考え方は近い)。
 
 ---
 
@@ -143,7 +164,7 @@ Web側はTW v4が `color-mix()` で不透明度を処理するのでhexのまま
 ```
 消費側は `transpilePackages: ["@unz47/ui"]` + `@source "../../node_modules/@unz47/ui/src"`。
 
-理由: (1) `"use client"` の保全が無料になる — esbuildはバンドル時にディレクティブを落とす事故が典型的で、Radix系は全てclientなので事故率が高い。(2) 消費者が自分のNextアプリだけ。(3) Tailwindのクラス検出がソース走査で単純。(4) turboの依存グラフが `tokens#build` だけになる。
+理由: (1) `"use client"` の保全が無料になる — esbuildはバンドル時にディレクティブを落とす事故が典型的で、Base UI系は全てclientなので事故率が高い。(2) 消費者が自分のNextアプリだけ。(3) Tailwindのクラス検出がソース走査で単純。(4) turboの依存グラフが `tokens#build` だけになる。
 
 トレードオフ: Next以外(素のVite)から使うには設定が要る。外部公開需要が出たらtsupを足す。
 
@@ -152,11 +173,18 @@ Web側はTW v4が `color-mix()` で不透明度を処理するのでhexのまま
 ```
 button/
 ├── button.variants.ts   # cva定義のみ。React非依存 → RSCからも import できる
-├── button.tsx           # "use client" + Slot。React 19なので forwardRef 不要
+├── button.tsx           # "use client"。Base UIのrender propで合成対応。React 19なのでforwardRef不要
 └── index.ts
 ```
 
 `*.variants.ts` をReact非依存に分離するのは、`buttonVariants` だけをServer Componentから使えるようにするため。最初から徹底する。
+
+Base UIコンポーネント(Menu.Trigger, Dialog.Trigger等)から `Button` を差し込む場合は `render` prop を使う。RadixのSlot/asChildに相当するものはBase UIには無いので、`Button` 自身が「refをforwardし、受け取ったpropsをDOMノードにそのまま展開する」ことだけ保証すればよい:
+
+```tsx
+// 消費側: Menu.Trigger に自作Buttonを差し込む
+<Menu.Trigger render={<Button variant="secondary" />}>開く</Menu.Trigger>
+```
 
 規律3点(`component-authoring` skillに記載):
 - クラス文字列に生値(`#7DF9C4`, `p-[13px]`)を書かない。arbitrary valueを書きたくなったらトークン不足のサイン
@@ -169,11 +197,11 @@ CSS変数にするのは複数コンポーネントで共有される寸法だ�
 
 ### コンポーネント一覧(ビルド順)
 
-- **Tier 0 — 基盤**: `cn()`, Slot再輸出, `VisuallyHidden`, lucideのsize/stroke規約
+- **Tier 0 — 基盤**: `cn()`, `VisuallyHidden`, lucideのsize/stroke規約(Base UIには`asChild`/Slotが無いため再輸出は不要)
 - **Tier 1 — cvaのみ(10)**: Button / Badge / Card(6サブ) / Input / Textarea / Skeleton / Kbd / Spinner / Alert / EmptyState
-- **Tier 2 — Radix単純(11)**: Label / Separator / Checkbox / Switch / RadioGroup / Slider / Progress / Avatar / AspectRatio / Toggle+ToggleGroup / ScrollArea
-- **Tier 3 — Radixオーバーレイ(10)**: Tooltip / Accordion / Tabs / Dialog / AlertDialog / Sheet(Dialog土台) / Popover / DropdownMenu / ContextMenu / Select
-- **Tier 4 — 複合(工数の山)**: Toast(sonner) / Command(cmdk) / Combobox(Command+Popover) / Table(TanStack Table)
+- **Tier 2 — Base UI単純(11)**: Label / Separator / Checkbox / Switch / RadioGroup / Slider / Progress / Avatar / AspectRatio / Toggle+ToggleGroup / ScrollArea(すべて `@base-ui/react/*` のサブパスからimport)
+- **Tier 3 — Base UIオーバーレイ(10)**: Tooltip / Accordion / Tabs / Dialog / AlertDialog / Sheet(Dialog土台) / Popover / Menu(DropdownMenu相当) / ContextMenu / Select — Base UIは `Combobox` をネイティブ提供するため、Selectの検索付き版はcmdkに頼らずCombobox一本化を検討
+- **Tier 4 — 複合(工数の山)**: Toast(sonner。Base UIにもToastはあるが v1 では実績のあるsonnerを優先) / Command(cmdk) / Combobox(Base UIネイティブ。Radix前提だった「Command+Popoverの自作合成」は不要になった) / Table(TanStack Table)
 - **v1.1に逃がす**: Calendar(react-day-picker) / DatePicker / Form(RHF+zod) / Pagination / Breadcrumb
 
 **v1受け入れ = Tier 0–3(31個) + Tier 4の4つ = 35個。**
@@ -184,9 +212,9 @@ CSS変数にするのは複数コンポーネントで共有される寸法だ�
 
 ## 4. RNコンポーネント (`packages/ui-native`)
 
-Radix UIにRN等価物は存在しない。Dialog/Popover/DropdownMenu/Select のフォーカストラップ・ポータル・a11yはRN側でゼロから書くことになる。したがって「35個を2プラットフォームに1:1移植」は追わず、RNで意味のあるものだけを、RNの作法で作る。
+Base UI(Web専用のヘッドレスライブラリ)にRN等価物は存在しない。Dialog/Popover/Menu/Select のフォーカストラップ・ポータル・a11yはRN側でゼロから書くことになる。したがって「35個を2プラットフォームに1:1移植」は追わず、RNで意味のあるものだけを、RNの作法で作る。
 
-### A. 1:1移植する(15個) — cvaベース、Radix不要
+### A. 1:1移植する(15個) — cvaベース、ヘッドレスライブラリ不要
 
 Button / Badge / Card / Input / Textarea / Skeleton / Spinner / Alert / EmptyState / Label / Separator / Switch / Checkbox / RadioGroup / Progress
 
