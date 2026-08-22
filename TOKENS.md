@@ -138,17 +138,30 @@ Breakpointsは再発明せず、Tailwind v4のデフォルトをそのまま採�
 | `container.content` | 1024px | 通常のページコンテンツ幅 |
 | `container.wide` | 1280px | 幅広レイアウト(コンポーネント一覧グリッド等) |
 
-## 色(ステータス: 未確定 — 生成方法のみ決定)
+## 色(ステータス: 未確定 — 生成方法と段階数のみ決定)
 
-承認済みの基準色(`PROJECT_PLAN.md`「テーマ: Aurora」参照)を10段階(50〜950)のprimitiveランプに展開する必要があるが、70個近いhex値を手打ちすると精度が落ちる。**Phase 1実装時にスクリプトで機械的に生成する**方針とする。
+承認済みの基準色(`PROJECT_PLAN.md`「テーマ: Aurora」参照)をprimitiveランプに展開する必要があるが、70個近いhex値を手打ちすると精度が落ちる。**Phase 1実装時にスクリプトで機械的に生成する**方針とする。
+
+### 段階数はファミリーごとに絞る(全部10段階にしない)
+
+semanticトークンが実際に参照する数から逆算すると、全色を均一に10段階にする必要はない。むしろステータス色に濃淡グラデーションは使い道がなく、用途別の値の方が実用的。
+
+| 色ファミリー | 段階数 | 理由 |
+|---|---|---|
+| `neutral`(bg/border/textの元) | 10段階 | dark/light両方のbg・border・text(各3階調)をこれ1本で賄うため、ここだけ多めに必要 |
+| `mint`(accent) | 6段階 | dim/default/glow + hover用の余裕分だけ。フルレンジ不要 |
+| `violet`(accent-alt) | 6段階 | 同上 |
+| `success` / `danger` / `warning` / `info` | 各3段階(solid / subtle-bg / border) | 「濃淡のグラデーション」ではなく「用途別の3値」で十分 |
+
+合計 **10 + 6 + 6 + 3×4 = 34個**(旧案の7ファミリー×10段階=70個から半減)。
 
 - 色空間: OKLCH(知覚的に均等なランプを作れるため、Tailwind v4やRadix Colorsと同じ考え方)
 - 生成方法: 各基準色をランプ内の特定ステップに固定(アンカー)し、そこから明度・彩度を補間して他のステップを生成する
 - アンカー案(実装時に微調整可):
-  - neutral(bg/text/borderの元になる無彩色ランプ): `#0B0D10`側を950、`#E8E6E3`側を50付近に配置
+  - neutral: `#0B0D10`側を900、`#E8E6E3`側を100付近に配置
   - mint(accent): `#7DF9C4` → 400付近
   - violet(accent-alt): `#A855F7` → 500付近
-  - success/danger/warning/info: それぞれ500付近に現行の`#4ADE80` / `#FB7185` / `#FBBF24` / `#60A5FA`を配置
+  - success/danger/warning/info: それぞれ「solid」ステップに現行の`#4ADE80` / `#FB7185` / `#FBBF24` / `#60A5FA`を配置
 - ツール: `culori`(npm)などでOKLCH計算を行うスクリプトを`packages/tokens`に用意する。手書きJSONではなく生成JSONにする
 
 lightモードのsemanticマッピング(surfaceを明るく、textを暗くする対応表)もこのランプが揃ってから確定する。
