@@ -22,6 +22,9 @@
 | パレット | bg `#0B0D10` / text `#E8E6E3` / accent1 `#7DF9C4` / accent2 `#A855F7`(グラデ)。ダーク基調 |
 | v1スコープ | フルセット(20個以上) |
 | ヘッドレスUI | **Base UI**(`@base-ui/react`)。Radixは不採用 |
+| フォント | **Geist Sans + Geist Mono**(Vercel製) |
+| 角丸 | 役割ベース3段階: control 8px / surface 12px / overlay 16px + full 9999px |
+| トークン詳細仕様 | 数値は全て [`TOKENS.md`](./TOKENS.md) に集約(タイポ・余白・角丸・shadow・motion・z-index・icon・opacity・breakpoints)。色のprimitiveランプのみ未確定(生成方法は決定済み) |
 | トークンの正 | コード(Git)。DTCG形式JSON → Style Dictionary → 各プラットフォーム。Figmaは生成物 |
 | RN展開 | コンポーネントもRN版を作る(トークン共有だけで終わらせない) |
 | デプロイ | 未定 — Phase 6で判断 |
@@ -76,6 +79,8 @@ success #4ADE80  danger #FB7185  warning #FBBF24  info #60A5FA
 
 lightモードもv1で作る(Figma Variablesのmodeを2つ持たせるため。後付けは高コスト)。docsサイト自体はdark固定でよい。
 
+フォント・タイポグラフィスケール・余白・角丸・border width・shadow/elevation・motion・z-index・icon size・opacity・breakpoints/container widthの具体的な値は [`TOKENS.md`](./TOKENS.md) を参照。色のprimitiveランプ(50〜950)のみ、Phase 1でスクリプト生成する方針だけ決定済みで値は未確定。
+
 ---
 
 ## 1. モノレポ構成
@@ -118,6 +123,8 @@ component  button.primary.bg               コンポーネント固有
 - `src/component/{button,input,card,overlay,table}.json`
 
 dark/lightは同じトークンパスで別ファイルに持ち、Style Dictionaryをテーマごとに2回走らせて1ファイルに合成する。Tokens Studioの `$extensions` には依存しない。
+
+各JSONに入れる実際の値(フォント・タイポスケール・space・radius・border width・shadow・motion・z-index・icon size・opacity・breakpoints)は [`TOKENS.md`](./TOKENS.md) を参照。色のprimitiveランプのみ未確定(生成方法は`TOKENS.md`に記載)。
 
 ### 命名は Tailwind v4 の名前空間に従属させる
 
