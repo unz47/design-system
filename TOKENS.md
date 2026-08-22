@@ -152,3 +152,8 @@ Breakpointsは再発明せず、Tailwind v4のデフォルトをそのまま採�
 - ツール: `culori`(npm)などでOKLCH計算を行うスクリプトを`packages/tokens`に用意する。手書きJSONではなく生成JSONにする
 
 lightモードのsemanticマッピング(surfaceを明るく、textを暗くする対応表)もこのランプが揃ってから確定する。
+
+### 国際規格との整合
+
+- **WCAG コントラスト比を生成スクリプトに組み込む(必須)**。semanticトークンの代表的な組み合わせ(`text.primary`/`text.secondary`/`text.muted` × `bg.base`/`bg.surface`/`bg.raised`、各ステータス色 × 背景)について、通常テキストはAA基準(4.5:1以上)、UI部品・大きい文字は3:1以上を満たすことを自動チェックする。基準を満たさない組み合わせは、そのペアのランプ段階を自動でずらす(またはビルドを失敗させて手動調整を促す)。`contract.test.ts`(`PROJECT_PLAN.md` 9章)にこのチェックを追加する。
+- **色空間はv1では sRGB のみ**。OKLCHはDisplay P3の広色域もカバーできる設計だが、P3対応はv1のスコープ外とし、v1.1以降の検討事項とする(理由: 対応ディスプレイが限定的で、今のフェーズでは投資対効果が低い)。

@@ -400,7 +400,7 @@ CI(`.github/workflows/ci.yml`): `pnpm install --frozen-lockfile` → `pnpm verif
 ### リグレッション防止(3つだけ作る)
 
 1. `pnpm tokens:check` — CI で再ビルドして `git diff --exit-code`
-2. `packages/tokens/src/__tests__/contract.test.ts`(vitest) — semantic必須キーがdark/light両方に存在 / component層がsemantic以外を参照していない / 全 `$value` が解決する / v4出力の `--color-*` 名の集合とv3 presetから導出されるクラス名の集合が一致する
+2. `packages/tokens/src/__tests__/contract.test.ts`(vitest) — semantic必須キーがdark/light両方に存在 / component層がsemantic以外を参照していない / 全 `$value` が解決する / v4出力の `--color-*` 名の集合とv3 presetから導出されるクラス名の集合が一致する / **主要なtext×bg組み合わせがWCAG AA基準(4.5:1、UI部品は3:1)を満たす**(詳細は`TOKENS.md`)
 3. `apps/docs/src/registry/__tests__/coverage.test.ts` — exportとregistryのキーを突き合わせ、demo/MDXが無いコンポーネントがあれば落ちる
 
 視覚回帰テスト(Playwright screenshot)はv1ではやらない。
