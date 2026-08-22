@@ -301,11 +301,13 @@ CI(`.github/workflows/ci.yml`): `pnpm install --frozen-lockfile` → `pnpm verif
 各フェーズの完了は `pnpm verify` が緑 **かつ** 下記の受け入れ条件を満たすこと。
 
 ### Phase 0 — 足場
-- [ ] `pnpm-workspace.yaml` / `turbo.json` / `tsconfig.base.json` / `eslint.config.mjs` / `.nvmrc` / `.gitignore`
-- [ ] `packages/tsconfig` / `packages/eslint-config`
-- [ ] `CLAUDE.md` / `AGENTS.md` / `README.md`
-- [ ] `gh repo create unz47/design-system --public`
+- [x] `pnpm-workspace.yaml` / `turbo.json` / `tsconfig.base.json` / `eslint.config.mjs` / `.nvmrc` / `.gitignore`
+- [x] `packages/tsconfig` / `packages/eslint-config`
+- [x] `CLAUDE.md` / `AGENTS.md` / `README.md`
+- [x] `gh repo create unz47/design-system --public`
+- [ ] `pnpm install && pnpm verify` が空のワークスペースで緑であることを確認
 - **完了**: 空のワークスペースで `pnpm install && pnpm verify` が緑。GitHubにpush済み
+- **状態(2026-08-22)**: ファイルは作成済み・`pnpm install` は成功。`pnpm verify` は未確認(次のアクション)。まだ未コミット
 
 ### Phase 1 — トークン垂直スライス ★最重要
 - [ ] primitiveはcolor全量+他カテゴリ代表値、semanticはdark/light全項目、component層は構造だけ
