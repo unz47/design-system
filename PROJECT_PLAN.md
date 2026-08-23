@@ -18,13 +18,14 @@
 |---|---|
 | Webスタック | Next.js App Router |
 | ドキュメント | 自作サイト(Storybook不採用 — ポートフォリオとして見せるため) |
-| デザイン方針 | 生成アート寄り。コンポーネント自体はミニマル、ヒーロー/背景でThree.js・シェーダーを使う |
-| パレット | bg `#0B0D10` / text `#E8E6E3` / accent1 `#7DF9C4` / accent2 `#A855F7`(グラデ)。ダーク基調 |
+| デザイン方針 | 「真冬の銀の魔女の庭(雪原)」= Frost / Silver。コンポーネント自体はミニマル、ヒーロー/背景でThree.js・シェーダーを使う。当初の「生成アート寄り2色グラデーション」から変更(理由は下記テーマ節) |
+| パレット | bg `#0A0C14` / text `#EEF2F7` / accent(frost) `#9BDCF0` / accent-alt(plum、稀にのみ使用) `#6B4C7A`。ダーク基調、彩度を抑えた銀のニュートラルが主役 |
 | v1スコープ | フルセット(20個以上) |
 | ヘッドレスUI | **Base UI**(`@base-ui/react`)。Radixは不採用 |
 | フォント | **Geist Sans + Geist Mono**(Vercel製) |
 | 角丸 | 役割ベース3段階: control 8px / surface 12px / overlay 16px + full 9999px |
-| トークン詳細仕様 | 数値は全て [`TOKENS.md`](./TOKENS.md) に集約(タイポ・余白・角丸・shadow・motion・z-index・icon・opacity・breakpoints)。色のprimitiveランプのみ未確定(生成方法は決定済み) |
+| エフェクト | metallic(銀の合金風グラデーション) / frost(霜ガラス、backdrop-filter) / glow(発光) / grain(粒状ノイズ)を`effect.*`トークンとして管理。シェーダー(GLSL)とは分離(`TOKENS.md`参照) |
+| トークン詳細仕様 | 数値は全て [`TOKENS.md`](./TOKENS.md) に集約(色・タイポ・余白・角丸・shadow・motion・z-index・icon・opacity・breakpoints・effect) |
 | トークンの正 | コード(Git)。DTCG形式JSON → Style Dictionary → 各プラットフォーム。Figmaは生成物 |
 | RN展開 | コンポーネントもRN版を作る(トークン共有だけで終わらせない) |
 | デプロイ | 未定 — Phase 6で判断 |
@@ -64,22 +65,26 @@ Node `v24.16.0` / pnpm `10.30.1` / npmスコープ `@unz47`(空き確認済み) 
 
 ---
 
-## テーマ: Aurora
+## テーマ: Aurora — 「Frost / Silver Witch's Garden」
 
-CSS変数プレフィクス `--aurora-*`。`expense-tracker` の "Midnight Ledger" 語彙(3層サーフェス / テキスト3階調 / accent+dim+glow / status4色)を一般化。
+CSS変数プレフィクス `--aurora-*`。
+
+### なぜ配色を変更したか(2026-08-22)
+
+当初はmint(`#7DF9C4`)+ violet(`#A855F7`)の2色グラデーションを軸にしていたが、Hallmarkスキルの`anti-patterns.md`が名指しする**「The purple-gradient hero」(AI生成の最も分かりやすい特徴)にviolet(色相300-320°)が抵触する**ことが判明し変更。「真冬の銀の魔女の庭(雪原)」をイメージし、**2色グラデーションをやめてニュートラル自体を銀に寄せ、唯一の発光アクセントとして氷の水色を使う**構成にした。詳しい経緯・全パレット・primitiveランプの段階数は [`TOKENS.md`](./TOKENS.md) を参照。
 
 ```
-bg.base       #0B0D10   bg.surface    #12151A   bg.raised     #191D24
-border.subtle #1F242C   border.default#2A3038   border.strong #3A424D
-text.primary  #E8E6E3   text.secondary#A3A19E   text.muted    #6B6966
-accent        #7DF9C4   accent.dim    #4FCE9A   accent.glow   #B4FFDF
-accent.alt    #A855F7   gradient.aurora = 135deg, #7DF9C4 → #A855F7
-success #4ADE80  danger #FB7185  warning #FBBF24  info #60A5FA
+bg.base       #0A0C14   bg.surface    #12141F   bg.raised     #1A1E2D
+border.subtle #1E2230   border.default#2C3244   border.strong #454C63
+text.primary  #EEF2F7   text.secondary#9CA6BC   text.muted    #5C6478
+accent(frost) #9BDCF0   accent.dim    #6BB8D6   accent.glow   #D4F1FA
+accent.alt(plum、稀にのみ使用、グラデーション化しない) #6B4C7A
+success #7FE8B8  danger #E85D6B  warning #E8C468  info #7BC4E8
 ```
 
 lightモードもv1で作る(Figma Variablesのmodeを2つ持たせるため。後付けは高コスト)。docsサイト自体はdark固定でよい。
 
-フォント・タイポグラフィスケール・余白・角丸・border width・shadow/elevation・motion・z-index・icon size・opacity・breakpoints/container widthの具体的な値は [`TOKENS.md`](./TOKENS.md) を参照。色のprimitiveランプ(50〜950)のみ、Phase 1でスクリプト生成する方針だけ決定済みで値は未確定。
+フォント・タイポグラフィスケール・余白・角丸・border width・shadow/elevation・motion・z-index・icon size・opacity・breakpoints/container width・effectの具体的な値は [`TOKENS.md`](./TOKENS.md) を参照。色のprimitiveランプ(段階数はファミリーごとに異なる、`TOKENS.md`参照)のみ、Phase 1でスクリプト生成する方針だけ決定済みで正確な値は未確定。
 
 ---
 
@@ -111,7 +116,7 @@ design-system/
 ### 3層モデル
 
 ```
-primitive  color.mint.400 = #7DF9C4        値そのもの
+primitive  color.frost.400 = #9BDCF0       値そのもの
     ↓
 semantic   color.accent.default            役割。dark/lightで参照先が変わる
     ↓
@@ -194,7 +199,7 @@ Base UIコンポーネント(Menu.Trigger, Dialog.Trigger等)から `Button` を
 ```
 
 規律3点(`component-authoring` skillに記載):
-- クラス文字列に生値(`#7DF9C4`, `p-[13px]`)を書かない。arbitrary valueを書きたくなったらトークン不足のサイン
+- クラス文字列に生値(`#9BDCF0`, `p-[13px]`)を書かない。arbitrary valueを書きたくなったらトークン不足のサイン
 - `cn()` = `twMerge(clsx(...))`。`className` は必ず最後にマージ
 - variant名はsemantic(`primary`/`danger`)であって色名(`mint`/`violet`)ではない
 
@@ -277,9 +282,10 @@ MDXプラグインは `remark-gfm` + `rehype-slug` の2つに絞る。
 
 `packages/ui` の依存に `three` が入った瞬間、消費アプリのバンドルが肥大化して設計システムとして失格になる。完全に切り離す。
 
-- `/`(トップ)のみ `AuroraField` — r3f + shaderMaterial で `#7DF9C4`→`#A855F7` のcurl-noiseフローフィールド、`postprocessing` の Bloom を薄く。`next/dynamic` + `ssr: false` + 静的グラデ画像フォールバックでLCPをブロックしない
+- `/`(トップ)のみ `FrostField` — r3f + shaderMaterial で銀の粒子(neutralランプ)がゆっくり降る/漂うcurl-noiseフィールドに、`accent(frost) #9BDCF0` のほのかな発光を混ぜる。2色グラデーションのフローフィールドではなく「雪原に降る霜」のイメージ。`postprocessing` の Bloom を薄く。`next/dynamic` + `ssr: false` + 静的な銀グラデ画像フォールバックでLCPをブロックしない
 - 各セクション見出しは `noise-veil`(Canvas2D、軽量)。threeを使わない
 - `prefers-reduced-motion: reduce` で必ず静止画に落とす
+- シェーダーの色は`@unz47/tokens`からJSでimportして使う(一方向の依存。`TOKENS.md`「エフェクトとシェーダーの境界」参照)
 - バージョンは `Portfolio-Remake` を踏襲(r3f ^9.5 / drei ^10.7 / three ^0.183)
 
 ---
