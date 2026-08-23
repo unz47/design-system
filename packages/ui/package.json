@@ -6,9 +6,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./styles.css": "./src/styles/ui.css",
-    "./button": "./src/components/button/index.ts",
-    "./card": "./src/components/card/index.ts",
-    "./badge": "./src/components/badge/index.ts"
+    "./atoms/*": "./src/components/atoms/*/index.ts",
+    "./molecules/*": "./src/components/molecules/*/index.ts",
+    "./organisms/*": "./src/components/organisms/*/index.ts"
   },
   "files": ["src"],
   "scripts": {

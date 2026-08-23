@@ -207,7 +207,7 @@ Base UIコンポーネント(Menu.Trigger, Dialog.Trigger等)から `Button` を
 
 CSS変数にするのは複数コンポーネントで共有される寸法だけ: `--aurora-control-height-{sm,md,lg}`(Button/Input/Selectトリガの高さを揃える)、`--aurora-overlay-radius`、`--aurora-field-padding-x`。`bg-accent hover:bg-accent-glow` のような役割割り当てはcvaに直接書く。全部を変数化すると数百個になって読めなくなる。
 
-### コンポーネント一覧(ビルド順)
+### コンポーネント一覧(ビルド順=Tier、Base UIへの依存度で分類)
 
 - **Tier 0 — 基盤**: `cn()`, `VisuallyHidden`, lucideのsize/stroke規約(Base UIには`asChild`/Slotが無いため再輸出は不要)
 - **Tier 1 — cvaのみ(10)**: Button / Badge / Card(6サブ) / Input / Textarea / Skeleton / Kbd / Spinner / Alert / EmptyState
@@ -219,6 +219,21 @@ CSS変数にするのは複数コンポーネントで共有される寸法だ�
 **v1受け入れ = Tier 0–3(31個) + Tier 4の4つ = 35個。**
 
 `Table` は `packages/ui` には見た目プリミティブ + `useDataTable` フックまで。ソート/フィルタ付き `DataTable` は docs の `patterns/` にコピペ可能なレシピとして置く(shadcn/ui と同じ分け方)。
+
+### Atomic Design階層(フォルダ構成、2026-08-23決定)
+
+Tierは「Base UIへの依存度」という実装上の軸で、ビルド順を決めるためのもの。これとは別に、**フォルダ構成はAtomic Designの階層で物理的に分ける**(`packages/ui/src/components/{atoms,molecules,organisms}/<name>/`)。Tierと階層は別軸なので対応表として管理する:
+
+| Atomic階層 | 該当コンポーネント |
+|---|---|
+| **atoms**(それ以上分解できない単一部品) | Button, Badge, Input, Textarea, Skeleton, Kbd, Spinner, Label, Separator, Checkbox, Switch, Slider, Progress, Avatar, AspectRatio, Toggle |
+| **molecules**(atomsを組み合わせた小さな単位) | Card(6サブ), Alert, EmptyState, RadioGroup, ToggleGroup, Tooltip, Popover, Pagination, Breadcrumb |
+| **organisms**(複数のmolecules/atomsからなる複雑な単位) | Accordion, Tabs, Dialog, AlertDialog, Sheet, Menu(DropdownMenu), ContextMenu, Select, Toast, Command, Combobox, Table, Calendar, DatePicker, Form |
+| **templates/pages相当** | `packages/ui`には含めない。docsサイトの `patterns/`(ログインフォーム・ダッシュボード等の組み合わせ例)がこれに相当する |
+
+`packages/ui`の`exports`はこの階層をそのままサブパスにする: `"./atoms/*"` / `"./molecules/*"` / `"./organisms/*"`(ルートの`src/index.ts`は全階層をまとめて再輸出するbarrel)。
+
+Button/Badge → `atoms/`、Card → `molecules/` は実装済み(Phase 2)。新しいコンポーネントを追加する際は、まずこの表でどの階層に属するか判断してからフォルダを作る。判断に迷うものが出たら、この表に追記して基準を明文化する。
 
 ---
 

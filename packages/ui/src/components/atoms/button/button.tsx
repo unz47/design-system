@@ -1,7 +1,7 @@
 "use client";
 
 import type { ComponentPropsWithRef } from "react";
-import { cn } from "../../lib/cn";
+import { cn } from "../../../lib/cn";
 import { buttonVariants, type ButtonVariants } from "./button.variants";
 
 export interface ButtonProps

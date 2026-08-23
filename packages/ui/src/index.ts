@@ -1,5 +1,8 @@
 export { cn } from "./lib/cn";
 
-export * from "./components/button";
-export * from "./components/card";
-export * from "./components/badge";
+// atoms
+export * from "./components/atoms/button";
+export * from "./components/atoms/badge";
+
+// molecules
+export * from "./components/molecules/card";
