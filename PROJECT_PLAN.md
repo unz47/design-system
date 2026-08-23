@@ -363,10 +363,11 @@ CI(`.github/workflows/ci.yml`): `pnpm install --frozen-lockfile` → `pnpm verif
 `z-index`は命名の都合で primitive JSON 上のキーを`zIndex`ではなく`z`にしている(`--aurora-z-*`と`@utility z-*`の対応を素直にするため)。
 
 ### Phase 2 — Webコンポーネント最初の3つ
-- [ ] `packages/ui` の exports / `cn()` / `ui.css`
-- [ ] Button・Card・Badge
-- [ ] `component-authoring` skillを書く
-- **完了**: 検証ページで3つが `@unz47/ui` からimportされ描画。`transpilePackages` と `@source` が効いている
+- [x] `packages/ui` の exports / `cn()` / `ui.css`
+- [x] Button(variant: primary/secondary/ghost/danger, size: sm/md/lg/icon)・Card(6サブコンポーネント)・Badge(variant: default/accent/success/danger/warning/info)
+- [x] `component-authoring` skillを書く(`.claude/skills/component-authoring/SKILL.md`)
+- **完了**: 検証ページ(`apps/docs`)で3つが `@unz47/ui` からimportされ描画。`transpilePackages` と `@source` が効いている(ビルド後のCSS/HTMLで確認済み)。ワークスペース全体で`pnpm verify`緑(10/10)
+- **実装メモ**: `@theme inline`ブリッジは`color`/`space`/`radius`/`text(font-size)`/`motion.easing`のみ対応。`control.height`/`motion.duration`/`opacity`/typography の weight・line-height・tracking はTailwindの名前付きユーティリティが生成されないため、コンポーネント側で`[var(--aurora-...)]`のarbitrary valueを直接参照している(詳細は`component-authoring` skill)
 
 ### Phase 3 — docsサイト骨格
 - [ ] Nextセットアップ、`(docs)` レイアウト、サイドナビ、registry、DemoFrame、shiki、MDX

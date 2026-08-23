@@ -1,0 +1,4 @@
+{
+  "extends": "@unz47/tsconfig/react-library.json",
+  "include": ["src"]
+}

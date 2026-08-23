@@ -70,6 +70,10 @@
   --spacing-xl: var(--aurora-space-xl);
   --spacing-2xl: var(--aurora-space-2xl);
   --spacing-3xl: var(--aurora-space-3xl);
+  --ease-standard: var(--aurora-motion-easing-standard);
+  --ease-entrance: var(--aurora-motion-easing-entrance);
+  --ease-exit: var(--aurora-motion-easing-exit);
+  --ease-spring: var(--aurora-motion-easing-spring);
   --radius-control: var(--aurora-radius-control);
   --radius-surface: var(--aurora-radius-surface);
   --radius-overlay: var(--aurora-radius-overlay);

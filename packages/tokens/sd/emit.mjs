@@ -96,11 +96,20 @@ function isColorPath(pathParts) {
 // 1+2. css/variables.css + css/theme.css
 // ---------------------------------------------------------------------------
 
+// Single-segment group -> Tailwind v4 theme namespace.
 const TW4_NAMESPACE = {
   color: "color",
   space: "spacing",
   radius: "radius",
   text: "text",
+};
+
+// Two-segment prefix -> Tailwind v4 theme namespace (checked before the
+// single-segment table). Only `motion.easing.*` has a real TW4 namespace
+// (`--ease-*`); `motion.duration.*` has no named-scale equivalent, so
+// components reference `--aurora-motion-duration-*` directly instead.
+const TW4_NAMESPACE_2SEG = {
+  "motion.easing": "ease",
 };
 
 function buildCssOutputs(darkTree, lightTree) {
@@ -123,11 +132,18 @@ function buildCssOutputs(darkTree, lightTree) {
 
   // @theme inline bridge — only for the Tailwind v4 namespaces we actually use
   for (const [pathParts] of darkFlat) {
-    const [group, ...rest] = pathParts;
-    const ns = TW4_NAMESPACE[group];
-    if (!ns) continue;
     const auroraVar = `--aurora-${pathParts.join("-")}`;
-    const twVar = `--${ns}-${rest.join("-")}`;
+    const twoSegKey = `${pathParts[0]}.${pathParts[1]}`;
+    const ns2 = TW4_NAMESPACE_2SEG[twoSegKey];
+    const [group, ...rest] = pathParts;
+    let twVar;
+    if (ns2) {
+      twVar = `--${ns2}-${pathParts.slice(2).join("-")}`;
+    } else {
+      const ns = TW4_NAMESPACE[group];
+      if (!ns) continue;
+      twVar = `--${ns}-${rest.join("-")}`;
+    }
     if (seenThemeVars.has(twVar)) continue;
     seenThemeVars.add(twVar);
     themeInlineLines.push(`  ${twVar}: var(${auroraVar});`);

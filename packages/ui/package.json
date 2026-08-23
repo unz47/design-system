@@ -1,0 +1,39 @@
+{
+  "name": "@unz47/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles/ui.css",
+    "./button": "./src/components/button/index.ts",
+    "./card": "./src/components/card/index.ts",
+    "./badge": "./src/components/badge/index.ts"
+  },
+  "files": ["src"],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "verify": "tsc --noEmit && eslint ."
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "dependencies": {
+    "@unz47/tokens": "workspace:*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.4",
+    "@types/react-dom": "^19.2.4",
+    "@unz47/eslint-config": "workspace:*",
+    "@unz47/tsconfig": "workspace:*",
+    "eslint": "^9.19.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "typescript": "^5.9.0"
+  }
+}
