@@ -346,9 +346,9 @@ CI(`.github/workflows/ci.yml`): `pnpm install --frozen-lockfile` → `pnpm verif
 - [x] `packages/tsconfig` / `packages/eslint-config`
 - [x] `CLAUDE.md` / `AGENTS.md` / `README.md`
 - [x] `gh repo create unz47/design-system --public`
-- [ ] `pnpm install && pnpm verify` が空のワークスペースで緑であることを確認
+- [x] `pnpm install && pnpm verify` が空のワークスペースで緑であることを確認
 - **完了**: 空のワークスペースで `pnpm install && pnpm verify` が緑。GitHubにpush済み
-- **状態(2026-08-22)**: ファイルは作成済み・`pnpm install` は成功。`pnpm verify` は未確認(次のアクション)。まだ未コミット
+- **Phase 0 完了(2026-08-23)**: `pnpm verify` exit code 0(config専用パッケージのみのため実行タスク0件だが正常終了)。コミット・push済み
 
 ### Phase 1 — トークン垂直スライス ★最重要
 - [ ] primitiveはcolor全量+他カテゴリ代表値、semanticはdark/light全項目、component層は構造だけ
