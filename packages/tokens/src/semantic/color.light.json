@@ -1,0 +1,51 @@
+{
+  "color": {
+    "bg": {
+      "base": { "$type": "color", "$value": "{color.neutral.100}" },
+      "surface": { "$type": "color", "$value": "{color.neutral.200}" },
+      "raised": { "$type": "color", "$value": "{color.neutral.300}" }
+    },
+    "border": {
+      "subtle": { "$type": "color", "$value": "{color.neutral.200}" },
+      "default": { "$type": "color", "$value": "{color.neutral.300}" },
+      "strong": { "$type": "color", "$value": "{color.neutral.400}" }
+    },
+    "text": {
+      "primary": { "$type": "color", "$value": "{color.neutral.900}" },
+      "secondary": { "$type": "color", "$value": "{color.neutral.800}" },
+      "muted": { "$type": "color", "$value": "{color.neutral.700}" }
+    },
+    "accent": {
+      "default": { "$type": "color", "$value": "{color.frost.600}" },
+      "dim": { "$type": "color", "$value": "{color.frost.400}" },
+      "glow": { "$type": "color", "$value": "{color.frost.200}" }
+    },
+    "accent-alt": {
+      "default": { "$type": "color", "$value": "{color.plum.500}" }
+    },
+    "on-accent": { "$type": "color", "$value": "{color.neutral.100}" },
+    "focus-ring": { "$type": "color", "$value": "{color.frost.600}" },
+    "status": {
+      "success": {
+        "solid": { "$type": "color", "$value": "{color.success.solid}" },
+        "subtle-bg": { "$type": "color", "$value": "{color.success.subtle-bg}" },
+        "border": { "$type": "color", "$value": "{color.success.border}" }
+      },
+      "danger": {
+        "solid": { "$type": "color", "$value": "{color.danger.solid}" },
+        "subtle-bg": { "$type": "color", "$value": "{color.danger.subtle-bg}" },
+        "border": { "$type": "color", "$value": "{color.danger.border}" }
+      },
+      "warning": {
+        "solid": { "$type": "color", "$value": "{color.warning.solid}" },
+        "subtle-bg": { "$type": "color", "$value": "{color.warning.subtle-bg}" },
+        "border": { "$type": "color", "$value": "{color.warning.border}" }
+      },
+      "info": {
+        "solid": { "$type": "color", "$value": "{color.info.solid}" },
+        "subtle-bg": { "$type": "color", "$value": "{color.info.subtle-bg}" },
+        "border": { "$type": "color", "$value": "{color.info.border}" }
+      }
+    }
+  }
+}

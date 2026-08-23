@@ -351,14 +351,16 @@ CI(`.github/workflows/ci.yml`): `pnpm install --frozen-lockfile` → `pnpm verif
 - **Phase 0 完了(2026-08-23)**: `pnpm verify` exit code 0(config専用パッケージのみのため実行タスク0件だが正常終了)。コミット・push済み
 
 ### Phase 1 — トークン垂直スライス ★最重要
-- [ ] primitiveはcolor全量+他カテゴリ代表値、semanticはdark/light全項目、component層は構造だけ
-- [ ] transform 5 + format 5 を全実装
+- [x] primitiveはcolor全量(neutral10+frost6+plum4+status4×3=32個、OKLCH生成)+他カテゴリ全量、semanticはdark/light全項目、component層は構造だけ(control height/field padding)
+- [x] transform/format(実装上はStyle Dictionaryのjson/nestedで解決 → `sd/emit.mjs`が6出力に書き出すハイブリッド構成。詳細は下記「実装メモ」)
 - **完了**:
-  1. `pnpm tokens` で全出力が生成される
-  2. 検証用の最小Nextページで `bg-surface-base text-text-primary` が効き、`data-theme="light"` トグルで色が変わる
-  3. 既存の `nekase` に `file:` でリンクして `presets: [require("@unz47/tokens/native/preset")]` に差し替え、Expoが起動して `bg-accent/20` の不透明度が効く
+  1. [x] `pnpm tokens`(= `packages/tokens`の`build`)で全6出力が生成される
+  2. [x] 検証用の最小Nextページ(`apps/docs`)で `bg-bg-base` `text-text-primary` 等が効き、`pnpm build`のCSS出力で`[data-theme=light]`ブロックの値切り替わりを確認済み
+  3. [ ] **スキップ(2026-08-23、ユーザー判断)**: `nekase`への一時的なリンク検証は今回見送り。RN側の実機検証はPhase 2以降に持ち越す
+- [x] `pnpm verify` がワークスペース全体で緑(warning 2件のみ、error 0)
 
-  → 3番目をPhase 1でやることが決定的に重要。TW v4/v3の乖離はこの計画で最も詰まりやすい箇所。
+**実装メモ(計画からの差分)**: 当初「5 transform + 5 format をStyle Dictionaryに登録する」としていたが、dark/light2テーマを1つのCSSファイルに合成する処理は単一のSD format関数に収まりにくいため、①Style Dictionaryは`json/nested`でDTCG参照解決のみに使い、②`packages/tokens/sd/emit.mjs`という独立スクリプトが解決済みの2ツリー(dark/light)を受け取って6出力を書き出す、というハイブリッド構成にした。機能的には計画と同じ6出力を満たしている。
+`z-index`は命名の都合で primitive JSON 上のキーを`zIndex`ではなく`z`にしている(`--aurora-z-*`と`@utility z-*`の対応を素直にするため)。
 
 ### Phase 2 — Webコンポーネント最初の3つ
 - [ ] `packages/ui` の exports / `cn()` / `ui.css`

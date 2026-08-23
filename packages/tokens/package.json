@@ -1,0 +1,29 @@
+{
+  "name": "@unz47/tokens",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": { "types": "./dist/js/index.d.ts", "default": "./dist/js/index.js" },
+    "./theme.css": "./dist/css/theme.css",
+    "./variables.css": "./dist/css/variables.css",
+    "./native/preset": "./dist/native/preset.js",
+    "./native/global.css": "./dist/native/global.css",
+    "./figma": "./dist/figma/variables.json"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "node style-dictionary.config.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "verify": "tsc --noEmit && eslint ."
+  },
+  "devDependencies": {
+    "style-dictionary": "^5.1.0",
+    "culori": "^4.0.1",
+    "@unz47/tsconfig": "workspace:*",
+    "@unz47/eslint-config": "workspace:*",
+    "eslint": "^9.19.0",
+    "typescript": "^5.9.0"
+  }
+}

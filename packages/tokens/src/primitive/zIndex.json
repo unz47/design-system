@@ -1,0 +1,17 @@
+{
+  "z": {
+    "dropdown": { "$type": "number", "$value": 1000 },
+    "sticky":   { "$type": "number", "$value": 1100 },
+    "overlay":  { "$type": "number", "$value": 1200 },
+    "modal":    { "$type": "number", "$value": 1300 },
+    "popover":  { "$type": "number", "$value": 1400 },
+    "toast":    { "$type": "number", "$value": 1500 },
+    "tooltip":  { "$type": "number", "$value": 1600 }
+  },
+  "opacity": {
+    "disabled":       { "$type": "number", "$value": 0.5 },
+    "hover-overlay":  { "$type": "number", "$value": 0.08 },
+    "pressed-overlay":{ "$type": "number", "$value": 0.12 },
+    "backdrop":       { "$type": "number", "$value": 0.72 }
+  }
+}

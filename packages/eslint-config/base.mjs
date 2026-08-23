@@ -14,4 +14,18 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    // build scripts (style-dictionary.config.mjs, sd/*.mjs, etc.) run under Node
+    files: ["**/*.mjs", "**/*.cjs"],
+    languageOptions: {
+      globals: {
+        console: "readonly",
+        process: "readonly",
+        module: "readonly",
+        require: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+      },
+    },
+  },
 );

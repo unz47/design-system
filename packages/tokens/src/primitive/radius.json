@@ -1,0 +1,12 @@
+{
+  "radius": {
+    "control": { "$type": "dimension", "$value": "8px" },
+    "surface": { "$type": "dimension", "$value": "12px" },
+    "overlay": { "$type": "dimension", "$value": "16px" },
+    "full": { "$type": "dimension", "$value": "9999px" }
+  },
+  "borderWidth": {
+    "default": { "$type": "dimension", "$value": "1px" },
+    "thick": { "$type": "dimension", "$value": "2px" }
+  }
+}
