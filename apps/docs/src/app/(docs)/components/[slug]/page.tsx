@@ -3,10 +3,19 @@ import { DemoFrame } from "@/components/docs/demo-frame";
 import { PropsTable, SubcomponentsTable } from "@/components/docs/props-table";
 import { getSlugs, registry, type ComponentSlug } from "@/registry";
 
+// 静的な対応表。テンプレートリテラルの動的importにするとTurbopackが
+// content/ 以下を全部バンドルに巻き込むので、1行ずつ書く。
 const content: Record<ComponentSlug, () => Promise<{ default: React.ComponentType }>> = {
   button: () => import("../../../../../content/components/button.mdx"),
   card: () => import("../../../../../content/components/card.mdx"),
   badge: () => import("../../../../../content/components/badge.mdx"),
+  input: () => import("../../../../../content/components/input.mdx"),
+  textarea: () => import("../../../../../content/components/textarea.mdx"),
+  skeleton: () => import("../../../../../content/components/skeleton.mdx"),
+  kbd: () => import("../../../../../content/components/kbd.mdx"),
+  spinner: () => import("../../../../../content/components/spinner.mdx"),
+  alert: () => import("../../../../../content/components/alert.mdx"),
+  "empty-state": () => import("../../../../../content/components/empty-state.mdx"),
 };
 
 export function generateStaticParams() {

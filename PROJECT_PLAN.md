@@ -404,8 +404,13 @@ CI(`.github/workflows/ci.yml`): `pnpm install --frozen-lockfile` → `pnpm verif
 - `/tokens` `/patterns` `/playground` `/about` `/changelog`(5章のルーティング表)はPhase 3のスコープ外。未着手
 
 ### Phase 4 — Webコンポーネント残り
-- [ ] Tier 1残り → Tier 2 → Tier 3 → Tier 4
+- [x] **Tier 1残り(7個、2026-09-08)**: Input / Textarea / Skeleton / Kbd / Spinner(atoms)、Alert / EmptyState(molecules)。Tier 1は Button / Badge / Card と合わせて10個で完了
+- [ ] Tier 2(Base UI単純、11個)→ Tier 3(オーバーレイ、10個)→ Tier 4(複合、4個)
 - **完了**: Tier 0–3(31個) + Toast/Command/Combobox/Table
+
+**実装メモ(Tier 1)**: 新規7個はいずれもフック・イベントハンドラを持たないので `"use client"` を付けていない(Server Componentから直接使える)。Phase 2の3個と違い、状態はpropではなくARIA属性で表す方針にした(`aria-invalid` で枠線が danger 色になる / Alert は `role` を自動で付けない)。詳細は `component-authoring` skill の「Phase 4で決まった作法」。
+
+docs側は7個ぶんの registry エントリ・demo・MDX・API表を同時に追加している(coverage テストがこれを強制する)。
 
 ### Phase 5 — RNコンポーネント
 - [ ] `packages/react-native`。A群15個 → B群6個 → C群3個

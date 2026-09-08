@@ -4,7 +4,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { getSlugs, registry } from "../index";
+import { getSlugs, registry, type PropDef } from "../index";
 
 const docsRoot = path.resolve(import.meta.dirname, "../../..");
 const reactComponentsDir = path.resolve(docsRoot, "../../packages/react/src/components");
@@ -78,7 +78,7 @@ describe("API表 → cva定義", () => {
 
   const rows = getSlugs().flatMap((slug) =>
     registry[slug].api.flatMap((group) =>
-      group.props
+      (group.props as readonly PropDef[])
         .filter((prop) => prop.type.includes('"'))
         .map((prop) => ({ slug, propName: prop.name, type: prop.type, default: prop.default })),
     ),

@@ -122,6 +122,172 @@ export const registry = {
       },
     ],
   },
+  input: {
+    name: "Input",
+    atomic: "atom",
+    demos: [
+      { id: "basic", title: "基本", file: "input/basic.tsx", Component: dynamic(() => import("../demos/input/basic")) },
+      { id: "sizes", title: "サイズ", file: "input/sizes.tsx", Component: dynamic(() => import("../demos/input/sizes")) },
+    ],
+    api: [
+      {
+        name: "Input",
+        element: "input",
+        props: [
+          {
+            name: "size",
+            type: `"sm" | "md" | "lg"`,
+            default: `"md"`,
+            description: "control.height トークン。ネイティブの size 属性(文字数)は型から外してある",
+          },
+          {
+            name: "aria-invalid",
+            type: "boolean",
+            description: "不正値の表現。専用のpropは用意していない — 枠線とフォーカスリングが danger 色になる",
+          },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  textarea: {
+    name: "Textarea",
+    atomic: "atom",
+    demos: [
+      { id: "basic", title: "基本", file: "textarea/basic.tsx", Component: dynamic(() => import("../demos/textarea/basic")) },
+    ],
+    api: [
+      {
+        name: "Textarea",
+        element: "textarea",
+        props: [
+          {
+            name: "resize",
+            type: `"none" | "vertical" | "both"`,
+            default: `"vertical"`,
+            description: "伸縮方向。高さ自体は rows 属性で決める(size variantは持たない)",
+          },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  skeleton: {
+    name: "Skeleton",
+    atomic: "atom",
+    demos: [
+      { id: "basic", title: "基本", file: "skeleton/basic.tsx", Component: dynamic(() => import("../demos/skeleton/basic")) },
+    ],
+    api: [
+      {
+        name: "Skeleton",
+        element: "div",
+        props: [
+          {
+            name: "shape",
+            type: `"block" | "text" | "circle"`,
+            default: `"block"`,
+            description: "text は行の高さだけ固定する。実寸は className で指定する",
+          },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  kbd: {
+    name: "Kbd",
+    atomic: "atom",
+    demos: [
+      { id: "basic", title: "基本", file: "kbd/basic.tsx", Component: dynamic(() => import("../demos/kbd/basic")) },
+    ],
+    api: [
+      {
+        name: "Kbd",
+        element: "kbd",
+        props: [classNameProp],
+      },
+    ],
+  },
+  spinner: {
+    name: "Spinner",
+    atomic: "atom",
+    demos: [
+      { id: "basic", title: "基本", file: "spinner/basic.tsx", Component: dynamic(() => import("../demos/spinner/basic")) },
+    ],
+    api: [
+      {
+        name: "Spinner",
+        element: "span",
+        props: [
+          {
+            name: "size",
+            type: `"sm" | "md" | "lg"`,
+            default: `"md"`,
+            description: "icon.sm / icon.md / icon.lg トークンに対応",
+          },
+          {
+            name: "label",
+            type: "string",
+            default: `"読み込み中"`,
+            description: "スクリーンリーダー向けの文言。視覚的には出ない。空にしない",
+          },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  alert: {
+    name: "Alert",
+    atomic: "molecule",
+    demos: [
+      { id: "basic", title: "基本", file: "alert/basic.tsx", Component: dynamic(() => import("../demos/alert/basic")) },
+      { id: "variants", title: "バリアント", file: "alert/variants.tsx", Component: dynamic(() => import("../demos/alert/variants")) },
+    ],
+    api: [
+      {
+        name: "Alert",
+        element: "div",
+        props: [
+          {
+            name: "variant",
+            type: `"default" | "success" | "danger" | "warning" | "info"`,
+            default: `"default"`,
+            description: "Badge と同じ subtle-bg + border + solid の組み合わせ",
+          },
+          {
+            name: "role",
+            type: "string",
+            description: `自動では付けない。操作の結果として現れたものにだけ role="alert" を付ける`,
+          },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "AlertTitle", element: "p", description: "1行の見出し。text.primary" },
+      { name: "AlertDescription", element: "div", description: "本文。任意。Title だけでも成立する" },
+    ],
+  },
+  "empty-state": {
+    name: "EmptyState",
+    atomic: "molecule",
+    demos: [
+      { id: "basic", title: "基本", file: "empty-state/basic.tsx", Component: dynamic(() => import("../demos/empty-state/basic")) },
+    ],
+    api: [
+      {
+        name: "EmptyState",
+        element: "div",
+        props: [classNameProp],
+      },
+    ],
+    subcomponents: [
+      { name: "EmptyStateMedia", element: "div", description: "アイコン/イラストの置き場。常に aria-hidden" },
+      { name: "EmptyStateTitle", element: "p", description: "「何が無いのか」を1行で" },
+      { name: "EmptyStateDescription", element: "p", description: "補足。max-w-prose で行長を抑えている" },
+      { name: "EmptyStateActions", element: "div", description: "次にとれる行動。置くものが無いならEmptyStateではない" },
+    ],
+  },
 } as const satisfies Record<string, RegistryEntry>;
 
 export type ComponentSlug = keyof typeof registry;

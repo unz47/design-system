@@ -1,0 +1,7 @@
+EmptyState は「まだ何もない」状態の置き場。`EmptyState` / `EmptyStateMedia` / `EmptyStateTitle` / `EmptyStateDescription` / `EmptyStateActions` で構成する。
+
+枠線を破線にしているのは、これが「まだ実体が無い領域」であることを Card(実線)と区別するため。
+
+`EmptyStateMedia` はアイコンやイラストの置き場で、常に `aria-hidden`。意味は必ず Title と Description のテキストで伝える。
+
+検索結果ゼロ件のような「操作の結果として空になった」場面では、次にとれる行動を `EmptyStateActions` に必ず1つ置く。置くものが無いなら、それは EmptyState ではなく単なる説明文でよい。

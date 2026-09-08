@@ -1,0 +1,9 @@
+Skeleton は読み込み中のプレースホルダ。`shape` は `block`(既定)/ `text`(行の高さ固定)/ `circle` の3つで、実寸は `className` で指定する。
+
+## 読み込み中であることは Skeleton 自身が伝えない
+
+Skeleton は常に `aria-hidden` で、支援技術からは見えない。読み込み中という状態は、中身を差し替える側のコンテナが `aria-busy` で伝えるべきもの。Skeleton を読み上げても「点滅する箱」の情報しか伝わらない。
+
+## prefers-reduced-motion
+
+Tailwind の `animate-pulse` は `prefers-reduced-motion` を自動では見ないので、`motion-reduce:animate-none` を明示している。
