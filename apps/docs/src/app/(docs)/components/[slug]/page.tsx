@@ -28,6 +28,16 @@ const content: Record<ComponentSlug, () => Promise<{ default: React.ComponentTyp
   "scroll-area": () => import("../../../../../content/components/scroll-area.mdx"),
   "radio-group": () => import("../../../../../content/components/radio-group.mdx"),
   "toggle-group": () => import("../../../../../content/components/toggle-group.mdx"),
+  dialog: () => import("../../../../../content/components/dialog.mdx"),
+  "alert-dialog": () => import("../../../../../content/components/alert-dialog.mdx"),
+  sheet: () => import("../../../../../content/components/sheet.mdx"),
+  popover: () => import("../../../../../content/components/popover.mdx"),
+  tooltip: () => import("../../../../../content/components/tooltip.mdx"),
+  menu: () => import("../../../../../content/components/menu.mdx"),
+  "context-menu": () => import("../../../../../content/components/context-menu.mdx"),
+  select: () => import("../../../../../content/components/select.mdx"),
+  accordion: () => import("../../../../../content/components/accordion.mdx"),
+  tabs: () => import("../../../../../content/components/tabs.mdx"),
 };
 
 export function generateStaticParams() {

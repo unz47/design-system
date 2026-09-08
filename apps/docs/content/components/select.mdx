@@ -1,0 +1,24 @@
+Select は値を1つ選ぶ。トリガは Input と同じ高さ・枠線にしてあるので、フォームの中で並べたときに揃う(`control.height` を共有しているため自動的にそうなる)。
+
+## トリガに表示名を出すには items が要る
+
+`SelectItem` の子に書いたラベルは **トリガの `SelectValue` には伝わらない**。放っておくとトリガに生の値(`dark`)が出る。値と表示名の対応は Root の `items` に渡す。
+
+```tsx
+const THEMES = { dark: "ダーク", light: "ライト" };
+
+<Select defaultValue="dark" items={THEMES}>
+  <SelectTrigger><SelectValue /></SelectTrigger>
+  …
+</Select>
+```
+
+`items` は placeholder の解決にも使われる。1箇所で対応表を持ち、リストもそこから描くのがいちばん崩れにくい。
+
+開いたリストの最小幅に `--anchor-width` を使っている。Base UI が Positioner 上でトリガの実寸を CSS 変数として出しているので、リストがトリガと同じ幅から始まる。
+
+## Menu ではない
+
+「値の選択」が Select、「操作の実行」が Menu。見た目が似ているので迷ったら、選んだ結果がフォームの値になるかどうかで判断する。
+
+検索付きの選択が要る場合は、この Select を拡張せず Base UI の `Combobox` を使う(Tier 4)。

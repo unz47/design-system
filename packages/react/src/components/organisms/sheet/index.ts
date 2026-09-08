@@ -1,0 +1,25 @@
+export {
+  Sheet,
+  type SheetProps,
+  SheetBody,
+  type SheetBodyProps,
+  SheetClose,
+  SheetContent,
+  type SheetContentProps,
+  SheetDescription,
+  type SheetDescriptionProps,
+  SheetHeader,
+  type SheetHeaderProps,
+  SheetTitle,
+  type SheetTitleProps,
+  SheetTrigger,
+} from "./sheet";
+export {
+  sheetBackdropVariants,
+  sheetBodyVariants,
+  sheetDescriptionVariants,
+  sheetHeaderVariants,
+  sheetPopupVariants,
+  sheetTitleVariants,
+  type SheetVariants,
+} from "./sheet.variants";

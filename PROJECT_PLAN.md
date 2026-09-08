@@ -227,8 +227,10 @@ Tierは「Base UIへの依存度」という実装上の軸で、ビルド順を
 | Atomic階層 | 該当コンポーネント |
 |---|---|
 | **atoms**(それ以上分解できない単一部品) | Button, Badge, Input, Textarea, Skeleton, Kbd, Spinner, Label, Separator, Checkbox, Switch, Slider, Progress, Avatar, AspectRatio, Toggle, **ScrollArea**(2026-09-08追加。内部にscrollbar/thumbを持つが、それらは独立したatomではなく「スクロールできる領域」という単一の機能なのでatom) |
-| **molecules**(atomsを組み合わせた小さな単位) | Card(6サブ), Alert, EmptyState, RadioGroup, ToggleGroup, Tooltip, Popover, Pagination, Breadcrumb |
-| **organisms**(複数のmolecules/atomsからなる複雑な単位) | Accordion, Tabs, Dialog, AlertDialog, Sheet, Menu(DropdownMenu), ContextMenu, Select, Toast, Command, Combobox, Table, Calendar, DatePicker, Form |
+| **molecules**(atomsを組み合わせた小さな単位) | Card(6サブ), Alert, EmptyState, RadioGroup, ToggleGroup, Pagination, Breadcrumb |
+| **organisms**(複数のmolecules/atomsからなる複雑な単位) | Accordion, Tabs, Dialog, AlertDialog, Sheet, Menu(DropdownMenu), ContextMenu, Select, **Tooltip**, **Popover**(2026-09-08にmoleculesから移動), Toast, Command, Combobox, Table, Calendar, DatePicker, Form |
+
+**判断基準(2026-09-08追記)**: Base UI の **Portal / Positioner を伴う**(= DOMツリーの外に描画され、位置計算とフォーカス管理が要る)ものは organism とする。Tooltip / Popover は見た目こそ小さいが、必要な機構は Dialog と同じ。当初 molecules に置いていたのは「見た目の大きさ」で分類していたため。
 | **templates/pages相当** | `packages/react`には含めない。docsサイトの `patterns/`(ログインフォーム・ダッシュボード等の組み合わせ例)がこれに相当する |
 
 `packages/react`の`exports`はこの階層をそのままサブパスにする: `"./atoms/*"` / `"./molecules/*"` / `"./organisms/*"`(ルートの`src/index.ts`は全階層をまとめて再輸出するbarrel)。
@@ -406,8 +408,16 @@ CI(`.github/workflows/ci.yml`): `pnpm install --frozen-lockfile` → `pnpm verif
 ### Phase 4 — Webコンポーネント残り
 - [x] **Tier 1残り(7個、2026-09-08)**: Input / Textarea / Skeleton / Kbd / Spinner(atoms)、Alert / EmptyState(molecules)。Tier 1は Button / Badge / Card と合わせて10個で完了
 - [x] **Tier 2(12個、2026-09-08)**: Label / Separator / Checkbox / Switch / Slider / Progress / Avatar / AspectRatio / Toggle / ScrollArea(atoms)、RadioGroup / ToggleGroup(molecules)
-- [ ] Tier 3(オーバーレイ、10個)→ Tier 4(複合、4個)
+- [x] **Tier 3(オーバーレイ10個、2026-09-08)**: Dialog / AlertDialog / Sheet / Popover / Tooltip / Menu / ContextMenu / Select / Accordion / Tabs(すべて organisms)
+- [ ] Tier 4(複合、4個): Toast / Command / Combobox / Table
 - **完了**: Tier 0–3(31個) + Toast/Command/Combobox/Table
+
+**実装メモ(Tier 3)**: オーバーレイ7種が共有する「浮いている面」を `packages/react/src/lib/overlay.ts` に1本化した(`overlaySurface` / `overlayBackdrop` / `overlayTransition` / `overlayItem`)。Portal + Positioner + Popup の3階層は `*Content` に畳み、配置指定(`side` / `align` / `sideOffset`)だけを表に出している。
+
+- 開閉アニメーションは Base UI の `data-starting-style` / `data-ending-style` を使ったCSSトランジション。JSで動かしていないので `motion-reduce:transition-none` だけで reduced-motion に対応できる
+- **Sheet の土台は Dialog ではなく Base UI 1.8 の `Drawer`**。スワイプで閉じる挙動が最初から入っている。`side` が「出る辺」と「スワイプの向き」の両方を決めるが、前者は Popup・後者は Root のpropなので、Root で受けて context で配っている
+- 詰まった点3つ(いずれもブラウザで見て発覚): ①`bg-bg-base/[var(--aurora-opacity-backdrop)]` が **無言で完全に透明になる**(color-mix が単位なしの `0.72` を解決できない)→ 要素の `opacity-[var(...)]` に変更 ②`Drawer.Popup` は `Drawer.Viewport` で包まないとスワイプもスクロールロックも効かない ③`Select` は Root に `items`(値→ラベル)を渡さないとトリガに生の値が出る
+- Tooltip / Popover の階層を molecules から organisms に移した(判断基準は上記のAtomic Design節)
 
 **実装メモ(Tier 2)**: `@base-ui/react@1.8.0` を `packages/react` の依存に追加。計画時点の想定どおりパッケージ名は `@base-ui/react` で、`@base-ui-components/react`(旧名)は 1.0.0-rc.0 で止まっている。
 

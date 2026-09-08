@@ -1,0 +1,9 @@
+Accordion は折りたたみの一覧。`Accordion` / `AccordionItem` / `AccordionTrigger` / `AccordionPanel` で構成する。
+
+## 高さのアニメーション
+
+Base UI が `--accordion-panel-height` を実測して出すので、`height` をその値へ補間している。`max-height` を大きめに決め打ちする近似(開閉の速度が中身の量で変わるやつ)を使わずに済む。
+
+## 見出しレベル
+
+`AccordionTrigger` は中で `Accordion.Header`(既定 `<h3>`)を描いている。ページの見出し階層に合わない場合は、このラッパーを使わず Base UI の `Accordion.Header` を直接使って `render` で差し替える。

@@ -489,6 +489,238 @@ export const registry = {
       { name: "Toggle", element: "button", description: "atoms/toggle をそのまま並べる。Group 用に変える点は無い" },
     ],
   },
+  dialog: {
+    name: "Dialog",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "dialog/basic.tsx", Component: dynamic(() => import("../demos/dialog/basic")) },
+    ],
+    api: [
+      {
+        name: "DialogContent",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "open / defaultOpen", type: "boolean", description: "Dialog(Root)に渡す。制御 / 非制御" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "DialogTrigger", element: "button", description: "render prop で自作Buttonを差し込む" },
+      { name: "DialogTitle", element: "h2", description: "Base UI が aria-labelledby を自動で結ぶ" },
+      { name: "DialogDescription", element: "p", description: "aria-describedby も自動" },
+      { name: "DialogClose", element: "button", description: "閉じるボタン。render prop 可" },
+    ],
+  },
+  "alert-dialog": {
+    name: "AlertDialog",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "alert-dialog/basic.tsx", Component: dynamic(() => import("../demos/alert-dialog/basic")) },
+    ],
+    api: [
+      {
+        name: "AlertDialogContent",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "open / defaultOpen", type: "boolean", description: "AlertDialog(Root)に渡す" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "AlertDialogTitle", element: "h2", description: "「本当に〜しますか?」" },
+      { name: "AlertDialogDescription", element: "p", description: "取り返しがつかない点を書く" },
+      { name: "AlertDialogActions", element: "div", description: "キャンセル / 実行を右寄せで並べる行" },
+      { name: "AlertDialogClose", element: "button", description: "背景クリックとEscapeで閉じないので、必ず置く" },
+    ],
+  },
+  sheet: {
+    name: "Sheet",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "sheet/basic.tsx", Component: dynamic(() => import("../demos/sheet/basic")) },
+    ],
+    api: [
+      {
+        name: "Sheet",
+        element: "div",
+        props: [
+          { name: "side", type: `"right" | "left" | "top" | "bottom"`, default: `"right"`, description: "出る辺とスワイプで閉じる向きの両方を決める" },
+          { source: "base-ui", name: "open / defaultOpen", type: "boolean", description: "制御 / 非制御" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "SheetContent", element: "div", description: "Portal + Backdrop + Popup を畳んだもの" },
+      { name: "SheetHeader", element: "div", description: "固定。スクロールしない" },
+      { name: "SheetBody", element: "div", description: "ここだけが縦スクロールする" },
+      { name: "SheetTitle", element: "h2", description: "見出し" },
+      { name: "SheetDescription", element: "p", description: "補足" },
+    ],
+  },
+  popover: {
+    name: "Popover",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "popover/basic.tsx", Component: dynamic(() => import("../demos/popover/basic")) },
+    ],
+    api: [
+      {
+        name: "PopoverContent",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "side / align / sideOffset", type: `"top" | "right" | "bottom" | "left"` + " ほか", description: "Positioner にそのまま流す配置指定" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "PopoverTrigger", element: "button", description: "クリックで開く。render prop 可" },
+      { name: "PopoverTitle", element: "h2", description: "任意" },
+      { name: "PopoverDescription", element: "p", description: "任意" },
+      { name: "PopoverClose", element: "button", description: "任意" },
+    ],
+  },
+  tooltip: {
+    name: "Tooltip",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "tooltip/basic.tsx", Component: dynamic(() => import("../demos/tooltip/basic")) },
+    ],
+    api: [
+      {
+        name: "TooltipContent",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "side / align / sideOffset", type: `"top" | "right" | "bottom" | "left"` + " ほか", description: "Positioner にそのまま流す配置指定" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "TooltipProvider", element: "—", description: "アプリのルートに1つ。遅延を共有する" },
+      { name: "TooltipTrigger", element: "button", description: "ホバー/フォーカスで開く" },
+    ],
+  },
+  menu: {
+    name: "Menu",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "menu/basic.tsx", Component: dynamic(() => import("../demos/menu/basic")) },
+    ],
+    api: [
+      {
+        name: "MenuContent",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "side / align / sideOffset", type: `"top" | "right" | "bottom" | "left"` + " ほか", description: "Positioner にそのまま流す配置指定" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "MenuTrigger", element: "button", description: "render prop 可" },
+      { name: "MenuItem", element: "div", description: "data-highlighted はホバーでもキーボードでも付く" },
+      { name: "MenuGroup", element: "div", description: "GroupLabel と項目をまとめる" },
+      { name: "MenuGroupLabel", element: "div", description: "グループ見出し" },
+      { name: "MenuSeparator", element: "div", description: "区切り線" },
+      { name: "MenuSubmenu / MenuSubmenuTrigger", element: "div", description: "入れ子メニュー" },
+    ],
+  },
+  "context-menu": {
+    name: "ContextMenu",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "context-menu/basic.tsx", Component: dynamic(() => import("../demos/context-menu/basic")) },
+    ],
+    api: [
+      {
+        name: "ContextMenuContent",
+        element: "div",
+        props: [
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "ContextMenuTrigger", element: "div", description: "右クリックを受ける領域そのもの。className で範囲を持たせる" },
+      { name: "ContextMenuItem", element: "div", description: "Menu と同じ見た目" },
+      { name: "ContextMenuSeparator", element: "div", description: "区切り線" },
+    ],
+  },
+  select: {
+    name: "Select",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "select/basic.tsx", Component: dynamic(() => import("../demos/select/basic")) },
+    ],
+    api: [
+      {
+        name: "Select",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "value / defaultValue", type: "unknown", description: "選択中の値" },
+          { source: "base-ui", name: "items", type: "Record<string, ReactNode>", description: "値 → 表示名の対応。渡さないとトリガに生の値が出る" },
+          { source: "base-ui", name: "onValueChange", type: "(value) => void", description: "変更通知" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "SelectTrigger", element: "button", description: "Input と同じ高さ・枠線。矢印アイコンは内蔵" },
+      { name: "SelectValue", element: "span", description: "選択中の表示" },
+      { name: "SelectContent", element: "div", description: "リスト。最小幅が --anchor-width でトリガに揃う" },
+      { name: "SelectItem", element: "div", description: "value 必須。選択中はチェックが出る" },
+    ],
+  },
+  accordion: {
+    name: "Accordion",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "accordion/basic.tsx", Component: dynamic(() => import("../demos/accordion/basic")) },
+    ],
+    api: [
+      {
+        name: "Accordion",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "openMultiple", type: "boolean", description: "複数同時に開けるか" },
+          { source: "base-ui", name: "value / defaultValue", type: "unknown[]", description: "開いている Item" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "AccordionItem", element: "div", description: "1項目" },
+      { name: "AccordionTrigger", element: "button", description: "中で Accordion.Header(h3)を描く" },
+      { name: "AccordionPanel", element: "div", description: "--accordion-panel-height へ height を補間する" },
+    ],
+  },
+  tabs: {
+    name: "Tabs",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "tabs/basic.tsx", Component: dynamic(() => import("../demos/tabs/basic")) },
+    ],
+    api: [
+      {
+        name: "Tabs",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "value / defaultValue", type: "unknown", description: "選択中のタブ" },
+          { source: "base-ui", name: "orientation", type: `"horizontal" | "vertical"`, description: "キーボード移動の向きも変わる" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "TabsList", element: "div", description: "タブの並び" },
+      { name: "TabsTab", element: "button", description: "value 必須。選択中は border-b が accent になる" },
+      { name: "TabsPanel", element: "div", description: "value が一致するものが表示される" },
+    ],
+  },
 } as const satisfies Record<string, RegistryEntry>;
 
 export type ComponentSlug = keyof typeof registry;

@@ -65,6 +65,23 @@ atoms/button/
 - **Base UI に無いものは無理に探さない。** Label(`Field.Label` は `Field.Root` 必須)や AspectRatio(CSSで足りる)は自前実装でよい
 - API表(`apps/docs/src/registry`)では Base UI 由来の prop に `source: "base-ui"` を付ける。cva由来のものだけがドリフト検査の対象になる
 
+## オーバーレイ系(Tier 3)
+
+- **面は `lib/overlay.ts` に1本化してある。** `overlaySurface` / `overlayBackdrop` / `overlayTransition` / `overlayItem` を組み合わせる。同じ「浮いている面」を7箇所に書き写すとテーマ変更のたびにズレる
+- **Portal + (Positioner +) Popup は `*Content` に畳む。** 配置指定(`side` / `align` / `sideOffset`)だけを表に出して Positioner へ流す
+- **開閉アニメーションはCSSトランジション。** Base UI が `data-starting-style` / `data-ending-style` を付ける間だけ透明・縮小にする。JSでアニメーションを回さないので `motion-reduce:transition-none` 一行で reduced-motion に対応できる
+- `Drawer`(Sheet の土台)は **`Drawer.Viewport` で Popup を包まないと** スワイプで閉じる挙動とタッチのスクロールロックが効かない
+- `Select` は **Root に `items`(値→ラベル)を渡さないとトリガに生の値が出る**。`SelectItem` の子に書いたラベルは `SelectValue` には伝わらない
+
+### 落とし穴: 不透明度トークンを色のアルファに使わない
+
+`bg-bg-base/[var(--aurora-opacity-backdrop)]` は**動かない**。Tailwind の不透明度修飾子は `color-mix()` に展開されるが、トークンの値が単位なしの `0.72` なので color-mix が解決に失敗し、**エラーも出ないまま完全に透明**になる。要素の不透明度として当てること:
+
+```
+✗ bg-bg-base/[var(--aurora-opacity-backdrop)]
+○ bg-bg-base opacity-[var(--aurora-opacity-backdrop)]
+```
+
 ## 実例
 
 `src/components/atoms/button/`(variant + size)、`src/components/atoms/input/`(ARIA連動 + 属性衝突)、`src/components/molecules/card/`(サブコンポーネント分割)を参照。
