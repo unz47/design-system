@@ -56,6 +56,15 @@ atoms/button/
 - **装飾要素は `aria-hidden` を実装側で固定する**(Skeleton、EmptyStateMedia)。意味は必ずテキスト側で伝える
 - **ネイティブ属性と variant 名が衝突したら `Omit` で外す。** `<input size>`(文字数)と cva の `size` など
 
+## Base UI を使うコンポーネント(Tier 2以降)
+
+- **合成形は畳めるものは畳む。** Switch(Root+Thumb)や Checkbox(Root+Indicator)のように、内側を差し替える要求が実際には出ないものは1コンポーネントにまとめる。逆に、選択肢を消費者が並べる RadioGroup / ToggleGroup は合成形のまま残す
+- **状態は Base UI の data-* 属性を Tailwind の `data-*` variant で受ける**(`data-checked:` / `data-pressed:` / `data-[orientation=vertical]:` / `data-dragging:`)。JSで状態クラスを組み立てない
+- **props型は Base UI の型を継承する**(`extends BaseSwitch.Root.Props`)。cvaのvariantだけ足す
+- **畳んだぶんの面倒はこちらで見る。** 例: Slider は Thumb を自動で増やさないので、`value`/`defaultValue` の長さぶん `<Slider.Thumb index={n} />` を並べるのはラッパー側の責任
+- **Base UI に無いものは無理に探さない。** Label(`Field.Label` は `Field.Root` 必須)や AspectRatio(CSSで足りる)は自前実装でよい
+- API表(`apps/docs/src/registry`)では Base UI 由来の prop に `source: "base-ui"` を付ける。cva由来のものだけがドリフト検査の対象になる
+
 ## 実例
 
 `src/components/atoms/button/`(variant + size)、`src/components/atoms/input/`(ARIA連動 + 属性衝突)、`src/components/molecules/card/`(サブコンポーネント分割)を参照。

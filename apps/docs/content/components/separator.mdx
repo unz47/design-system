@@ -1,0 +1,5 @@
+Separator は意味的な区切り。`orientation` で縦横が切り替わり、太さと伸び方は `data-orientation` 属性で分岐している(JSでクラスを組み立てていない)。
+
+縦向きは高さを親から受け取るため、`self-stretch` で伸びる。親が `flex` で高さを持っていないと線が見えないので、`<div className="flex h-5">` のように高さのある行の中で使う。
+
+装飾目的の線は `<Separator />` ではなく単なる `border` で引く。Separator は Base UI が `role="separator"` を付けるため、支援技術に「ここで内容が切り替わる」と伝わる。

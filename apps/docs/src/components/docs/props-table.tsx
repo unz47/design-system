@@ -47,6 +47,11 @@ export function PropsTable({ group }: { group: ApiGroup }) {
                 <tr key={prop.name} className="border-b border-border-subtle last:border-b-0">
                   <td className="whitespace-nowrap px-sp-md py-sp-xs align-top">
                     <Code>{prop.name}</Code>
+                    {prop.source && prop.source !== "cva" ? (
+                      <span className="ml-sp-2xs text-[10px] text-text-muted">
+                        {prop.source === "base-ui" ? "Base UI" : "native"}
+                      </span>
+                    ) : null}
                   </td>
                   <td className="px-sp-md py-sp-xs align-top">
                     <code className="text-xs text-accent-default">{prop.type}</code>

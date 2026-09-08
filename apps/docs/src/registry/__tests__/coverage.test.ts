@@ -73,12 +73,17 @@ describe("packages/react の実装 → registry", () => {
 // API表の variant 値は手書きなので、cva定義から離れていないかを突き合わせる。
 // react-docgen 相当の型解析は入れず、*.variants.ts のソース文字列に
 // そのキーが実在するかだけを見る安価なドリフト検査。
+//
+// 対象は source が cva(既定)のものだけ。Base UI / ネイティブ由来の prop は
+// props型がそれぞれの型を継承している時点でTypeScriptが保証しているので、
+// 文字列一致で追加検査しても得られるものが無い。
 describe("API表 → cva定義", () => {
   const atomicDir = { atom: "atoms", molecule: "molecules", organism: "organisms" } as const;
 
   const rows = getSlugs().flatMap((slug) =>
     registry[slug].api.flatMap((group) =>
       (group.props as readonly PropDef[])
+        .filter((prop) => (prop.source ?? "cva") === "cva")
         .filter((prop) => prop.type.includes('"'))
         .map((prop) => ({ slug, propName: prop.name, type: prop.type, default: prop.default })),
     ),

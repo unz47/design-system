@@ -226,7 +226,7 @@ Tierは「Base UIへの依存度」という実装上の軸で、ビルド順を
 
 | Atomic階層 | 該当コンポーネント |
 |---|---|
-| **atoms**(それ以上分解できない単一部品) | Button, Badge, Input, Textarea, Skeleton, Kbd, Spinner, Label, Separator, Checkbox, Switch, Slider, Progress, Avatar, AspectRatio, Toggle |
+| **atoms**(それ以上分解できない単一部品) | Button, Badge, Input, Textarea, Skeleton, Kbd, Spinner, Label, Separator, Checkbox, Switch, Slider, Progress, Avatar, AspectRatio, Toggle, **ScrollArea**(2026-09-08追加。内部にscrollbar/thumbを持つが、それらは独立したatomではなく「スクロールできる領域」という単一の機能なのでatom) |
 | **molecules**(atomsを組み合わせた小さな単位) | Card(6サブ), Alert, EmptyState, RadioGroup, ToggleGroup, Tooltip, Popover, Pagination, Breadcrumb |
 | **organisms**(複数のmolecules/atomsからなる複雑な単位) | Accordion, Tabs, Dialog, AlertDialog, Sheet, Menu(DropdownMenu), ContextMenu, Select, Toast, Command, Combobox, Table, Calendar, DatePicker, Form |
 | **templates/pages相当** | `packages/react`には含めない。docsサイトの `patterns/`(ログインフォーム・ダッシュボード等の組み合わせ例)がこれに相当する |
@@ -405,8 +405,18 @@ CI(`.github/workflows/ci.yml`): `pnpm install --frozen-lockfile` → `pnpm verif
 
 ### Phase 4 — Webコンポーネント残り
 - [x] **Tier 1残り(7個、2026-09-08)**: Input / Textarea / Skeleton / Kbd / Spinner(atoms)、Alert / EmptyState(molecules)。Tier 1は Button / Badge / Card と合わせて10個で完了
-- [ ] Tier 2(Base UI単純、11個)→ Tier 3(オーバーレイ、10個)→ Tier 4(複合、4個)
+- [x] **Tier 2(12個、2026-09-08)**: Label / Separator / Checkbox / Switch / Slider / Progress / Avatar / AspectRatio / Toggle / ScrollArea(atoms)、RadioGroup / ToggleGroup(molecules)
+- [ ] Tier 3(オーバーレイ、10個)→ Tier 4(複合、4個)
 - **完了**: Tier 0–3(31個) + Toast/Command/Combobox/Table
+
+**実装メモ(Tier 2)**: `@base-ui/react@1.8.0` を `packages/react` の依存に追加。計画時点の想定どおりパッケージ名は `@base-ui/react` で、`@base-ui-components/react`(旧名)は 1.0.0-rc.0 で止まっている。
+
+- 合成形は**畳めるものは畳む**。Switch(Root+Thumb)/ Checkbox(Root+Indicator)/ Progress(Root+Track+Indicator)/ Avatar(Root+Image+Fallback)/ Slider(Control+Track+Indicator+Thumb)/ ScrollArea(Viewport+Scrollbar+Thumb)は1コンポーネントにまとめた。選択肢を消費者が並べる RadioGroup / ToggleGroup だけ合成形のまま残す
+- 状態は Base UI の `data-checked` / `data-pressed` / `data-orientation` / `data-dragging` などを Tailwind の `data-*` variant で受ける。JSで状態クラスを組み立てない
+- **Label は Base UI を使わない**。`Field.Label` は `Field.Root` の文脈を必要とするため、単独で使える素の `<label>` を置いた。**AspectRatio も Base UI に等価物が無い**ので CSS の `aspect-ratio` で自前実装
+- 詰まった点2つ: ①`Progress` の `value` は必須で、`null` を渡したときだけ indeterminate になる(省略不可) ②`Slider` は Thumb を自動で増やさないので、範囲スライダーでは `value`/`defaultValue` の長さぶん `<Slider.Thumb index={n} />` を並べる必要がある。どちらも型チェックとブラウザ確認で発覚した
+- チェックマークはインラインSVG。lucide-react はまだ依存に入れていない(Tier 0 のアイコン規約が未決のため)
+- API表に `source`(`cva` / `base-ui` / `native`)を追加した。cva由来のものだけドリフト検査の対象にする — Base UI由来のpropはprops型が継承している時点でTypeScriptが保証しているため
 
 **実装メモ(Tier 1)**: 新規7個はいずれもフック・イベントハンドラを持たないので `"use client"` を付けていない(Server Componentから直接使える)。Phase 2の3個と違い、状態はpropではなくARIA属性で表す方針にした(`aria-invalid` で枠線が danger 色になる / Alert は `role` を自動で付けない)。詳細は `component-authoring` skill の「Phase 4で決まった作法」。
 

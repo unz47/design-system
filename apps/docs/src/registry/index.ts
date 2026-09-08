@@ -11,11 +11,16 @@ export interface DemoEntry {
 
 export interface PropDef {
   name: string;
-  /** Rendered verbatim. Union literals here are checked against the component's
-   *  *.variants.ts by registry/__tests__/coverage.test.ts, so keep them exact. */
+  /** Rendered verbatim. For `source: "cva"` (the default) union literals here are
+   *  checked against the component's *.variants.ts by
+   *  registry/__tests__/coverage.test.ts, so keep them exact. */
   type: string;
   default?: string;
   description: string;
+  /** Where the prop comes from. "cva" (default) = ours, and the only kind the
+   *  drift check applies to — Base UI / native props are already guaranteed by
+   *  the props type extending theirs, so a text match would add nothing. */
+  source?: "cva" | "base-ui" | "native";
 }
 
 export interface ApiGroup {
@@ -141,6 +146,7 @@ export const registry = {
             description: "control.height トークン。ネイティブの size 属性(文字数)は型から外してある",
           },
           {
+            source: "native",
             name: "aria-invalid",
             type: "boolean",
             description: "不正値の表現。専用のpropは用意していない — 枠線とフォーカスリングが danger 色になる",
@@ -255,6 +261,7 @@ export const registry = {
             description: "Badge と同じ subtle-bg + border + solid の組み合わせ",
           },
           {
+            source: "native",
             name: "role",
             type: "string",
             description: `自動では付けない。操作の結果として現れたものにだけ role="alert" を付ける`,
@@ -286,6 +293,200 @@ export const registry = {
       { name: "EmptyStateTitle", element: "p", description: "「何が無いのか」を1行で" },
       { name: "EmptyStateDescription", element: "p", description: "補足。max-w-prose で行長を抑えている" },
       { name: "EmptyStateActions", element: "div", description: "次にとれる行動。置くものが無いならEmptyStateではない" },
+    ],
+  },
+  label: {
+    name: "Label",
+    atomic: "atom",
+    demos: [{ id: "basic", title: "基本", file: "label/basic.tsx", Component: dynamic(() => import("../demos/label/basic")) }],
+    api: [{ name: "Label", element: "label", props: [classNameProp] }],
+  },
+  separator: {
+    name: "Separator",
+    atomic: "atom",
+    demos: [{ id: "basic", title: "基本", file: "separator/basic.tsx", Component: dynamic(() => import("../demos/separator/basic")) }],
+    api: [
+      {
+        name: "Separator",
+        element: "div",
+        props: [
+          {
+            source: "base-ui",
+            name: "orientation",
+            type: `"horizontal" | "vertical"`,
+            description: "縦向きは親の高さを受けて伸びる。高さのある行の中で使う",
+          },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  checkbox: {
+    name: "Checkbox",
+    atomic: "atom",
+    demos: [{ id: "basic", title: "基本", file: "checkbox/basic.tsx", Component: dynamic(() => import("../demos/checkbox/basic")) }],
+    api: [
+      {
+        name: "Checkbox",
+        element: "button",
+        props: [
+          { source: "base-ui", name: "checked / defaultChecked", type: "boolean", description: "制御 / 非制御。Base UI が内部で input を描画する" },
+          { source: "base-ui", name: "indeterminate", type: "boolean", description: "「一部だけ選択」の第3状態" },
+          { source: "base-ui", name: "onCheckedChange", type: "(checked: boolean) => void", description: "変更通知" },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  switch: {
+    name: "Switch",
+    atomic: "atom",
+    demos: [{ id: "basic", title: "基本", file: "switch/basic.tsx", Component: dynamic(() => import("../demos/switch/basic")) }],
+    api: [
+      {
+        name: "Switch",
+        element: "button",
+        props: [
+          { source: "base-ui", name: "checked / defaultChecked", type: "boolean", description: "制御 / 非制御" },
+          { source: "base-ui", name: "onCheckedChange", type: "(checked: boolean) => void", description: "変更通知" },
+          { name: "thumbClassName", type: "string", description: "つまみ側に当てる。className はトラックが受ける" },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  slider: {
+    name: "Slider",
+    atomic: "atom",
+    demos: [{ id: "basic", title: "基本", file: "slider/basic.tsx", Component: dynamic(() => import("../demos/slider/basic")) }],
+    api: [
+      {
+        name: "Slider",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "value / defaultValue", type: "number | number[]", description: "配列を渡すと範囲スライダーになり、つまみが値の数だけ増える" },
+          { source: "base-ui", name: "min / max / step", type: "number", description: "既定は 0 / 100 / 1" },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  progress: {
+    name: "Progress",
+    atomic: "atom",
+    demos: [{ id: "basic", title: "基本", file: "progress/basic.tsx", Component: dynamic(() => import("../demos/progress/basic")) }],
+    api: [
+      {
+        name: "Progress",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "value", type: "number | null", description: "必須。null を渡すと不確定(indeterminate)になる — 省略はできない" },
+          { source: "base-ui", name: "max", type: "number", description: "既定は 100" },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  avatar: {
+    name: "Avatar",
+    atomic: "atom",
+    demos: [{ id: "basic", title: "基本", file: "avatar/basic.tsx", Component: dynamic(() => import("../demos/avatar/basic")) }],
+    api: [
+      {
+        name: "Avatar",
+        element: "span",
+        props: [
+          { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "32 / 40 / 48px" },
+          { name: "src", type: "string", description: "省略すると最初から fallback だけを描画する" },
+          { name: "fallback", type: "ReactNode", description: "画像が無い/読めないときの中身。イニシャル2文字程度" },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  "aspect-ratio": {
+    name: "AspectRatio",
+    atomic: "atom",
+    demos: [{ id: "basic", title: "基本", file: "aspect-ratio/basic.tsx", Component: dynamic(() => import("../demos/aspect-ratio/basic")) }],
+    api: [
+      {
+        name: "AspectRatio",
+        element: "div",
+        props: [
+          { name: "ratio", type: "number", default: "1", description: "16 / 9 のように式で書く。子には size-full と object-cover が当たる" },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  toggle: {
+    name: "Toggle",
+    atomic: "atom",
+    demos: [{ id: "basic", title: "基本", file: "toggle/basic.tsx", Component: dynamic(() => import("../demos/toggle/basic")) }],
+    api: [
+      {
+        name: "Toggle",
+        element: "button",
+        props: [
+          { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Button と同じ control.height" },
+          { source: "base-ui", name: "pressed / defaultPressed", type: "boolean", description: "押下状態。Base UI が aria-pressed も出す" },
+          { source: "base-ui", name: "value", type: "string", description: "ToggleGroup の中で使うときの識別子" },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  "scroll-area": {
+    name: "ScrollArea",
+    atomic: "atom",
+    demos: [{ id: "basic", title: "基本", file: "scroll-area/basic.tsx", Component: dynamic(() => import("../demos/scroll-area/basic")) }],
+    api: [
+      {
+        name: "ScrollArea",
+        element: "div",
+        props: [
+          { name: "horizontal", type: "boolean", description: "横スクロールバーも出す。既定は縦のみ" },
+          classNameProp,
+        ],
+      },
+    ],
+  },
+  "radio-group": {
+    name: "RadioGroup",
+    atomic: "molecule",
+    demos: [{ id: "basic", title: "基本", file: "radio-group/basic.tsx", Component: dynamic(() => import("../demos/radio-group/basic")) }],
+    api: [
+      {
+        name: "RadioGroup",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "value / defaultValue", type: "string", description: "選択中の Radio の value" },
+          { source: "base-ui", name: "onValueChange", type: "(value: string) => void", description: "変更通知" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "Radio", element: "button", description: "選択肢1つ。value 必須。Label と htmlFor で結ぶ" },
+    ],
+  },
+  "toggle-group": {
+    name: "ToggleGroup",
+    atomic: "molecule",
+    demos: [{ id: "basic", title: "基本", file: "toggle-group/basic.tsx", Component: dynamic(() => import("../demos/toggle-group/basic")) }],
+    api: [
+      {
+        name: "ToggleGroup",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "value / defaultValue", type: "string[]", description: "押下中の Toggle の value の配列" },
+          { source: "base-ui", name: "toggleMultiple", type: "boolean", description: "false にすると排他選択になる" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "Toggle", element: "button", description: "atoms/toggle をそのまま並べる。Group 用に変える点は無い" },
     ],
   },
 } as const satisfies Record<string, RegistryEntry>;

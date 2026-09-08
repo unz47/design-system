@@ -1,0 +1,7 @@
+RadioGroup は排他選択。`RadioGroup` と `Radio` の2つで構成する。
+
+選択肢は消費者が並べるものなので、Switch のように1つのコンポーネントには畳んでいない。ただし `Radio` 単体は Root + Indicator を畳んであるので、消費側が書くのは1階層で済む。
+
+矢印キーでの移動・タブ順(グループ全体で1つ)は Base UI が持つ。`orientation="horizontal"` にすると `data-orientation` 経由で並びも横になる。
+
+各 Radio は `id` + `Label htmlFor` で結ぶ。

@@ -16,6 +16,18 @@ const content: Record<ComponentSlug, () => Promise<{ default: React.ComponentTyp
   spinner: () => import("../../../../../content/components/spinner.mdx"),
   alert: () => import("../../../../../content/components/alert.mdx"),
   "empty-state": () => import("../../../../../content/components/empty-state.mdx"),
+  label: () => import("../../../../../content/components/label.mdx"),
+  separator: () => import("../../../../../content/components/separator.mdx"),
+  checkbox: () => import("../../../../../content/components/checkbox.mdx"),
+  switch: () => import("../../../../../content/components/switch.mdx"),
+  slider: () => import("../../../../../content/components/slider.mdx"),
+  progress: () => import("../../../../../content/components/progress.mdx"),
+  avatar: () => import("../../../../../content/components/avatar.mdx"),
+  "aspect-ratio": () => import("../../../../../content/components/aspect-ratio.mdx"),
+  toggle: () => import("../../../../../content/components/toggle.mdx"),
+  "scroll-area": () => import("../../../../../content/components/scroll-area.mdx"),
+  "radio-group": () => import("../../../../../content/components/radio-group.mdx"),
+  "toggle-group": () => import("../../../../../content/components/toggle-group.mdx"),
 };
 
 export function generateStaticParams() {
