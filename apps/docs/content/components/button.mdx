@@ -1,0 +1,22 @@
+Button は最も基本的な操作トリガー。variant はsemantic(役割ベース)に命名しており、色名(mint/violetなど)では命名しない。
+
+- `primary` — 画面内で最も推したい操作(1画面に1つが目安)
+- `secondary` — 主役ではないが目立たせたい操作
+- `ghost` — 背景を持たない控えめな操作
+- `danger` — 削除など破壊的な操作
+
+size は `sm` / `md` / `lg` の3段階に加え、正方形の `icon` を用意している。高さは `--aurora-control-height-*` を参照しているので、Input や Select のトリガと自動的に揃う。
+
+## フォーカスとdisabled
+
+フォーカスリングは `focus-visible` にのみ出る(マウスクリックでは出ない)。色は `focus-ring` トークンで、dark/light どちらでも背景に対して 3:1 以上を満たすことを `contract.test.ts` が検査している。disabled は `opacity.disabled` トークンとポインタイベント無効化の組み合わせで、色を別に持たせてはいない。
+
+## 他のコンポーネントに差し込む
+
+Base UI には Radix の `asChild` / `Slot` に相当するものが無いので、`Menu.Trigger` などから Button を使う場合は `render` prop を渡す。
+
+```tsx
+<Menu.Trigger render={<Button variant="secondary" />}>開く</Menu.Trigger>
+```
+
+Button 自身は受け取った props を `<button>` にそのまま展開するだけなので、この形で ref もイベントも正しく繋がる。

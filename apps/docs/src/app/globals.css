@@ -1,3 +1,13 @@
 @import "tailwindcss";
-@import "@unz47/tokens/theme.css";
-@source "../../../../packages/ui/src";
+@import "@frost-ui/tokens/theme.css";
+@source "../../../../packages/react/src";
+
+/* shiki dual-theme: CodeBlock renders github-dark inline and carries
+   github-light in --shiki-light. dark is the default theme, so only the light
+   case needs a swap. See components/docs/code-block.tsx. */
+/* !important is required, not sloppiness: shiki writes the default theme's
+   color into each span's inline style, which no selector can outrank. */
+[data-theme="light"] .shiki,
+[data-theme="light"] .shiki span {
+  color: var(--shiki-light) !important;
+}

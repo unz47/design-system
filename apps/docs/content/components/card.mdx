@@ -1,0 +1,11 @@
+Card は複数のatom(見出し・本文・ボタンなど)を組み合わせるmolecule。`Card` / `CardHeader` / `CardTitle` / `CardDescription` / `CardContent` / `CardFooter` の6つのサブコンポーネントで構成する。
+
+見た目は `bg.surface` + `border.default` + `shadow-elevation-1`。単体のカードを積み重ねて情報の階層を作る際は、内側にさらにネストするのではなく `bg.raised` を使う。
+
+## 影はテーマで別物になる
+
+`elevation-1` は dark では「弱い黒い影 + 上端のごく薄い白い線」だが、light では白い線が引けない(背景より明るくできない)ため、濃度を落とした影だけになる。値は `shadow.{dark,light}.json` で別々に持っているので、`box-shadow` を手書きせず `shadow-elevation-*` ユーティリティを使うこと。
+
+## サブコンポーネントは必須ではない
+
+`CardHeader` 以下は padding とレイアウトを揃えるための薄いラッパーで、`Card` に直接子要素を置いても壊れない。ただしその場合 padding は自分で付ける必要がある。
