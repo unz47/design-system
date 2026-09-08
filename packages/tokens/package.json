@@ -1,5 +1,5 @@
 {
-  "name": "@unz47/tokens",
+  "name": "@frost-ui/tokens",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -16,14 +16,16 @@
     "build": "node style-dictionary.config.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
+    "test": "vitest run",
     "verify": "tsc --noEmit && eslint ."
   },
   "devDependencies": {
     "style-dictionary": "^5.1.0",
     "culori": "^4.0.1",
-    "@unz47/tsconfig": "workspace:*",
-    "@unz47/eslint-config": "workspace:*",
+    "@frost-ui/tsconfig": "workspace:*",
+    "@frost-ui/eslint-config": "workspace:*",
     "eslint": "^9.19.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.0"
   }
 }

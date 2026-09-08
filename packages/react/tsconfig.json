@@ -1,0 +1,4 @@
+{
+  "extends": "@frost-ui/tsconfig/react-library.json",
+  "include": ["src"]
+}

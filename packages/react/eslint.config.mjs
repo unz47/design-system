@@ -1,4 +1,4 @@
-import react from "@unz47/eslint-config/react";
+import react from "@frost-ui/eslint-config/react";
 
 const config = [...react];
 

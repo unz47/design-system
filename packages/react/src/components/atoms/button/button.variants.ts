@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 // base: フォーカスリング・トランジションはここに集約
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-xs whitespace-nowrap text-sm font-medium " +
+  "inline-flex items-center justify-center gap-sp-xs whitespace-nowrap text-sm font-medium " +
     "transition-[background-color,border-color,color,filter] duration-[var(--aurora-motion-duration-fast)] ease-standard " +
     "outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 " +
     "focus-visible:ring-offset-bg-base disabled:pointer-events-none disabled:opacity-[var(--aurora-opacity-disabled)]",
@@ -16,9 +16,9 @@ export const buttonVariants = cva(
         danger: "bg-status-danger-solid text-on-accent hover:brightness-110",
       },
       size: {
-        sm: "h-[var(--aurora-control-height-sm)] px-sm rounded-control",
-        md: "h-[var(--aurora-control-height-md)] px-md rounded-control",
-        lg: "h-[var(--aurora-control-height-lg)] px-lg rounded-control",
+        sm: "h-[var(--aurora-control-height-sm)] px-sp-sm rounded-control",
+        md: "h-[var(--aurora-control-height-md)] px-sp-md rounded-control",
+        lg: "h-[var(--aurora-control-height-lg)] px-sp-lg rounded-control",
         icon: "size-[var(--aurora-control-height-md)] rounded-control",
       },
     },

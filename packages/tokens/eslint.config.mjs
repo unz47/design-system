@@ -1,3 +1,3 @@
-import base from "@unz47/eslint-config/base";
+import base from "@frost-ui/eslint-config/base";
 
 export default [...base];

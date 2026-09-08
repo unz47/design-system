@@ -1,4 +1,4 @@
-import next from "@unz47/eslint-config/next";
+import next from "@frost-ui/eslint-config/next";
 
 const config = [...next];
 
