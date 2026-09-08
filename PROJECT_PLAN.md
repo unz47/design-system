@@ -403,7 +403,11 @@ CI(`.github/workflows/ci.yml`): `pnpm install --frozen-lockfile` → `pnpm verif
 - API表は `src/registry/index.ts` に手書きし、`coverage.test.ts` が `*.variants.ts` のソースと突き合わせてドリフトを検出する(variant値の実在チェック + `defaultVariants` との初期値一致)。react-docgen-typescript のような型解析は入れていない
 - テーマ切替は `useSyncExternalStore` で `<html data-theme>` を直接購読する。`useState` + `useEffect` で同期する書き方は `react-hooks/set-state-in-effect` で lint エラーになる
 - shikiは dark/light 両テーマを同じHTMLに埋め、`[data-theme="light"]` 側でCSS変数を差し替える。**この上書きには `!important` が必須**(shikiがデフォルトテーマの色をインラインstyleに書くため、セレクタでは勝てない)。RSCのままテーマ追従できるので再ハイライトのクライアントJSは不要
-- `/tokens` `/patterns` `/playground` `/about` `/changelog`(5章のルーティング表)はPhase 3のスコープ外。未着手
+- `/patterns` `/playground` `/about` `/changelog`(5章のルーティング表)はPhase 3のスコープ外。未着手
+
+**追記(2026-09-09)**: Phase 4完了後に `/foundations/[slug]`(typography / spacing / radius / elevation / motion / icons)と `/tokens`(全146トークンの検索可能な一覧)を追加した。いずれも `apps/docs/src/lib/tokens.ts` が `@frost-ui/tokens` の生成物を平坦化して渡すだけで、ページ側に手書きの値は無い。`/tokens` の検索UIは自作の Input / ToggleGroup / Table / Badge で組んでいる(docsサイト自体がコンポーネントの実使用例になる)。
+
+typography のプレビューで `font` ショートハンドに size だけ渡して全部同じ大きさで並んでいた(無効な宣言として捨てられる)。`fontSize` / `fontWeight` / `lineHeight` / `fontFamily` / `letterSpacing` を個別に指定して解消。
 
 ### Phase 4 — Webコンポーネント残り
 - [x] **Tier 1残り(7個、2026-09-08)**: Input / Textarea / Skeleton / Kbd / Spinner(atoms)、Alert / EmptyState(molecules)。Tier 1は Button / Badge / Card と合わせて10個で完了
