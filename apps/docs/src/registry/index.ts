@@ -721,6 +721,99 @@ export const registry = {
       { name: "TabsPanel", element: "div", description: "value が一致するものが表示される" },
     ],
   },
+  combobox: {
+    name: "Combobox",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "combobox/basic.tsx", Component: dynamic(() => import("../demos/combobox/basic")) },
+    ],
+    api: [
+      {
+        name: "Combobox",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "items", type: "readonly Item[]", description: "候補。絞り込みは Base UI が行う" },
+          { source: "base-ui", name: "value / defaultValue", type: "unknown", description: "選択中の値" },
+          { source: "base-ui", name: "multiple", type: "boolean", description: "複数選択。Chips で選択済みを並べられる" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "ComboboxInput", element: "input", description: "Input と同じ高さ・枠線" },
+      { name: "ComboboxContent", element: "div", description: "Portal + Positioner + Popup を畳んだもの" },
+      { name: "ComboboxList", element: "div", description: "子をレンダー関数にすると絞り込み後の候補が流れてくる" },
+      { name: "ComboboxItem", element: "div", description: "選択中はチェックが出る" },
+      { name: "ComboboxEmpty", element: "div", description: "候補ゼロのとき。省略しない" },
+    ],
+  },
+  command: {
+    name: "Command",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "command/basic.tsx", Component: dynamic(() => import("../demos/command/basic")) },
+    ],
+    api: [
+      {
+        name: "Command",
+        element: "div",
+        props: [
+          { source: "base-ui", name: "items", type: "readonly Item[]", description: "コマンドの一覧" },
+          { source: "base-ui", name: "open / onOpenChange", type: "boolean / (open) => void", description: "⌘K を拾うのはアプリ側の責任なので制御して使う" },
+          classNameProp,
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "CommandInput", element: "input", description: "枠を持たない。面の上端が枠になる" },
+      { name: "CommandContent", element: "div", description: "画面中央のパネル + 背景の幕" },
+      { name: "CommandList / CommandItem", element: "div", description: "Combobox と同じ仕組み" },
+      { name: "CommandEmpty", element: "div", description: "該当なしの表示" },
+    ],
+  },
+  table: {
+    name: "Table",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "table/basic.tsx", Component: dynamic(() => import("../demos/table/basic")) },
+    ],
+    api: [
+      {
+        name: "Table",
+        element: "table",
+        props: [classNameProp],
+      },
+    ],
+    subcomponents: [
+      { name: "TableHeader / TableBody / TableFooter", element: "thead / tbody / tfoot", description: "素の要素に見た目を当てただけ" },
+      { name: "TableRow", element: "tr", description: "hover と data-selected で背景が変わる" },
+      { name: "TableHead", element: "th", description: "scope=\"col\" が既定" },
+      { name: "TableCell", element: "td", description: "本文セル" },
+      { name: "TableCaption", element: "caption", description: "表の説明" },
+    ],
+  },
+  toast: {
+    name: "Toast",
+    atomic: "organism",
+    demos: [
+      { id: "basic", title: "基本", file: "toast/basic.tsx", Component: dynamic(() => import("../demos/toast/basic")) },
+    ],
+    api: [
+      {
+        name: "useToast().add",
+        element: "—",
+        props: [
+          { source: "base-ui", name: "title / description", type: "ReactNode", description: "本文" },
+          { source: "base-ui", name: "timeout", type: "number", description: "0 で自動的に消えなくなる。失敗の通知に使う" },
+          { source: "base-ui", name: "priority", type: `"low" | "high"`, description: "high はスクリーンリーダーへの読み上げを割り込ませる" },
+        ],
+      },
+    ],
+    subcomponents: [
+      { name: "ToastProvider", element: "—", description: "アプリのルートに1つ" },
+      { name: "ToastViewport", element: "div", description: "積み上がる場所。右下に固定" },
+    ],
+  },
 } as const satisfies Record<string, RegistryEntry>;
 
 export type ComponentSlug = keyof typeof registry;

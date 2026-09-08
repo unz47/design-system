@@ -29,11 +29,15 @@ export * from "./components/molecules/toggle-group";
 // organisms
 export * from "./components/organisms/accordion";
 export * from "./components/organisms/alert-dialog";
+export * from "./components/organisms/combobox";
+export * from "./components/organisms/command";
 export * from "./components/organisms/context-menu";
 export * from "./components/organisms/dialog";
 export * from "./components/organisms/menu";
 export * from "./components/organisms/popover";
 export * from "./components/organisms/select";
 export * from "./components/organisms/sheet";
+export * from "./components/organisms/table";
 export * from "./components/organisms/tabs";
+export * from "./components/organisms/toast";
 export * from "./components/organisms/tooltip";

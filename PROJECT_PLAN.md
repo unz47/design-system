@@ -409,8 +409,16 @@ CI(`.github/workflows/ci.yml`): `pnpm install --frozen-lockfile` → `pnpm verif
 - [x] **Tier 1残り(7個、2026-09-08)**: Input / Textarea / Skeleton / Kbd / Spinner(atoms)、Alert / EmptyState(molecules)。Tier 1は Button / Badge / Card と合わせて10個で完了
 - [x] **Tier 2(12個、2026-09-08)**: Label / Separator / Checkbox / Switch / Slider / Progress / Avatar / AspectRatio / Toggle / ScrollArea(atoms)、RadioGroup / ToggleGroup(molecules)
 - [x] **Tier 3(オーバーレイ10個、2026-09-08)**: Dialog / AlertDialog / Sheet / Popover / Tooltip / Menu / ContextMenu / Select / Accordion / Tabs(すべて organisms)
-- [ ] Tier 4(複合、4個): Toast / Command / Combobox / Table
+- [x] **Tier 4(複合4個、2026-09-09)**: Toast / Command / Combobox / Table
 - **完了**: Tier 0–3(31個) + Toast/Command/Combobox/Table
+
+**実装メモ(Tier 4)**: **外部ライブラリを1つも足さずに4つとも実装した**(計画では sonner / cmdk / TanStack Table を想定)。
+
+- **Toast**: sonner ではなく Base UI 1.8 の Toast。依存が増えず、開閉の状態属性も他のオーバーレイと同じ作法で書ける。sonner 固有のテーマ層をトークンに合わせ込む作業も不要
+- **Command**: cmdk は内部で Radix に依存しており「Radixは不採用」と衝突する。Base UI の Combobox が絞り込みとキーボード操作を持っているので、それを画面中央のパネルとして出すだけで足りた。Combobox との違いは器だけ
+- **Combobox**: Base UI ネイティブ(計画どおり)
+- **Table**: 見た目のプリミティブのみ。ソート/ページングを持つ DataTable は docs の `patterns/` に置く方針なので、**TanStack Table は `packages/react` の依存に入れていない**(レシピ側でだけ使う)
+- 詰まった点2つ: ①`Toast.Viewport` を `Toast.Portal` で包むとトーストが1つも描画されない(無言で失敗)②Base UI が出すCSS変数名を推測で使った結果、無効な `calc()` になって要素が見えなくなった — 確認していない変数名に乗らないこと
 
 **実装メモ(Tier 3)**: オーバーレイ7種が共有する「浮いている面」を `packages/react/src/lib/overlay.ts` に1本化した(`overlaySurface` / `overlayBackdrop` / `overlayTransition` / `overlayItem`)。Portal + Positioner + Popup の3階層は `*Content` に畳み、配置指定(`side` / `align` / `sideOffset`)だけを表に出している。
 

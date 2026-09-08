@@ -38,6 +38,10 @@ const content: Record<ComponentSlug, () => Promise<{ default: React.ComponentTyp
   select: () => import("../../../../../content/components/select.mdx"),
   accordion: () => import("../../../../../content/components/accordion.mdx"),
   tabs: () => import("../../../../../content/components/tabs.mdx"),
+  combobox: () => import("../../../../../content/components/combobox.mdx"),
+  command: () => import("../../../../../content/components/command.mdx"),
+  table: () => import("../../../../../content/components/table.mdx"),
+  toast: () => import("../../../../../content/components/toast.mdx"),
 };
 
 export function generateStaticParams() {

@@ -1,0 +1,16 @@
+Toast は操作の結果を伝える一時的な通知。`ToastProvider` と `ToastViewport` をアプリのルートに置き、`useToast()` から出す。
+
+```tsx
+const toast = useToast();
+toast.add({ title: "保存しました", description: "変更は自動で同期されます。" });
+```
+
+## sonner ではなく Base UI
+
+計画では sonner を使う想定だったが、**Base UI 1.8 の Toast を採用した**。依存を1つ増やさずに済み、開閉の状態属性(`data-starting-style` など)も他のオーバーレイとまったく同じ作法で書ける。sonner 固有のテーマ層をトークンに合わせ込む作業も要らない。
+
+## 消えない通知
+
+`timeout: 0` で自動的に消えなくなる。失敗の通知など、ユーザーが読み落とすと困るものに使う。逆に成功の通知は放っておいても消えるべきで、消すために手を動かさせない。
+
+`priority: "high"` はスクリーンリーダーへの読み上げを割り込ませる。失敗にだけ使う。

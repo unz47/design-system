@@ -73,6 +73,11 @@ atoms/button/
 - `Drawer`(Sheet の土台)は **`Drawer.Viewport` で Popup を包まないと** スワイプで閉じる挙動とタッチのスクロールロックが効かない
 - `Select` は **Root に `items`(値→ラベル)を渡さないとトリガに生の値が出る**。`SelectItem` の子に書いたラベルは `SelectValue` には伝わらない
 
+### Tier 4 で分かったこと
+
+- `Toast.Viewport` を `Toast.Portal` で包むと**トーストが1つも描画されない**(エラーも警告も出ない)。Viewport は Provider の直下にそのまま置く
+- **確かめていないCSS変数名に乗らない。** Base UI が出す `--toast-index` のような変数を推測で使い、無効な `calc()` になって要素が見えなくなった。まず崩れない形で作り、変数名を実物で確認してから演出を足す
+
 ### 落とし穴: 不透明度トークンを色のアルファに使わない
 
 `bg-bg-base/[var(--aurora-opacity-backdrop)]` は**動かない**。Tailwind の不透明度修飾子は `color-mix()` に展開されるが、トークンの値が単位なしの `0.72` なので color-mix が解決に失敗し、**エラーも出ないまま完全に透明**になる。要素の不透明度として当てること:
