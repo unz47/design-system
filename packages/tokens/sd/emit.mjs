@@ -23,6 +23,10 @@ function isLeaf(value) {
   if (value === null || typeof value !== "object") return true;
   // a typography composite has these exact keys; treat as a leaf we special-case
   if ("fontFamily" in value && "fontSize" in value) return true;
+  // a single (non-array) shadow layer — without this it would be walked as a
+  // group and emitted as --...-color / --...-offset-x / ... instead of one
+  // usable box-shadow value.
+  if ("color" in value && "offsetX" in value) return true;
   return false;
 }
 
@@ -102,6 +106,20 @@ const TW4_NAMESPACE = {
   space: "spacing",
   radius: "radius",
   text: "text",
+  container: "container",
+  shadow: "shadow",
+};
+
+// Tailwind v4 resolves several utilities (max-w, min-w, w, h, ...) by
+// falling back through multiple namespaces, e.g. max-w checks
+// `--max-width-*`, then `--spacing-*`, then `--container-*` in that order.
+// Our `space` keys (3xs..3xl) are spelled exactly like Tailwind's built-in
+// named `--container-*` scale, so without a prefix `max-w-sm` would resolve
+// to our 12px spacing token instead of Tailwind's 24rem container size.
+// Prefixing the bridged key (not the underlying --aurora-* token name) keeps
+// `--spacing-sp-sm` out of every scale Tailwind checks before `--container-*`.
+const TW4_KEY_PREFIX = {
+  space: "sp",
 };
 
 // Two-segment prefix -> Tailwind v4 theme namespace (checked before the
@@ -142,7 +160,9 @@ function buildCssOutputs(darkTree, lightTree) {
     } else {
       const ns = TW4_NAMESPACE[group];
       if (!ns) continue;
-      twVar = `--${ns}-${rest.join("-")}`;
+      const keyPrefix = TW4_KEY_PREFIX[group];
+      const restJoined = keyPrefix ? [keyPrefix, ...rest].join("-") : rest.join("-");
+      twVar = `--${ns}-${restJoined}`;
     }
     if (seenThemeVars.has(twVar)) continue;
     seenThemeVars.add(twVar);

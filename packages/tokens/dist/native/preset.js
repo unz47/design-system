@@ -11,6 +11,8 @@ module.exports = {
     extend: {
       colors: {
   neutral: {
+    "0": c("neutral-0"),
+    "50": c("neutral-50"),
     "100": c("neutral-100"),
     "200": c("neutral-200"),
     "300": c("neutral-300"),
@@ -19,6 +21,7 @@ module.exports = {
     "600": c("neutral-600"),
     "700": c("neutral-700"),
     "800": c("neutral-800"),
+    "850": c("neutral-850"),
     "900": c("neutral-900"),
     "950": c("neutral-950"),
   },
@@ -29,6 +32,8 @@ module.exports = {
     "400": c("frost-400"),
     "500": c("frost-500"),
     "600": c("frost-600"),
+    "700": c("frost-700"),
+    "800": c("frost-800"),
   },
   plum: {
     "300": c("plum-300"),
@@ -40,21 +45,33 @@ module.exports = {
     solid: c("success-solid"),
     "subtle-bg": c("success-subtle-bg"),
     border: c("success-border"),
+    "solid-strong": c("success-solid-strong"),
+    "subtle-bg-light": c("success-subtle-bg-light"),
+    "border-light": c("success-border-light"),
   },
   danger: {
     solid: c("danger-solid"),
     "subtle-bg": c("danger-subtle-bg"),
     border: c("danger-border"),
+    "solid-strong": c("danger-solid-strong"),
+    "subtle-bg-light": c("danger-subtle-bg-light"),
+    "border-light": c("danger-border-light"),
   },
   warning: {
     solid: c("warning-solid"),
     "subtle-bg": c("warning-subtle-bg"),
     border: c("warning-border"),
+    "solid-strong": c("warning-solid-strong"),
+    "subtle-bg-light": c("warning-subtle-bg-light"),
+    "border-light": c("warning-border-light"),
   },
   info: {
     solid: c("info-solid"),
     "subtle-bg": c("info-subtle-bg"),
     border: c("info-border"),
+    "solid-strong": c("info-solid-strong"),
+    "subtle-bg-light": c("info-subtle-bg-light"),
+    "border-light": c("info-border-light"),
   },
   bg: {
     base: c("bg-base"),

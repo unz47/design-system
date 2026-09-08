@@ -1,11 +1,11 @@
 ---
 name: component-authoring
-description: Aurora design system — how to author a component in packages/ui (established with Button/Card/Badge in Phase 2)
+description: Aurora design system — how to author a component in packages/react (established with Button/Card/Badge in Phase 2)
 ---
 
 # コンポーネントの標準形
 
-`packages/ui/src/components/<name>/` に3ファイル:
+`packages/react/src/components/<name>/` に3ファイル:
 
 ```
 button/
@@ -25,7 +25,7 @@ button/
 
 ## Tailwindユーティリティが自動生成されないトークンに注意
 
-`packages/tokens` の `@theme inline` ブリッジは `color` / `space` / `radius` / `text`(font-sizeのみ)/ `motion.easing` にしか対応していない。以下は名前付きTailwindユーティリティが**生成されない**ため、`[var(--aurora-...)]` のarbitrary value構文で直接参照すること:
+`packages/tokens` の `@theme inline` ブリッジは `color` / `space` / `radius` / `text`(font-sizeのみ)/ `shadow` / `motion.easing` にしか対応していない。以下は名前付きTailwindユーティリティが**生成されない**ため、`[var(--aurora-...)]` のarbitrary value構文で直接参照すること:
 
 - `control.height.*`(control-height-sm等) → `h-[var(--aurora-control-height-md)]`
 - `motion.duration.*` → `duration-[var(--aurora-motion-duration-fast)]`
@@ -33,6 +33,8 @@ button/
 - typographyの `weight`/`line-height`/`tracking`/`family`(`size`だけは`--text-*`経由で使える可能性があるが未検証。現状はTailwind標準の`text-sm`/`font-medium`等で近似している)
 
 新しいコンポーネントでこれ以外の「効かないはずのユーティリティ」を見つけたら、このリストに追記する。
+
+逆に、**影は `shadow-elevation-1` / `shadow-elevation-2` / `shadow-elevation-3` / `shadow-accent-glow` という名前付きユーティリティで書く**(2026-09-08にブリッジ追加)。`shadow-[var(--aurora-shadow-...)]` と書く必要はない。影の値はdark/lightで別物なので、生の`box-shadow`を手書きすると必ずどちらかのテーマで壊れる。
 
 ## 実例
 

@@ -1,19 +1,19 @@
 {
   "color": {
     "bg": {
-      "base": { "$type": "color", "$value": "{color.neutral.900}" },
-      "surface": { "$type": "color", "$value": "{color.neutral.800}" },
-      "raised": { "$type": "color", "$value": "{color.neutral.700}" }
+      "base": { "$type": "color", "$value": "{color.neutral.950}" },
+      "surface": { "$type": "color", "$value": "{color.neutral.900}" },
+      "raised": { "$type": "color", "$value": "{color.neutral.850}" }
     },
     "border": {
-      "subtle": { "$type": "color", "$value": "{color.neutral.600}" },
-      "default": { "$type": "color", "$value": "{color.neutral.500}" },
-      "strong": { "$type": "color", "$value": "{color.neutral.400}" }
+      "subtle": { "$type": "color", "$value": "{color.neutral.800}" },
+      "default": { "$type": "color", "$value": "{color.neutral.700}" },
+      "strong": { "$type": "color", "$value": "{color.neutral.600}" }
     },
     "text": {
       "primary": { "$type": "color", "$value": "{color.neutral.100}" },
-      "secondary": { "$type": "color", "$value": "{color.neutral.200}" },
-      "muted": { "$type": "color", "$value": "{color.neutral.300}" }
+      "secondary": { "$type": "color", "$value": "{color.neutral.400}" },
+      "muted": { "$type": "color", "$value": "{color.neutral.500}" }
     },
     "accent": {
       "default": { "$type": "color", "$value": "{color.frost.400}" },
@@ -23,7 +23,7 @@
     "accent-alt": {
       "default": { "$type": "color", "$value": "{color.plum.500}" }
     },
-    "on-accent": { "$type": "color", "$value": "{color.neutral.900}" },
+    "on-accent": { "$type": "color", "$value": "{color.neutral.950}" },
     "focus-ring": { "$type": "color", "$value": "{color.frost.400}" },
     "status": {
       "success": {

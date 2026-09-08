@@ -17,11 +17,15 @@ function lerp(a, b, t) {
 }
 
 /** Build a hue-locked OKLCH ramp. `known` maps step -> hex (verbatim, unmodified).
- *  `steps` is the full ordered list of step names, darkest first.
+ *  `steps` is the full ordered list of step names, lightest first.
  *  Missing steps are interpolated in L (and C) between their nearest known neighbours,
  *  holding hue fixed at the anchor's hue.
+ *
+ *  `darkStep` / `lightStep` control how far each extrapolated step travels in L
+ *  past the outermost anchor. frost overrides `darkStep` because its light-theme
+ *  steps have to clear WCAG AA against a near-white background (see TOKENS.md).
  */
-function buildRamp(name, steps, known) {
+function buildRamp(name, steps, known, { darkStep = 0.09, lightStep = 0.06 } = {}) {
   const knownEntries = Object.entries(known).map(([step, hex]) => {
     const idx = steps.indexOf(step);
     if (idx === -1) throw new Error(`${name}: unknown step "${step}"`);
@@ -51,57 +55,81 @@ function buildRamp(name, steps, known) {
     } else if (before) {
       // extrapolate darker, taper chroma per Hallmark dark-mode recipe
       const t = i - before.idx;
-      l = Math.max(0.06, before.l - 0.09 * t);
+      l = Math.max(0.06, before.l - darkStep * t);
       c = Math.max(0, before.c - 0.01 * t);
     } else {
-      // extrapolate lighter, taper chroma
+      // extrapolate lighter, taper chroma multiplicatively — a subtractive
+      // taper wipes out neutral's very small chroma entirely and turns the
+      // lightest steps into flat greys instead of silver.
       const t = after.idx - i;
-      l = Math.min(0.98, after.l + 0.06 * t);
-      c = Math.max(0, after.c - 0.015 * t);
+      l = Math.min(0.98, after.l + lightStep * t);
+      c = Math.max(0, after.c * 0.75 ** t);
     }
     result[step] = formatHex({ mode: "oklch", l, c, h: hue });
   }
   return result;
 }
 
-// ---- neutral: the 9 already-approved values, ordered darkest -> lightest,
-// plus one extra computed step (950) darker than bg.base for headroom.
+// ---- neutral: the 9 already-approved values keep their exact hex, but sit on a
+// 13-step scale so the light theme has real steps to work with. The dark theme
+// only ever needed the 100 + 400..950 half of the ramp; light needs bg (3) +
+// border (3) at or above #EEF2F7, which is why 0/50/200/300 exist. Step 0 is
+// pure white so light-theme elevation can travel toward the light source the
+// same way dark-theme elevation travels toward #1A1E2D. See TOKENS.md.
 const neutral = buildRamp(
   "neutral",
-  ["100", "200", "300", "400", "500", "600", "700", "800", "900", "950"],
+  ["0", "50", "100", "200", "300", "400", "500", "600", "700", "800", "850", "900", "950"],
   {
-    "900": "#0A0C14", // bg.base
-    "800": "#12141F", // bg.surface
-    "700": "#1A1E2D", // bg.raised
-    "600": "#1E2230", // border.subtle
-    "500": "#2C3244", // border.default
-    "400": "#454C63", // border.strong
-    "300": "#5C6478", // text.muted
-    "200": "#9CA6BC", // text.secondary
-    "100": "#EEF2F7", // text.primary
+    "0": "#FFFFFF", // light bg.raised / on-accent
+    "100": "#EEF2F7", // dark text.primary / light bg.base
+    "400": "#9CA6BC", // dark text.secondary / light border.strong
+    "500": "#5C6478", // dark text.muted / light text.muted
+    "600": "#454C63", // dark border.strong
+    "700": "#2C3244", // dark border.default / light text.secondary
+    "800": "#1E2230", // dark border.subtle
+    "850": "#1A1E2D", // dark bg.raised
+    "900": "#12141F", // dark bg.surface
+    "950": "#0A0C14", // dark bg.base / light text.primary
   },
 );
 
-// ---- frost (accent): 6 steps, 3 already approved.
-const frost = buildRamp("frost", ["100", "200", "300", "400", "500", "600"], {
-  "200": "#D4F1FA", // accent.glow
-  "400": "#9BDCF0", // accent (default)
-  "600": "#6BB8D6", // accent.dim
-});
+// ---- frost (accent): 8 steps, 3 already approved. 700/800 are extrapolated
+// darker than any approved value because the light theme needs a frost that
+// carries white text at 4.5:1 and a focus ring that clears 3:1 on near-white.
+const frost = buildRamp(
+  "frost",
+  ["100", "200", "300", "400", "500", "600", "700", "800"],
+  {
+    "200": "#D4F1FA", // dark accent.glow / light accent.glow
+    "400": "#9BDCF0", // dark accent (default)
+    "600": "#6BB8D6", // dark accent.dim / light accent.dim
+  },
+  { darkStep: 0.112 },
+);
 
 // ---- plum (accent-alt): 4 steps, 1 already approved. Rare use, never gradient.
 const plum = buildRamp("plum", ["300", "400", "500", "600"], {
   "500": "#6B4C7A",
 });
 
-// ---- status colors: 3 named steps each (solid = approved anchor).
+// ---- status colors: 6 named steps each (solid = approved anchor).
+// The `solid` / `subtle-bg` / `border` trio is tuned for the dark theme — a
+// bright solid on a very dark tinted background. The light theme inverts that
+// relationship, so it gets its own trio rather than reusing values that only
+// read correctly on #0A0C14. `solid-strong` sits at L 0.47, which is dark
+// enough both to be read on `subtle-bg-light` and to carry white text as a
+// filled button background.
 function statusRamp(hex) {
   const anchor = toOklch(hex);
   const hue = anchor.h ?? 0;
+  const c = anchor.c ?? 0;
   return {
     solid: hex,
-    "subtle-bg": formatHex({ mode: "oklch", l: 0.2, c: Math.min(anchor.c ?? 0, 0.06), h: hue }),
-    border: formatHex({ mode: "oklch", l: 0.34, c: Math.min(anchor.c ?? 0, 0.1), h: hue }),
+    "subtle-bg": formatHex({ mode: "oklch", l: 0.2, c: Math.min(c, 0.06), h: hue }),
+    border: formatHex({ mode: "oklch", l: 0.34, c: Math.min(c, 0.1), h: hue }),
+    "solid-strong": formatHex({ mode: "oklch", l: 0.47, c: Math.min(c, 0.16), h: hue }),
+    "subtle-bg-light": formatHex({ mode: "oklch", l: 0.96, c: Math.min(c, 0.05), h: hue }),
+    "border-light": formatHex({ mode: "oklch", l: 0.84, c: Math.min(c, 0.08), h: hue }),
   };
 }
 

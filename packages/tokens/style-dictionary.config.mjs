@@ -4,7 +4,7 @@
 //   1. generate-colors.mjs computes the OKLCH-derived primitive color ramps
 //      and writes src/primitive/color.json (checked in, not hand-edited).
 //   2. Style Dictionary resolves the full DTCG token graph twice — once with
-//      semantic/color.dark.json, once with semantic/color.light.json — and
+//      every semantic/*.dark.json, once with every semantic/*.light.json — and
 //      dumps each fully-resolved tree via the built-in json/nested format.
 //      (Cross-theme merging doesn't fit a single SD format function, so the
 //      dark/light merge happens in step 3 instead of inside Style Dictionary.)
@@ -23,11 +23,14 @@ const distDir = path.join(__dirname, "dist");
 
 await import("./sd/generate-colors.mjs");
 
-async function resolveTheme(themeFile, outFile) {
+// Semantic files are named `<group>.<theme>.json`, so one glob pulls in every
+// group that varies by theme (color, shadow, ...). Adding a newly themed group
+// means adding a pair of files — nothing changes here.
+async function resolveTheme(theme, outFile) {
   const sd = new StyleDictionary({
     source: [
       "src/primitive/**/*.json",
-      `src/semantic/${themeFile}`,
+      `src/semantic/*.${theme}.json`,
       "src/component/**/*.json",
     ],
     platforms: {
@@ -42,8 +45,8 @@ async function resolveTheme(themeFile, outFile) {
   return JSON.parse(await readFile(path.join(cacheDir, outFile), "utf8"));
 }
 
-const darkTree = await resolveTheme("color.dark.json", "dark.json");
-const lightTree = await resolveTheme("color.light.json", "light.json");
+const darkTree = await resolveTheme("dark", "dark.json");
+const lightTree = await resolveTheme("light", "light.json");
 
 const written = await emitAll({ darkTree, lightTree, distDir });
 

@@ -74,9 +74,20 @@ Vercel製。ニュートラルで幾何学的、開発者向けUIの定番。Nex
 | `elevation.1` | Card | 弱い影 + 上端にごく薄い光の線(白4%、1px) |
 | `elevation.2` | Popover / Menu | 中程度の影 + 白6%の縁取り |
 | `elevation.3` | Dialog / Sheet | 強めの影 + 白8%の縁取り |
-| `elevation.accent-glow` | フォーカスリング等 | accent色(frost `#9BDCF0`)を25%不透明度でにじませる |
+| `elevation.accent-glow` | フォーカスリング等 | accent色をにじませる |
 
-具体的な`box-shadow`値はPhase 1実装時にStyle Dictionaryのcustom formatで生成する(下地が`bg.base #0B0D10`固定のdarkと、`bg.base`が明るいlightで濃度を変える必要があるため)。
+**shadowはsemantic層でdark/lightを分ける**(2026-09-08実装)。下地が`#0A0C14`のdarkと`#EEF2F7`のlightでは、同じ影がまったく違って見えるため。ソースは`src/semantic/shadow.{dark,light}.json`(primitiveではない)。
+
+| トークン | dark | light |
+|---|---|---|
+| `elevation-1` | `0 1px 2px rgba(0,0,0,.4)` + 白4%の上端線 | `0 1px 2px rgba(10,12,20,.06)` + `0 1px 3px rgba(10,12,20,.04)` |
+| `elevation-2` | `0 4px 12px rgba(0,0,0,.5)` + 白6%の縁 | `0 4px 12px rgba(10,12,20,.10)` + 影色4%の縁 |
+| `elevation-3` | `0 12px 32px rgba(0,0,0,.6)` + 白8%の縁 | `0 12px 32px rgba(10,12,20,.16)` + 影色6%の縁 |
+| `accent-glow` | `rgba(155,220,240,.3)` を32pxにじませる | `rgba(57,113,134,.35)`(lightのaccentは`frost.800`のため) |
+
+- **白い縁取りはdark専用の手法**。lightでは背景より明るい線が引けないので使わない(`contract.test.ts`で検査)
+- 影の色はlightでも黒ではなく`neutral.950`のRGB(`10, 12, 20`)を使う。パレットに合わせて影をわずかに寒色に寄せるため
+- Tailwind側は`--shadow-*`名前空間にブリッジ済みなので、`shadow-elevation-1`のような**名前付きユーティリティが使える**(arbitrary valueは不要)
 
 ## motion
 
@@ -164,27 +175,49 @@ warning #E8C468(冬の弱い陽光)   info   #7BC4E8(氷片の青、accentより
 
 `gradient.aurora`(旧: mint→violetの135degグラデーション)は**廃止**。特別な質感が欲しい場面は上記の`effect.metallic`(銀の合金風グラデーション)を使う。
 
-lightモードのsemanticマッピング(surfaceを明るく、textを暗くする対応表)は、このパレットを元にPhase 1で確定する。
+lightモードのsemanticマッピング(2026-09-08確定、`src/semantic/color.light.json`):
+
+```
+bg.base        neutral.100 #EEF2F7   bg.surface     neutral.50 #F7F8FB   bg.raised      neutral.0 #FFFFFF
+border.subtle  neutral.200 #D4D7E3   border.default neutral.300 #B8BECF  border.strong  neutral.400 #9CA6BC
+text.primary   neutral.950 #0A0C14   text.secondary neutral.700 #2C3244  text.muted     neutral.500 #5C6478
+
+accent         frost.800 #397186     accent.dim  frost.600 #6BB8D6      accent.glow  frost.200 #D4F1FA
+on-accent      neutral.0 #FFFFFF     focus-ring  frost.800 #397186
+status.*       solid-strong / subtle-bg-light / border-light(下記の段階数の表を参照)
+```
+
+darkでは`accent`が発光する側(明るい水色)だが、lightでは白文字を乗せる必要があるため`accent`は濃い側(`frost.800`)に、`accent.glow`はhover背景などに使う淡い側に振っている。`accent.dim`は「主張を弱めたaccent」という役割は共通だが、darkでは暗い方向・lightでは明るい方向にずれる。
 
 ### primitiveランプの段階数
 
 | 色ファミリー | 段階数 | 理由 |
 |---|---|---|
-| `neutral`(bg/border/textの元、銀の階調) | 10段階 | dark/light両方のbg・border・text(各3階調)をこれ1本で賄うため、ここだけ多めに必要 |
-| `frost`(accent) | 6段階 | dim/default/glow + hover用の余裕分だけ。フルレンジ不要 |
+| `neutral`(bg/border/textの元、銀の階調) | 13段階(`0` / `50` / `100` / `200` / `300` / `400` / `500` / `600` / `700` / `800` / `850` / `900` / `950`) | dark/light両方のbg・border・text(各3階調)をこれ1本で賄うため、ここだけ多めに必要 |
+| `frost`(accent) | 8段階(`100`〜`800`) | dark用に`200`/`400`/`600`、light用に白文字が乗る濃さの`700`/`800`が要る |
 | `plum`(accent-alt、稀にしか使わない) | 4段階 | グラデーションを組まないので6段階も不要。用途が限定的なため少なめ |
-| `success` / `danger` / `warning` / `info` | 各3段階(solid / subtle-bg / border) | 「濃淡のグラデーション」ではなく「用途別の3値」で十分 |
+| `success` / `danger` / `warning` / `info` | 各6段階(dark用 `solid` / `subtle-bg` / `border` + light用 `solid-strong` / `subtle-bg-light` / `border-light`) | 「濃淡のグラデーション」ではなく「用途別の値」。ただしdarkの3値はlightで役割が反転するため、lightは別の3値を持つ |
 
-合計 **10 + 6 + 4 + 3×4 = 32個**。
+合計 **13 + 8 + 4 + 6×4 = 49個**。
 
 - 色空間: OKLCH(知覚的に均等なランプを作れるため、Tailwind v4やRadix Colorsと同じ考え方)
 - 生成方法: 各基準色をランプ内の特定ステップに固定(アンカー)し、そこから明度・彩度を補間して他のステップを生成する
-- アンカー案(実装時に微調整可):
-  - neutral: `#0A0C14`側を900、`#EEF2F7`側を100付近に配置
-  - frost(accent): `#9BDCF0` → 400付近
+- アンカー(`packages/tokens/sd/generate-colors.mjs`、承認済みhexはそのまま使い、間のステップだけ計算する):
+  - neutral: `#EEF2F7`→`100`、`#9CA6BC`→`400`、`#5C6478`→`500`、`#454C63`→`600`、`#2C3244`→`700`、`#1E2230`→`800`、`#1A1E2D`→`850`、`#12141F`→`900`、`#0A0C14`→`950`。`0`は純白(`#FFFFFF`)固定、`50`/`200`/`300`は補間
+  - frost(accent): `#D4F1FA`→`200`、`#9BDCF0`→`400`、`#6BB8D6`→`600`。`700`/`800`は暗い側に外挿(step幅0.112)
   - plum(accent-alt): `#6B4C7A` → 500付近
-  - success/danger/warning/info: それぞれ「solid」ステップに`#7FE8B8` / `#E85D6B` / `#E8C468` / `#7BC4E8`を配置
+  - success/danger/warning/info: それぞれ「solid」ステップに`#7FE8B8` / `#E85D6B` / `#E8C468` / `#7BC4E8`を配置。`solid-strong`はL=0.47固定(pale背景上で読め、かつ白文字を乗せられる濃さ)
 - ツール: `culori`(npm)などでOKLCH計算を行うスクリプトを`packages/tokens`に用意する。手書きJSONではなく生成JSONにする
+
+#### 段階数を10→13(neutral)/6→8(frost)/3→6(status)に増やした理由(2026-09-08)
+
+当初はdark基調で段階数を絞ったが、lightモードのsemanticを割り当てる段になって**明るい側の段が足りない**ことが判明した(`contract.test.ts`のWCAGチェックが4件失敗)。具体的には:
+
+- neutral: `#EEF2F7`が最も明るい段だったため、lightの`bg.base`/`bg.surface`/`bg.raised`が`#EEF2F7`/`#9CA6BC`/`#5C6478`という中間グレーまで落ちていた
+- frost: 最も暗い段が`#6BB8D6`で、lightのprimaryボタン(白文字)もフォーカスリング(白背景上)も基準を満たせなかった
+- status: `subtle-bg`(L=0.2)がdark専用の極端に暗い値で、lightでもそのまま使われていた
+
+**lightのelevationは「白に向かって上がる」**(darkが`#1A1E2D`に向かって上がるのと対称)ので、`bg.raised`に純白が要る。これが`neutral.0`を置いた理由。
 
 ### 国際規格との整合
 
@@ -204,8 +237,8 @@ lightモードのsemanticマッピング(surfaceを明るく、textを暗くす�
 
 ### エフェクトとシェーダーの境界(重要なアーキテクチャ決定)
 
-- **effect(CSSベース)**: `packages/tokens`にトークンとして持ち、`packages/ui`のコンポーネントからも使える。バンドルサイズへの影響はごくわずか
-- **shader(GLSL/Three.js)**: `PROJECT_PLAN.md` 5章の方針通り、`apps/docs/src/art/`専用のまま変更しない。`packages/ui`に`three`を持ち込むとバンドルが肥大化するため
-- **依存の向きは一方向**: シェーダーは`@unz47/tokens`から色の値をJSでimportして使ってよい(例: curl-noiseフローフィールドの色にaccentを使う)。逆に`packages/tokens`や`packages/ui`がシェーダーコードに依存することはない
+- **effect(CSSベース)**: `packages/tokens`にトークンとして持ち、`packages/react`のコンポーネントからも使える。バンドルサイズへの影響はごくわずか
+- **shader(GLSL/Three.js)**: `PROJECT_PLAN.md` 5章の方針通り、`apps/docs/src/art/`専用のまま変更しない。`packages/react`に`three`を持ち込むとバンドルが肥大化するため
+- **依存の向きは一方向**: シェーダーは`@frost-ui/tokens`から色の値をJSでimportして使ってよい(例: curl-noiseフローフィールドの色にaccentを使う)。逆に`packages/tokens`や`packages/react`がシェーダーコードに依存することはない
 
 Style Dictionaryの出力としては、`effect.*`は`css/theme.css`に`--aurora-effect-*`のCSS変数として、`frost`のようなbackdrop-filterを使う効果は再利用可能な`@utility`(Tailwind v4)としても`dist/css/theme.css`に含める。
