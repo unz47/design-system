@@ -2,12 +2,14 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/docs/theme-toggle";
 import { FOUNDATION_PAGES } from "@/lib/tokens";
 import { getSlugs, registry } from "@/registry";
+import { getPatternSlugs, patterns } from "@/registry/patterns";
 
 const NAV_LINK =
   "block rounded-control px-sp-xs py-sp-3xs text-sm text-text-secondary hover:bg-bg-raised hover:text-text-primary";
 
 export function Sidebar() {
   const slugs = getSlugs();
+  const patternSlugs = getPatternSlugs();
 
   return (
     <nav className="w-56 shrink-0 border-r border-border-subtle p-sp-lg">
@@ -35,6 +37,17 @@ export function Sidebar() {
             全トークン
           </Link>
         </li>
+      </ul>
+
+      <p className="mt-sp-lg text-xs uppercase tracking-wide text-text-muted">Patterns</p>
+      <ul className="mt-sp-xs flex flex-col gap-sp-3xs">
+        {patternSlugs.map((slug) => (
+          <li key={slug}>
+            <Link href={`/patterns/${slug}`} className={NAV_LINK}>
+              {patterns[slug].name}
+            </Link>
+          </li>
+        ))}
       </ul>
 
       <p className="mt-sp-lg text-xs uppercase tracking-wide text-text-muted">Components</p>
