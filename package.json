@@ -14,9 +14,12 @@
     "test": "turbo test",
     "clean": "turbo clean",
     "tokens": "turbo build --filter=@frost-ui/tokens",
-    "tokens:check": "pnpm tokens && git diff --exit-code -- packages/tokens/dist"
+    "tokens:check": "pnpm tokens && git diff --exit-code -- packages/tokens/dist",
+    "changeset": "changeset",
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^3.0.3",
     "turbo": "^2.4.4",
     "typescript": "^5.9.0"
   }

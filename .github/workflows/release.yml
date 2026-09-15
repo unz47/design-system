@@ -1,0 +1,52 @@
+# changesets による公開フロー。
+# main に変更セット(.changeset/*.md)がある状態で push されると「Version Packages」PR を作り、
+# その PR をマージすると npm に公開する。
+# 必要な secret: NPM_TOKEN(npmjs.com の Granular Access Token、@frost-ui スコープに publish 権限)
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency: release-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: 型 / lint
+        run: pnpm verify
+
+      - name: ビルド(tokens の dist を再生成)
+        run: pnpm build
+
+      - name: Version PR の作成 or 公開
+        uses: changesets/action@v1
+        with:
+          version: pnpm changeset version
+          publish: pnpm release
+          commit: "release: パッケージのバージョンを更新"
+          title: "release: パッケージのバージョンを更新"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
