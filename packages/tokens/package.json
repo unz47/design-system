@@ -1,17 +1,46 @@
 {
   "name": "@frost-ui/tokens",
   "version": "0.0.0",
-  "private": true,
+  "description": "Aurora(Frost / Silver)デザイントークン。CSS 変数・Tailwind v4 テーマ・NativeWind preset・JS オブジェクトを配布する",
+  "license": "MIT",
+  "author": "Tomoya Saito",
+  "homepage": "https://github.com/unz47/design-system#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unz47/design-system.git",
+    "directory": "packages/tokens"
+  },
+  "bugs": {
+    "url": "https://github.com/unz47/design-system/issues"
+  },
+  "keywords": [
+    "design-tokens",
+    "tailwindcss",
+    "css-variables",
+    "nativewind",
+    "style-dictionary"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
+  "sideEffects": false,
   "exports": {
-    ".": { "types": "./dist/js/index.d.ts", "default": "./dist/js/index.js" },
+    ".": {
+      "types": "./dist/js/index.d.ts",
+      "default": "./dist/js/index.js"
+    },
     "./theme.css": "./dist/css/theme.css",
     "./variables.css": "./dist/css/variables.css",
     "./native/preset": "./dist/native/preset.js",
     "./native/global.css": "./dist/native/global.css",
     "./figma": "./dist/figma/variables.json"
   },
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "build": "node style-dictionary.config.mjs",
     "typecheck": "tsc --noEmit",

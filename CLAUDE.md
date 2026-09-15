@@ -24,3 +24,4 @@
 - ESLint 9 flat config。Prettier/Biomeは使わない。
 - ドキュメント・コミットメッセージは日本語。
 - `packages/tokens/dist/` は生成物だがgit管理する(`pnpm tokens:check` でドリフト検査するため)。
+- `@frost-ui/tokens` と `@frost-ui/react` は npm 公開パッケージ(MIT)。公開対象を変更したら `pnpm changeset` で変更セットを添える。公開フローは `.changeset/README.md` と `.github/workflows/release.yml`。

@@ -1,7 +1,28 @@
 {
   "name": "@frost-ui/react",
   "version": "0.0.0",
-  "private": true,
+  "description": "Aurora(Frost / Silver)の React コンポーネント 36 個。Base UI + Tailwind v4。TypeScript ソースのまま配布する",
+  "license": "MIT",
+  "author": "Tomoya Saito",
+  "homepage": "https://github.com/unz47/design-system#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unz47/design-system.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/unz47/design-system/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "design-system",
+    "tailwindcss",
+    "base-ui"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
@@ -11,7 +32,9 @@
     "./organisms/*": "./src/components/organisms/*/index.ts"
   },
   "files": [
-    "src"
+    "src",
+    "LICENSE",
+    "README.md"
   ],
   "scripts": {
     "typecheck": "tsc --noEmit",
