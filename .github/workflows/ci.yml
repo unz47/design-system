@@ -1,0 +1,40 @@
+# PROJECT_PLAN.md §7: install → verify → build → tokens:check
+# pnpm のバージョンは package.json の packageManager、Node は .nvmrc に従う。
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: 型 / lint
+        run: pnpm verify
+
+      - name: テスト(トークンの契約テスト・docs の coverage テスト)
+        run: pnpm test
+
+      - name: ビルド
+        run: pnpm build
+
+      # dist/ はコミットする運用。再生成して差分が出たら、手編集か生成し忘れ
+      - name: トークン生成物のドリフト検査
+        run: pnpm tokens:check
