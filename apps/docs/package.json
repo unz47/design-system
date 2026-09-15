@@ -7,25 +7,34 @@
     "build": "next build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
+    "test": "vitest run",
     "verify": "tsc --noEmit && eslint ."
   },
   "dependencies": {
-    "@unz47/tokens": "workspace:*",
-    "@unz47/ui": "workspace:*",
+    "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
+    "@next/mdx": "^16.2.9",
+    "@frost-ui/tokens": "workspace:*",
+    "@frost-ui/react": "workspace:*",
     "next": "^16.2.9",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.0",
+    "shiki": "^1.24.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.0",
+    "@types/mdx": "^2.0.13",
     "@types/node": "^22.10.0",
     "@types/react": "^19.2.4",
     "@types/react-dom": "^19.2.4",
-    "@unz47/eslint-config": "workspace:*",
-    "@unz47/tsconfig": "workspace:*",
+    "@frost-ui/eslint-config": "workspace:*",
+    "@frost-ui/tsconfig": "workspace:*",
     "eslint": "^9.19.0",
     "eslint-config-next": "^16.2.9",
     "tailwindcss": "^4.1.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.0"
   }
 }

@@ -1,0 +1,13 @@
+Table は表の見た目のプリミティブ。`Table` / `TableHeader` / `TableBody` / `TableFooter` / `TableRow` / `TableHead` / `TableCell` / `TableCaption` で構成する。
+
+## ソートやページングは入っていない
+
+ここにあるのは見た目だけで、**ソート・フィルタ・ページングを持つ DataTable は含めない**。テーブルの使い方はアプリごとに違いすぎるので、コピペ可能なレシピとして docs の `patterns/` に置く方針(`PROJECT_PLAN` 3章)。
+
+そのため TanStack Table への依存も `packages/react` には入れていない。レシピ側でだけ使う。
+
+## 横スクロールはラッパーが持つ
+
+`Table` は内部で `overflow-x-auto` のラッパーを1枚描く。`<table>` 自身に overflow をかけてもスクロールしないため。おかげで、狭い画面でもページ全体が横に伸びない。
+
+`TableHead` は `scope="col"` を既定にしている。付け忘れると、スクリーンリーダーがセルと見出しの対応を読み上げられない。

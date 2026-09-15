@@ -1,0 +1,15 @@
+Input は1行のテキスト入力。高さは `control.height` トークンを参照しているので、Button や(今後の)Select トリガと自動的に揃う。
+
+## 不正値は prop ではなく aria-invalid で表す
+
+`invalid` や `error` という prop は用意していない。`aria-invalid` を付ければ枠線とフォーカスリングが danger 色に変わる。
+
+```tsx
+<Input aria-invalid={!!errors.email} aria-describedby="email-error" />
+```
+
+支援技術に伝わる状態と見た目が必ず一致し、消費側が状態を二重に持たなくて済む。エラーメッセージ自体は `aria-describedby` で結ぶ。
+
+## ネイティブの size 属性は使えない
+
+`<input size>`(表示文字数)は cva の `size` と名前が衝突するため、型から外してある。文字数で幅を決めたい場面は実質無く、幅は `className` で指定する。

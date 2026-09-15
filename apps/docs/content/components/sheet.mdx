@@ -1,0 +1,9 @@
+Sheet は画面の端から出る面。`side` で `right`(既定)/ `left` / `top` / `bottom` を選ぶ。
+
+## 土台は Dialog ではなく Drawer
+
+計画時点では「Dialog を土台にする」としていたが、Base UI 1.8 には **Drawer**(スワイプで閉じる挙動つき)があるのでそちらを使っている。モバイルで指で閉じられる挙動は、Dialog を自前で滑らせても得られない。
+
+`side` は「どの辺から出るか」と「どちら向きにスワイプすれば閉じるか」の両方を決める。Base UI では前者が Popup、後者が Root のpropなので、**`Sheet`(Root)で受けて context で配っている** — 消費側が同じことを2回書かないため。
+
+構造は `SheetHeader` / `SheetBody` の2つ。Body だけが縦スクロールするので、長い内容でもヘッダが残る。

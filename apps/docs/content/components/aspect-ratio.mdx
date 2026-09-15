@@ -1,0 +1,5 @@
+AspectRatio は縦横比を固定する箱。**Base UI に等価物は無い**ので、CSS の `aspect-ratio` プロパティを使った自前実装になっている。
+
+padding-top ハック(`padding-bottom: 56.25%`)を使うライブラリ実装があるが、`aspect-ratio` が全モダンブラウザで使える今、持ち込む理由が無い。
+
+`ratio` は `16 / 9` のように式で書く。子要素には `size-full` と `object-cover` が自動で当たるので、`<img>` をそのまま置ける。

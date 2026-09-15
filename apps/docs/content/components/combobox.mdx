@@ -1,0 +1,21 @@
+Combobox は入力で絞り込みながら選ぶ。**計画では「Command + Popover の自作合成」を想定していたが、Base UI が Combobox をネイティブに持つのでその必要は無い。** 絞り込みもキーボード操作も Base UI 側の仕事。
+
+候補は `items` に渡し、`ComboboxList` の子をレンダー関数にすると絞り込み後の候補が流れてくる。
+
+```tsx
+<Combobox items={COMPONENTS}>
+  <ComboboxInput placeholder="コンポーネントを探す" />
+  <ComboboxContent>
+    <ComboboxEmpty>該当なし</ComboboxEmpty>
+    <ComboboxList>{(item) => <ComboboxItem value={item}>{item}</ComboboxItem>}</ComboboxList>
+  </ComboboxContent>
+</Combobox>
+```
+
+## Empty を必ず置く
+
+`ComboboxEmpty` を省くと、候補ゼロのときに空のパネルが黙って開く。「絞り込みが効いていない」のか「候補が無い」のか区別がつかないので、必ず置く。
+
+## Select との使い分け
+
+候補が10個を超える、あるいはユーザーが名前で探す性質のものなら Combobox。それ以下で全部見せたいなら Select。

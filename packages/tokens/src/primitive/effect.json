@@ -1,7 +1,7 @@
 {
   "effect": {
     "metallic": {
-      "gradient": { "$type": "string", "$value": "linear-gradient(135deg, {color.neutral.300} 0%, {color.neutral.100} 25%, {color.neutral.400} 50%, {color.neutral.100} 75%, {color.neutral.300} 100%)" }
+      "gradient": { "$type": "string", "$value": "linear-gradient(135deg, {color.neutral.500} 0%, {color.neutral.100} 25%, {color.neutral.600} 50%, {color.neutral.100} 75%, {color.neutral.500} 100%)" }
     },
     "frost": {
       "blur": { "$type": "dimension", "$value": "18px" },

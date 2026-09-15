@@ -1,0 +1,9 @@
+Menu はトリガから開く操作の一覧(いわゆる DropdownMenu)。`MenuItem` / `MenuGroup` / `MenuGroupLabel` / `MenuSeparator` で構成する。
+
+項目のハイライトは `data-highlighted` で、マウスホバーでもキーボード移動でも同じ属性が付く。だから見た目の分岐は1つで済む。
+
+`MenuSubmenu` + `MenuSubmenuTrigger` で入れ子にできる。入れ子のトリガは項目と同じ見た目にしている。
+
+## 選択ではなく操作
+
+「値を選ぶ」なら Select、「何かをする」なら Menu。チェックの付く項目が欲しい場合は Base UI の `Menu.CheckboxItem` / `Menu.RadioItem` を直接使う(まだ薄いラッパーを用意していない)。

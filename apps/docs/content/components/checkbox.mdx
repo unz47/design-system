@@ -1,0 +1,11 @@
+Checkbox は真偽値の入力。`indeterminate` で「一部だけ選択」の第3状態も出せる。
+
+状態は Base UI が `data-checked` / `data-indeterminate` / `data-disabled` 属性で出すので、Tailwind の `data-*` variant でそのまま分岐している。
+
+## アイコンはインラインSVG
+
+チェックマークは lucide-react ではなくインラインSVGで描いている。1コンポーネントのために依存を1つ増やすと消費側のバンドルに効くため、Tier 0 のアイコン規約(lucide の size/stroke をどう扱うか)が決まるまで持ち込まない方針。
+
+## Label との結び方
+
+`<Checkbox id="x" />` + `<Label htmlFor="x">` で結ぶ。Base UI が内部で `<input type="checkbox">` を描画するので、ラベルクリックでのトグルもフォーム送信も素の挙動が効く。

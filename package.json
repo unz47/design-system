@@ -11,8 +11,9 @@
     "typecheck": "turbo typecheck",
     "lint": "turbo lint",
     "verify": "turbo verify",
+    "test": "turbo test",
     "clean": "turbo clean",
-    "tokens": "turbo build --filter=@unz47/tokens",
+    "tokens": "turbo build --filter=@frost-ui/tokens",
     "tokens:check": "pnpm tokens && git diff --exit-code -- packages/tokens/dist"
   },
   "devDependencies": {

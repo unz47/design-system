@@ -1,0 +1,10 @@
+Popover はトリガに紐づく小さな面。`side` / `align` / `sideOffset` はそのまま Base UI の Positioner に流している。
+
+Portal + Positioner + Popup の3階層は `PopoverContent` に畳んである。配置propsだけを表に出しているので、消費側は `<PopoverContent side="top" align="start">` と書ける。
+
+## Tooltip との使い分け
+
+- 読むだけの短い補足 → Tooltip(ホバーで出る、フォーカスできない)
+- 中に操作がある / コピーできるテキストがある → Popover(クリックで開く、中にフォーカスが移る)
+
+ホバーで開いて中にボタンがある、という作りにはしない。ポインタを離した瞬間に閉じて操作できない。

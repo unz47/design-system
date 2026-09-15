@@ -1,0 +1,7 @@
+Slider は範囲から値を選ぶ。`defaultValue` に配列を渡すと範囲スライダーになる。
+
+Base UI はつまみを自動では増やさないので、`<Slider.Thumb index={n} />` を値の数だけ並べる必要がある。合成形を1つに畳んだぶん、その面倒はこのコンポーネントが見ている(`value ?? defaultValue` の形からつまみの数を決める)。
+
+つまみは掴んでいる間 `data-dragging` が付くので、`shadow-accent-glow` を当てて「今掴んでいる」ことを示している。dark/lightどちらでも成立するよう、影は生値ではなくトークンのユーティリティで書く。
+
+数値を横に出したい場合は Base UI の `Slider.Value` を直接使う。ここでは最小構成(Control / Track / Indicator / Thumb)だけを畳んでいる。

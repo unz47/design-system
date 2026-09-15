@@ -1,0 +1,31 @@
+{
+  "shadow": {
+    "elevation-1": {
+      "$type": "shadow",
+      "$value": [
+        { "color": "rgba(10, 12, 20, 0.06)", "offsetX": "0px", "offsetY": "1px", "blur": "2px", "spread": "0px" },
+        { "color": "rgba(10, 12, 20, 0.04)", "offsetX": "0px", "offsetY": "1px", "blur": "3px", "spread": "0px" }
+      ]
+    },
+    "elevation-2": {
+      "$type": "shadow",
+      "$value": [
+        { "color": "rgba(10, 12, 20, 0.1)", "offsetX": "0px", "offsetY": "4px", "blur": "12px", "spread": "0px" },
+        { "color": "rgba(10, 12, 20, 0.04)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "1px" }
+      ]
+    },
+    "elevation-3": {
+      "$type": "shadow",
+      "$value": [
+        { "color": "rgba(10, 12, 20, 0.16)", "offsetX": "0px", "offsetY": "12px", "blur": "32px", "spread": "0px" },
+        { "color": "rgba(10, 12, 20, 0.06)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "1px" }
+      ]
+    },
+    "accent-glow": {
+      "$type": "shadow",
+      "$value": [
+        { "color": "rgba(57, 113, 134, 0.35)", "offsetX": "0px", "offsetY": "0px", "blur": "32px", "spread": "0px" }
+      ]
+    }
+  }
+}

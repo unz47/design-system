@@ -1,0 +1,15 @@
+Alert は文脈に沿った注記。`Alert` / `AlertTitle` / `AlertDescription` の3つで構成する。
+
+status系の variant は Badge と同じく `subtle-bg` + `border` + `solid` の組み合わせで、dark では「暗い背景に明るい文字」、light では「淡い背景に濃い文字」に反転する。
+
+## role は自分で決める
+
+`Alert` は `role="alert"` を自動では付けない。付けるべきなのは**操作の結果として現れた**ものだけで、ページ読み込み時から出ている注記に付けると、開くたびに読み上げが割り込む。
+
+```tsx
+{/* 常設の注記 — role なし */}
+<Alert variant="info">…</Alert>
+
+{/* 送信失敗など、操作の結果 — role="alert" */}
+<Alert variant="danger" role="alert">…</Alert>
+```

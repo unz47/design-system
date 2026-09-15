@@ -1,0 +1,5 @@
+Switch は「その場で効く設定」のトグル。保存ボタンを押して初めて反映されるものは Switch ではなく Checkbox を使う。
+
+Root と Thumb は1つのコンポーネントに畳んである。Thumb だけ差し替えたい要求は実際には出ず、消費側が毎回2階層書かされるコストのほうが大きいため。トラックには `className`、つまみには `thumbClassName` が当たる。
+
+状態は `data-checked` / `data-unchecked` / `data-disabled`。つまみの移動も `data-checked:translate-x-5` で、JSからスタイルを触らない。

@@ -1,0 +1,17 @@
+Dialog はモーダル。`Dialog` / `DialogTrigger` / `DialogContent` / `DialogTitle` / `DialogDescription` / `DialogClose` で構成する。
+
+Portal・Backdrop・Popup の3階層は `DialogContent` に畳んである。ポータル先を変えたいような要求は実際には出ず、毎回3階層書かせるコストのほうが大きい。
+
+## トリガに自作コンポーネントを差し込む
+
+Base UI には Radix の `asChild` が無いので、`render` prop を使う。
+
+```tsx
+<DialogTrigger render={<Button variant="secondary" />}>設定を開く</DialogTrigger>
+```
+
+Button 側は受け取った props を `<button>` にそのまま展開するだけなので、これで ref もイベントも正しく繋がる。
+
+## 開閉アニメーション
+
+Base UI が `data-starting-style` / `data-ending-style` を付ける間だけ透明・縮小にして、CSSトランジションで補間している。JSでアニメーションを回していないので、`prefers-reduced-motion` は `motion-reduce:transition-none` 一行で効く。

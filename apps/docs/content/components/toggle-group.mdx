@@ -1,0 +1,5 @@
+ToggleGroup は Toggle をまとめて、押下状態の管理を引き受ける。中身には `atoms/toggle` の Toggle をそのまま並べる — Group に入れるために Toggle 側を変える必要はない。
+
+`value` は配列。既定では複数選択で、排他にしたい場合は Base UI の `toggleMultiple={false}` を渡す。
+
+外枠だけが `border` を持ち、内側の Toggle は角丸を保ったまま並ぶ。隣り合う枠線が二重に見えるのを避けるため。
