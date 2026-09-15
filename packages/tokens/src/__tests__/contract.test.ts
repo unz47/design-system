@@ -149,6 +149,96 @@ describe("Tailwind v4/v3 出力の整合性", () => {
   });
 });
 
+describe("Figma Variables ペイロード", () => {
+  type Alias = { type: "VARIABLE_ALIAS"; collection: string; name: string };
+  type FigmaVariable = {
+    name: string;
+    type: string;
+    scopes: string[];
+    codeSyntax: { WEB: string };
+    values: Record<string, Alias | Record<string, number> | number | string>;
+  };
+  const figma = JSON.parse(readFileSync(path.join(distDir, "figma/variables.json"), "utf8")) as {
+    meta: { tokensHash: string };
+    collections: Array<{ name: string; modes: string[]; variables: FigmaVariable[] }>;
+  };
+  const byKey = new Map(figma.collections.flatMap((c) => c.variables.map((v) => [`${c.name}:${v.name}`, v] as const)));
+  const isAlias = (value: unknown): value is Alias =>
+    typeof value === "object" && value !== null && (value as { type?: string }).type === "VARIABLE_ALIAS";
+
+  it("primitive / semantic / component の3コレクションで、semanticだけがDark/Lightの2モードを持つ", () => {
+    expect(figma.collections.map((c) => [c.name, c.modes])).toEqual([
+      ["primitive", ["Value"]],
+      ["semantic", ["Dark", "Light"]],
+      ["component", ["Value"]],
+    ]);
+  });
+
+  it("エイリアスの参照先が実在し、型が一致する", () => {
+    for (const collection of figma.collections) {
+      for (const variable of collection.variables) {
+        for (const value of Object.values(variable.values)) {
+          if (!isAlias(value)) continue;
+          const target = byKey.get(`${value.collection}:${value.name}`);
+          expect(target, `${collection.name}:${variable.name} の参照先 ${value.collection}:${value.name} が無い`).toBeDefined();
+          expect(target?.type, `${collection.name}:${variable.name} と参照先の型が違う`).toBe(variable.type);
+        }
+      }
+    }
+  });
+
+  it("semanticの色は全てprimitiveへのエイリアス(生の色を直接持たない)", () => {
+    const semantic = figma.collections.find((c) => c.name === "semantic");
+    for (const variable of (semantic?.variables ?? []).filter((v) => v.name.startsWith("color/"))) {
+      for (const [mode, value] of Object.entries(variable.values)) {
+        expect(
+          isAlias(value) && value.collection === "primitive",
+          `semantic:${variable.name}(${mode})がprimitiveへのエイリアスになっていない`,
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("codeSyntax.WEB が variables.css に実在する変数を指す", () => {
+    for (const variable of byKey.values()) {
+      const name = /^var\(--(.+)\)$/.exec(variable.codeSyntax.WEB)?.[1];
+      expect(name && darkEntries.has(name), `${variable.name} の codeSyntax ${variable.codeSyntax.WEB} が存在しない`).toBe(true);
+    }
+  });
+
+  it("OPACITYスコープの値はパーセント(Figmaは不透明度に紐付けた変数を0–100で解釈する)", () => {
+    const opacityVars = [...byKey.values()].filter((v) => v.scopes.includes("OPACITY"));
+    expect(opacityVars.length).toBeGreaterThan(0);
+    for (const variable of opacityVars) {
+      for (const value of Object.values(variable.values)) {
+        expect(
+          typeof value === "number" && value > 1 && value <= 100,
+          `${variable.name} = ${JSON.stringify(value)} が0–1のまま(Figmaでは0.5が0.5%になる)`,
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("エフェクトスタイル(shadow)の各層がsemanticの変数に紐付き、色と数値の型が合っている", () => {
+    const { effectStyles } = figma as unknown as { effectStyles: Array<{ name: string; layers: Array<Record<string, string>> }> };
+    const shadowNames = [...darkEntries.keys()].filter((n) => n.startsWith("aurora-shadow-"));
+    expect(effectStyles.map((s) => `aurora-${s.name.replaceAll("/", "-")}`).sort()).toEqual(shadowNames.sort());
+    for (const style of effectStyles) {
+      for (const layer of style.layers) {
+        for (const [field, name] of Object.entries(layer)) {
+          const variable = byKey.get(`semantic:${name}`);
+          expect(variable, `${style.name} の ${field} の紐付け先 semantic:${name} が無い`).toBeDefined();
+          expect(variable?.type).toBe(field === "color" ? "COLOR" : "FLOAT");
+        }
+      }
+    }
+  });
+
+  it("ドリフト検知用にトークンソースのハッシュを持つ", () => {
+    expect(figma.meta.tokensHash).toMatch(/^[0-9a-f]{16}$/);
+  });
+});
+
 describe("WCAG AA コントラスト", () => {
   // 実際にButton/Badgeのvariantが組み合わせて使っているtext×bgペア。
   // type: "text" は4.5:1、"ui"(枠線やフォーカスリングなど非テキスト要素)は3:1。

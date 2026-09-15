@@ -48,7 +48,7 @@ async function resolveTheme(theme, outFile) {
 const darkTree = await resolveTheme("dark", "dark.json");
 const lightTree = await resolveTheme("light", "light.json");
 
-const written = await emitAll({ darkTree, lightTree, distDir });
+const written = await emitAll({ darkTree, lightTree, srcDir: path.join(__dirname, "src"), distDir });
 
 await rm(cacheDir, { recursive: true, force: true });
 

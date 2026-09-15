@@ -450,10 +450,36 @@ docs側は7個ぶんの registry エントリ・demo・MDX・API表を同時に�
 
 ### Phase 6 — アート + Figma + リリース
 - [ ] `src/art/aurora-field`(r3f + shader + Bloom)、`/`・`/about`・`patterns` 3本、OG画像
-- [ ] Figma Variables 3コレクション + Tier 1–2コンポーネント構築、`figma-sync` skill
+- [x] Figma Variables 3コレクション + Tier 1–2コンポーネント構築、`figma-sync` skill(2026-09-15。公開リンクは未設定)
 - [ ] changesets導入、`0.1.0` publish
 - [ ] デプロイ先を決定
 - **完了**: トップが見せられる状態(Lighthouse Perf ≥85、A11y 100)。Figmaが公開リンクで見られる。npm経由で既存アプリが動く
+
+**実装メモ(2026-09-15、Figma準備)**: `dist/figma/variables.json` が色だけ・エイリアス無し・2コレクションで、6章の設計を満たしていなかったので作り直した。
+
+- Style Dictionaryの解決済みツリーではなく**ソースのDTCG JSONから直接組み立てる**。解決済みツリーでは `{color.neutral.950}` がhexに置き換わっていて、semantic→primitiveのエイリアスを作れないため
+- 3コレクション(primitive 86 / semantic 27 / component 4)。semanticは全てprimitiveへの `VARIABLE_ALIAS`、`control/field-padding-x` も `space/md` へのエイリアス。変数名はトークンパスをそのまま `/` 区切りにする(`color/bg/base`)
+- `scopes` と `codeSyntax` は6章では「`$extensions` から拾う」としていたが、全トークンに書くと冗長なので `emit.mjs` の `FIGMA_SCOPES`(パスの前方一致)で決める。primitiveの色はscopesを空にして、デザイナーがsemanticを選ぶようにしている
+- Figmaに出さないトークン(z / motion / shadow / metallicグラデーション等)は `FIGMA_SKIP` に理由付きで列挙する。**どちらにも載っていないトークンがあるとビルドが失敗する**ので、カテゴリを足したときにFigma上の扱いを決め忘れない
+- typographyの複合値は変数にできないので `textStyles`(9個)として別に出す。fontFamily / fontWeight はprimitive変数へのbinding名付き
+- **不透明度はFigmaでは0–100**。トークン(とCSS)は0–1だが、Figmaは不透明度に紐付けた変数をパーセントとして読む(0.5を紐付けると `node.opacity` が0.005になった)。`OPACITY` スコープの変数だけ100倍して出す。Web検索では「0–1のまま」という情報が出たが、実物で確かめたら違った
+- `meta.tokensHash`(ソースJSONのSHA-256先頭16桁)を `_meta/tokens-hash` として書き込み、ドリフト検知に使う
+- shadow: 当初は「Effect Style はモードを持てない」ため出していなかったが、同日中に解決した(次の実装メモ)
+
+**実装メモ(2026-09-15、Figmaコンポーネント)**: Figmaファイル `frost-design` に Tier 1–2 の22個(atoms 17 / molecules 5)を1コンポーネント1ページで作った。手順と注意点は `.claude/skills/figma-sync/SKILL.md`。
+
+- 塗り・線・余白・角丸・高さ・線の太さ・不透明度はすべて変数に、文字はテキストスタイルに紐付けた。生の値は Avatar / Checkbox などコード側でも生値(`size-5` など)の寸法だけ
+- テーマは semantic の既定モード(Dark)で作り、各ページに同じバリアントを Light モードで並べた確認枠を置いた(`setExplicitVariableModeForCollection`)。Foundations の semantic 色も Dark / Light の2枚並び
+- State は Default / Disabled のみ。hover の `brightness-110` とフォーカスリング(offset付き)は Figma で再現できないので作らず、各ページの説明枠に明記した
+- Card / EmptyState のボタン、ToggleGroup の Toggle、RadioGroup の Radio はインスタンス(atoms を作り直すと外れる)
+- Card の影は shadow/elevation-1(下記の方式で追加)
+
+**実装メモ(2026-09-15、shadow と organisms)**:
+
+- **shadow は層ごとの値を semantic 変数にして、エフェクトスタイルから bind する**。スタイル自体はモードを持てないが、効果の色・ずれ・ぼかし・広がりは変数に bind でき、変数は使う側のモードで解決される。`emit.mjs` が各層の値を `shadow/<name>/<層>/<値>`(semantic、35個)に展開し、`sync-effect-styles.js` が `shadow/elevation-1〜3` / `shadow/accent-glow` を作る。Figma 上で同じスタイルが Dark では黒 60% + 白い縁、Light では紺 16% に解決されることを実測した。「Dark / Light 別のスタイルを2組作る」案より、使う側がモードを切り替えるだけで済むこちらを採った
+- Tier 3–4 の14個(Tooltip / Popover / Menu / ContextMenu / Select / Combobox / Command / Dialog / AlertDialog / Sheet / Toast / Accordion / Tabs / Table)も Figma に作った。これで Figma 上も v1 の36個が揃った
+- Menu ページの Menu Item を ContextMenu / Select / Combobox / Command で共通に使う。モーダル系は幕の上の使用例付き
+- 詰まった点: `componentPropertyReferences` の代入はオブジェクトまるごとの置き換えで、BOOLEAN の紐付けを足した瞬間に TEXT の紐付けが消えた(Menu Item のショートカットが全部既定値になった)
 
 ---
 

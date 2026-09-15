@@ -1,4 +1,7 @@
 {
+  "meta": {
+    "tokensHash": "0ab87f572225e10e"
+  },
   "collections": [
     {
       "name": "primitive",
@@ -7,8 +10,12 @@
       ],
       "variables": [
         {
-          "name": "neutral/0",
+          "name": "color/neutral/0",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-0)"
+          },
           "values": {
             "Value": {
               "r": 1,
@@ -19,8 +26,12 @@
           }
         },
         {
-          "name": "neutral/50",
+          "name": "color/neutral/50",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-50)"
+          },
           "values": {
             "Value": {
               "r": 0.9686274509803922,
@@ -31,8 +42,12 @@
           }
         },
         {
-          "name": "neutral/100",
+          "name": "color/neutral/100",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-100)"
+          },
           "values": {
             "Value": {
               "r": 0.9333333333333333,
@@ -43,8 +58,12 @@
           }
         },
         {
-          "name": "neutral/200",
+          "name": "color/neutral/200",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-200)"
+          },
           "values": {
             "Value": {
               "r": 0.8313725490196079,
@@ -55,8 +74,12 @@
           }
         },
         {
-          "name": "neutral/300",
+          "name": "color/neutral/300",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-300)"
+          },
           "values": {
             "Value": {
               "r": 0.7215686274509804,
@@ -67,8 +90,12 @@
           }
         },
         {
-          "name": "neutral/400",
+          "name": "color/neutral/400",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-400)"
+          },
           "values": {
             "Value": {
               "r": 0.611764705882353,
@@ -79,8 +106,12 @@
           }
         },
         {
-          "name": "neutral/500",
+          "name": "color/neutral/500",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-500)"
+          },
           "values": {
             "Value": {
               "r": 0.3607843137254902,
@@ -91,8 +122,12 @@
           }
         },
         {
-          "name": "neutral/600",
+          "name": "color/neutral/600",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-600)"
+          },
           "values": {
             "Value": {
               "r": 0.27058823529411763,
@@ -103,8 +138,12 @@
           }
         },
         {
-          "name": "neutral/700",
+          "name": "color/neutral/700",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-700)"
+          },
           "values": {
             "Value": {
               "r": 0.17254901960784313,
@@ -115,8 +154,12 @@
           }
         },
         {
-          "name": "neutral/800",
+          "name": "color/neutral/800",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-800)"
+          },
           "values": {
             "Value": {
               "r": 0.11764705882352941,
@@ -127,8 +170,12 @@
           }
         },
         {
-          "name": "neutral/850",
+          "name": "color/neutral/850",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-850)"
+          },
           "values": {
             "Value": {
               "r": 0.10196078431372549,
@@ -139,8 +186,12 @@
           }
         },
         {
-          "name": "neutral/900",
+          "name": "color/neutral/900",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-900)"
+          },
           "values": {
             "Value": {
               "r": 0.07058823529411765,
@@ -151,8 +202,12 @@
           }
         },
         {
-          "name": "neutral/950",
+          "name": "color/neutral/950",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-neutral-950)"
+          },
           "values": {
             "Value": {
               "r": 0.0392156862745098,
@@ -163,8 +218,12 @@
           }
         },
         {
-          "name": "frost/100",
+          "name": "color/frost/100",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-frost-100)"
+          },
           "values": {
             "Value": {
               "r": 0.9098039215686274,
@@ -175,8 +234,12 @@
           }
         },
         {
-          "name": "frost/200",
+          "name": "color/frost/200",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-frost-200)"
+          },
           "values": {
             "Value": {
               "r": 0.8313725490196079,
@@ -187,8 +250,12 @@
           }
         },
         {
-          "name": "frost/300",
+          "name": "color/frost/300",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-frost-300)"
+          },
           "values": {
             "Value": {
               "r": 0.7294117647058823,
@@ -199,8 +266,12 @@
           }
         },
         {
-          "name": "frost/400",
+          "name": "color/frost/400",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-frost-400)"
+          },
           "values": {
             "Value": {
               "r": 0.6078431372549019,
@@ -211,8 +282,12 @@
           }
         },
         {
-          "name": "frost/500",
+          "name": "color/frost/500",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-frost-500)"
+          },
           "values": {
             "Value": {
               "r": 0.5215686274509804,
@@ -223,8 +298,12 @@
           }
         },
         {
-          "name": "frost/600",
+          "name": "color/frost/600",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-frost-600)"
+          },
           "values": {
             "Value": {
               "r": 0.4196078431372549,
@@ -235,8 +314,12 @@
           }
         },
         {
-          "name": "frost/700",
+          "name": "color/frost/700",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-frost-700)"
+          },
           "values": {
             "Value": {
               "r": 0.3215686274509804,
@@ -247,8 +330,12 @@
           }
         },
         {
-          "name": "frost/800",
+          "name": "color/frost/800",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-frost-800)"
+          },
           "values": {
             "Value": {
               "r": 0.2235294117647059,
@@ -259,8 +346,12 @@
           }
         },
         {
-          "name": "plum/300",
+          "name": "color/plum/300",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-plum-300)"
+          },
           "values": {
             "Value": {
               "r": 0.5294117647058824,
@@ -271,8 +362,12 @@
           }
         },
         {
-          "name": "plum/400",
+          "name": "color/plum/400",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-plum-400)"
+          },
           "values": {
             "Value": {
               "r": 0.47058823529411764,
@@ -283,8 +378,12 @@
           }
         },
         {
-          "name": "plum/500",
+          "name": "color/plum/500",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-plum-500)"
+          },
           "values": {
             "Value": {
               "r": 0.4196078431372549,
@@ -295,8 +394,12 @@
           }
         },
         {
-          "name": "plum/600",
+          "name": "color/plum/600",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-plum-600)"
+          },
           "values": {
             "Value": {
               "r": 0.3137254901960784,
@@ -307,8 +410,12 @@
           }
         },
         {
-          "name": "success/solid",
+          "name": "color/success/solid",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-success-solid)"
+          },
           "values": {
             "Value": {
               "r": 0.4980392156862745,
@@ -319,8 +426,12 @@
           }
         },
         {
-          "name": "success/subtle-bg",
+          "name": "color/success/subtle-bg",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-success-subtle-bg)"
+          },
           "values": {
             "Value": {
               "r": 0,
@@ -331,8 +442,12 @@
           }
         },
         {
-          "name": "success/border",
+          "name": "color/success/border",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-success-border)"
+          },
           "values": {
             "Value": {
               "r": 0,
@@ -343,8 +458,12 @@
           }
         },
         {
-          "name": "success/solid-strong",
+          "name": "color/success/solid-strong",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-success-solid-strong)"
+          },
           "values": {
             "Value": {
               "r": 0,
@@ -355,8 +474,12 @@
           }
         },
         {
-          "name": "success/subtle-bg-light",
+          "name": "color/success/subtle-bg-light",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-success-subtle-bg-light)"
+          },
           "values": {
             "Value": {
               "r": 0.8352941176470589,
@@ -367,8 +490,12 @@
           }
         },
         {
-          "name": "success/border-light",
+          "name": "color/success/border-light",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-success-border-light)"
+          },
           "values": {
             "Value": {
               "r": 0.6039215686274509,
@@ -379,8 +506,12 @@
           }
         },
         {
-          "name": "danger/solid",
+          "name": "color/danger/solid",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-danger-solid)"
+          },
           "values": {
             "Value": {
               "r": 0.9098039215686274,
@@ -391,8 +522,12 @@
           }
         },
         {
-          "name": "danger/subtle-bg",
+          "name": "color/danger/subtle-bg",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-danger-subtle-bg)"
+          },
           "values": {
             "Value": {
               "r": 0.17254901960784313,
@@ -403,8 +538,12 @@
           }
         },
         {
-          "name": "danger/border",
+          "name": "color/danger/border",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-danger-border)"
+          },
           "values": {
             "Value": {
               "r": 0.3803921568627451,
@@ -415,8 +554,12 @@
           }
         },
         {
-          "name": "danger/solid-strong",
+          "name": "color/danger/solid-strong",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-danger-solid-strong)"
+          },
           "values": {
             "Value": {
               "r": 0.6313725490196078,
@@ -427,8 +570,12 @@
           }
         },
         {
-          "name": "danger/subtle-bg-light",
+          "name": "color/danger/subtle-bg-light",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-danger-subtle-bg-light)"
+          },
           "values": {
             "Value": {
               "r": 1,
@@ -439,8 +586,12 @@
           }
         },
         {
-          "name": "danger/border-light",
+          "name": "color/danger/border-light",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-danger-border-light)"
+          },
           "values": {
             "Value": {
               "r": 0.9803921568627451,
@@ -451,8 +602,12 @@
           }
         },
         {
-          "name": "warning/solid",
+          "name": "color/warning/solid",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-warning-solid)"
+          },
           "values": {
             "Value": {
               "r": 0.9098039215686274,
@@ -463,8 +618,12 @@
           }
         },
         {
-          "name": "warning/subtle-bg",
+          "name": "color/warning/subtle-bg",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-warning-subtle-bg)"
+          },
           "values": {
             "Value": {
               "r": 0.12941176470588237,
@@ -475,8 +634,12 @@
           }
         },
         {
-          "name": "warning/border",
+          "name": "color/warning/border",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-warning-border)"
+          },
           "values": {
             "Value": {
               "r": 0.30196078431372547,
@@ -487,8 +650,12 @@
           }
         },
         {
-          "name": "warning/solid-strong",
+          "name": "color/warning/solid-strong",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-warning-solid-strong)"
+          },
           "values": {
             "Value": {
               "r": 0.4627450980392157,
@@ -499,8 +666,12 @@
           }
         },
         {
-          "name": "warning/subtle-bg-light",
+          "name": "color/warning/subtle-bg-light",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-warning-subtle-bg-light)"
+          },
           "values": {
             "Value": {
               "r": 1,
@@ -511,8 +682,12 @@
           }
         },
         {
-          "name": "warning/border-light",
+          "name": "color/warning/border-light",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-warning-border-light)"
+          },
           "values": {
             "Value": {
               "r": 0.8784313725490196,
@@ -523,8 +698,12 @@
           }
         },
         {
-          "name": "info/solid",
+          "name": "color/info/solid",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-info-solid)"
+          },
           "values": {
             "Value": {
               "r": 0.4823529411764706,
@@ -535,8 +714,12 @@
           }
         },
         {
-          "name": "info/subtle-bg",
+          "name": "color/info/subtle-bg",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-info-subtle-bg)"
+          },
           "values": {
             "Value": {
               "r": 0,
@@ -547,8 +730,12 @@
           }
         },
         {
-          "name": "info/border",
+          "name": "color/info/border",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-info-border)"
+          },
           "values": {
             "Value": {
               "r": 0,
@@ -559,8 +746,12 @@
           }
         },
         {
-          "name": "info/solid-strong",
+          "name": "color/info/solid-strong",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-info-solid-strong)"
+          },
           "values": {
             "Value": {
               "r": 0.06274509803921569,
@@ -571,8 +762,12 @@
           }
         },
         {
-          "name": "info/subtle-bg-light",
+          "name": "color/info/subtle-bg-light",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-info-subtle-bg-light)"
+          },
           "values": {
             "Value": {
               "r": 0.8196078431372549,
@@ -583,8 +778,12 @@
           }
         },
         {
-          "name": "info/border-light",
+          "name": "color/info/border-light",
           "type": "COLOR",
+          "scopes": [],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-info-border-light)"
+          },
           "values": {
             "Value": {
               "r": 0.5803921568627451,
@@ -592,6 +791,487 @@
               "b": 0.9607843137254902,
               "a": 1
             }
+          }
+        },
+        {
+          "name": "space/3xs",
+          "type": "FLOAT",
+          "scopes": [
+            "GAP"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-space-3xs)"
+          },
+          "values": {
+            "Value": 2
+          }
+        },
+        {
+          "name": "space/2xs",
+          "type": "FLOAT",
+          "scopes": [
+            "GAP"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-space-2xs)"
+          },
+          "values": {
+            "Value": 4
+          }
+        },
+        {
+          "name": "space/xs",
+          "type": "FLOAT",
+          "scopes": [
+            "GAP"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-space-xs)"
+          },
+          "values": {
+            "Value": 8
+          }
+        },
+        {
+          "name": "space/sm",
+          "type": "FLOAT",
+          "scopes": [
+            "GAP"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-space-sm)"
+          },
+          "values": {
+            "Value": 12
+          }
+        },
+        {
+          "name": "space/md",
+          "type": "FLOAT",
+          "scopes": [
+            "GAP"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-space-md)"
+          },
+          "values": {
+            "Value": 16
+          }
+        },
+        {
+          "name": "space/lg",
+          "type": "FLOAT",
+          "scopes": [
+            "GAP"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-space-lg)"
+          },
+          "values": {
+            "Value": 24
+          }
+        },
+        {
+          "name": "space/xl",
+          "type": "FLOAT",
+          "scopes": [
+            "GAP"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-space-xl)"
+          },
+          "values": {
+            "Value": 32
+          }
+        },
+        {
+          "name": "space/2xl",
+          "type": "FLOAT",
+          "scopes": [
+            "GAP"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-space-2xl)"
+          },
+          "values": {
+            "Value": 48
+          }
+        },
+        {
+          "name": "space/3xl",
+          "type": "FLOAT",
+          "scopes": [
+            "GAP"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-space-3xl)"
+          },
+          "values": {
+            "Value": 64
+          }
+        },
+        {
+          "name": "icon/xs",
+          "type": "FLOAT",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-icon-xs)"
+          },
+          "values": {
+            "Value": 14
+          }
+        },
+        {
+          "name": "icon/sm",
+          "type": "FLOAT",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-icon-sm)"
+          },
+          "values": {
+            "Value": 16
+          }
+        },
+        {
+          "name": "icon/md",
+          "type": "FLOAT",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-icon-md)"
+          },
+          "values": {
+            "Value": 20
+          }
+        },
+        {
+          "name": "icon/lg",
+          "type": "FLOAT",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-icon-lg)"
+          },
+          "values": {
+            "Value": 24
+          }
+        },
+        {
+          "name": "icon/xl",
+          "type": "FLOAT",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-icon-xl)"
+          },
+          "values": {
+            "Value": 32
+          }
+        },
+        {
+          "name": "container/prose",
+          "type": "FLOAT",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-container-prose)"
+          },
+          "values": {
+            "Value": 720
+          }
+        },
+        {
+          "name": "container/content",
+          "type": "FLOAT",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-container-content)"
+          },
+          "values": {
+            "Value": 1024
+          }
+        },
+        {
+          "name": "container/wide",
+          "type": "FLOAT",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-container-wide)"
+          },
+          "values": {
+            "Value": 1280
+          }
+        },
+        {
+          "name": "effect/frost/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-effect-frost-blur)"
+          },
+          "values": {
+            "Value": 18
+          }
+        },
+        {
+          "name": "effect/glow/opacity",
+          "type": "FLOAT",
+          "scopes": [
+            "OPACITY"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-effect-glow-opacity)"
+          },
+          "values": {
+            "Value": 30
+          }
+        },
+        {
+          "name": "effect/glow/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-effect-glow-blur)"
+          },
+          "values": {
+            "Value": 32
+          }
+        },
+        {
+          "name": "effect/grain/opacity",
+          "type": "FLOAT",
+          "scopes": [
+            "OPACITY"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-effect-grain-opacity)"
+          },
+          "values": {
+            "Value": 4
+          }
+        },
+        {
+          "name": "radius/control",
+          "type": "FLOAT",
+          "scopes": [
+            "CORNER_RADIUS"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-radius-control)"
+          },
+          "values": {
+            "Value": 8
+          }
+        },
+        {
+          "name": "radius/surface",
+          "type": "FLOAT",
+          "scopes": [
+            "CORNER_RADIUS"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-radius-surface)"
+          },
+          "values": {
+            "Value": 12
+          }
+        },
+        {
+          "name": "radius/overlay",
+          "type": "FLOAT",
+          "scopes": [
+            "CORNER_RADIUS"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-radius-overlay)"
+          },
+          "values": {
+            "Value": 16
+          }
+        },
+        {
+          "name": "radius/full",
+          "type": "FLOAT",
+          "scopes": [
+            "CORNER_RADIUS"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-radius-full)"
+          },
+          "values": {
+            "Value": 9999
+          }
+        },
+        {
+          "name": "border-width/default",
+          "type": "FLOAT",
+          "scopes": [
+            "STROKE_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-border-width-default)"
+          },
+          "values": {
+            "Value": 1
+          }
+        },
+        {
+          "name": "border-width/thick",
+          "type": "FLOAT",
+          "scopes": [
+            "STROKE_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-border-width-thick)"
+          },
+          "values": {
+            "Value": 2
+          }
+        },
+        {
+          "name": "font-family/sans",
+          "type": "STRING",
+          "scopes": [
+            "FONT_FAMILY"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-font-family-sans)"
+          },
+          "values": {
+            "Value": "Geist"
+          }
+        },
+        {
+          "name": "font-family/mono",
+          "type": "STRING",
+          "scopes": [
+            "FONT_FAMILY"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-font-family-mono)"
+          },
+          "values": {
+            "Value": "Geist Mono"
+          }
+        },
+        {
+          "name": "font-weight/regular",
+          "type": "FLOAT",
+          "scopes": [
+            "FONT_WEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-font-weight-regular)"
+          },
+          "values": {
+            "Value": 400
+          }
+        },
+        {
+          "name": "font-weight/medium",
+          "type": "FLOAT",
+          "scopes": [
+            "FONT_WEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-font-weight-medium)"
+          },
+          "values": {
+            "Value": 500
+          }
+        },
+        {
+          "name": "font-weight/semibold",
+          "type": "FLOAT",
+          "scopes": [
+            "FONT_WEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-font-weight-semibold)"
+          },
+          "values": {
+            "Value": 600
+          }
+        },
+        {
+          "name": "font-weight/bold",
+          "type": "FLOAT",
+          "scopes": [
+            "FONT_WEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-font-weight-bold)"
+          },
+          "values": {
+            "Value": 700
+          }
+        },
+        {
+          "name": "opacity/disabled",
+          "type": "FLOAT",
+          "scopes": [
+            "OPACITY"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-opacity-disabled)"
+          },
+          "values": {
+            "Value": 50
+          }
+        },
+        {
+          "name": "opacity/hover-overlay",
+          "type": "FLOAT",
+          "scopes": [
+            "OPACITY"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-opacity-hover-overlay)"
+          },
+          "values": {
+            "Value": 8
+          }
+        },
+        {
+          "name": "opacity/pressed-overlay",
+          "type": "FLOAT",
+          "scopes": [
+            "OPACITY"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-opacity-pressed-overlay)"
+          },
+          "values": {
+            "Value": 12
+          }
+        },
+        {
+          "name": "opacity/backdrop",
+          "type": "FLOAT",
+          "scopes": [
+            "OPACITY"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-opacity-backdrop)"
+          },
+          "values": {
+            "Value": 72
           }
         }
       ]
@@ -604,490 +1284,1478 @@
       ],
       "variables": [
         {
-          "name": "bg/base",
+          "name": "color/bg/base",
           "type": "COLOR",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-bg-base)"
+          },
           "values": {
             "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/950"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/100"
+            }
+          }
+        },
+        {
+          "name": "color/bg/surface",
+          "type": "COLOR",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-bg-surface)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/900"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/50"
+            }
+          }
+        },
+        {
+          "name": "color/bg/raised",
+          "type": "COLOR",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-bg-raised)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/850"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/0"
+            }
+          }
+        },
+        {
+          "name": "color/border/subtle",
+          "type": "COLOR",
+          "scopes": [
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-border-subtle)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/800"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/200"
+            }
+          }
+        },
+        {
+          "name": "color/border/default",
+          "type": "COLOR",
+          "scopes": [
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-border-default)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/700"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/300"
+            }
+          }
+        },
+        {
+          "name": "color/border/strong",
+          "type": "COLOR",
+          "scopes": [
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-border-strong)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/600"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/400"
+            }
+          }
+        },
+        {
+          "name": "color/text/primary",
+          "type": "COLOR",
+          "scopes": [
+            "TEXT_FILL"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-text-primary)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/100"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/950"
+            }
+          }
+        },
+        {
+          "name": "color/text/secondary",
+          "type": "COLOR",
+          "scopes": [
+            "TEXT_FILL"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-text-secondary)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/400"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/700"
+            }
+          }
+        },
+        {
+          "name": "color/text/muted",
+          "type": "COLOR",
+          "scopes": [
+            "TEXT_FILL"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-text-muted)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/500"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/500"
+            }
+          }
+        },
+        {
+          "name": "color/accent/default",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-accent-default)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/frost/400"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/frost/800"
+            }
+          }
+        },
+        {
+          "name": "color/accent/dim",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-accent-dim)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/frost/600"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/frost/600"
+            }
+          }
+        },
+        {
+          "name": "color/accent/glow",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-accent-glow)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/frost/200"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/frost/200"
+            }
+          }
+        },
+        {
+          "name": "color/accent-alt/default",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-accent-alt-default)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/plum/500"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/plum/500"
+            }
+          }
+        },
+        {
+          "name": "color/on-accent",
+          "type": "COLOR",
+          "scopes": [
+            "TEXT_FILL",
+            "SHAPE_FILL"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-on-accent)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/950"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/neutral/0"
+            }
+          }
+        },
+        {
+          "name": "color/focus-ring",
+          "type": "COLOR",
+          "scopes": [
+            "STROKE_COLOR",
+            "EFFECT_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-focus-ring)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/frost/400"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/frost/800"
+            }
+          }
+        },
+        {
+          "name": "color/status/success/solid",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-success-solid)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/success/solid"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/success/solid-strong"
+            }
+          }
+        },
+        {
+          "name": "color/status/success/subtle-bg",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-success-subtle-bg)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/success/subtle-bg"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/success/subtle-bg-light"
+            }
+          }
+        },
+        {
+          "name": "color/status/success/border",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-success-border)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/success/border"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/success/border-light"
+            }
+          }
+        },
+        {
+          "name": "color/status/danger/solid",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-danger-solid)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/danger/solid"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/danger/solid-strong"
+            }
+          }
+        },
+        {
+          "name": "color/status/danger/subtle-bg",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-danger-subtle-bg)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/danger/subtle-bg"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/danger/subtle-bg-light"
+            }
+          }
+        },
+        {
+          "name": "color/status/danger/border",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-danger-border)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/danger/border"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/danger/border-light"
+            }
+          }
+        },
+        {
+          "name": "color/status/warning/solid",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-warning-solid)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/warning/solid"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/warning/solid-strong"
+            }
+          }
+        },
+        {
+          "name": "color/status/warning/subtle-bg",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-warning-subtle-bg)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/warning/subtle-bg"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/warning/subtle-bg-light"
+            }
+          }
+        },
+        {
+          "name": "color/status/warning/border",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-warning-border)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/warning/border"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/warning/border-light"
+            }
+          }
+        },
+        {
+          "name": "color/status/info/solid",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-info-solid)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/info/solid"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/info/solid-strong"
+            }
+          }
+        },
+        {
+          "name": "color/status/info/subtle-bg",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-info-subtle-bg)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/info/subtle-bg"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/info/subtle-bg-light"
+            }
+          }
+        },
+        {
+          "name": "color/status/info/border",
+          "type": "COLOR",
+          "scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-color-status-info-border)"
+          },
+          "values": {
+            "Dark": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/info/border"
+            },
+            "Light": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "color/info/border-light"
+            }
+          }
+        },
+        {
+          "name": "shadow/elevation-1/1/color",
+          "type": "COLOR",
+          "scopes": [
+            "EFFECT_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-1)"
+          },
+          "values": {
+            "Dark": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.4
+            },
+            "Light": {
               "r": 0.0392156862745098,
               "g": 0.047058823529411764,
               "b": 0.0784313725490196,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.9333333333333333,
-              "g": 0.9490196078431372,
-              "b": 0.9686274509803922,
-              "a": 1
+              "a": 0.06
             }
           }
         },
         {
-          "name": "bg/surface",
-          "type": "COLOR",
+          "name": "shadow/elevation-1/1/offset-x",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-1)"
+          },
           "values": {
-            "Dark": {
-              "r": 0.07058823529411765,
-              "g": 0.0784313725490196,
-              "b": 0.12156862745098039,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.9686274509803922,
-              "g": 0.9725490196078431,
-              "b": 0.984313725490196,
-              "a": 1
-            }
+            "Dark": 0,
+            "Light": 0
           }
         },
         {
-          "name": "bg/raised",
+          "name": "shadow/elevation-1/1/offset-y",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-1)"
+          },
+          "values": {
+            "Dark": 1,
+            "Light": 1
+          }
+        },
+        {
+          "name": "shadow/elevation-1/1/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-1)"
+          },
+          "values": {
+            "Dark": 2,
+            "Light": 2
+          }
+        },
+        {
+          "name": "shadow/elevation-1/1/spread",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-1)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-1/2/color",
           "type": "COLOR",
+          "scopes": [
+            "EFFECT_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-1)"
+          },
           "values": {
             "Dark": {
-              "r": 0.10196078431372549,
-              "g": 0.11764705882352941,
-              "b": 0.17647058823529413,
-              "a": 1
-            },
-            "Light": {
               "r": 1,
               "g": 1,
               "b": 1,
-              "a": 1
-            }
-          }
-        },
-        {
-          "name": "border/subtle",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0.11764705882352941,
-              "g": 0.13333333333333333,
-              "b": 0.18823529411764706,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.8313725490196079,
-              "g": 0.8431372549019608,
-              "b": 0.8901960784313725,
-              "a": 1
-            }
-          }
-        },
-        {
-          "name": "border/default",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0.17254901960784313,
-              "g": 0.19607843137254902,
-              "b": 0.26666666666666666,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.7215686274509804,
-              "g": 0.7450980392156863,
-              "b": 0.8117647058823529,
-              "a": 1
-            }
-          }
-        },
-        {
-          "name": "border/strong",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0.27058823529411763,
-              "g": 0.2980392156862745,
-              "b": 0.38823529411764707,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.611764705882353,
-              "g": 0.6509803921568628,
-              "b": 0.7372549019607844,
-              "a": 1
-            }
-          }
-        },
-        {
-          "name": "text/primary",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0.9333333333333333,
-              "g": 0.9490196078431372,
-              "b": 0.9686274509803922,
-              "a": 1
+              "a": 0.04
             },
             "Light": {
               "r": 0.0392156862745098,
               "g": 0.047058823529411764,
               "b": 0.0784313725490196,
-              "a": 1
+              "a": 0.04
             }
           }
         },
         {
-          "name": "text/secondary",
+          "name": "shadow/elevation-1/2/offset-x",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-1)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-1/2/offset-y",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-1)"
+          },
+          "values": {
+            "Dark": 1,
+            "Light": 1
+          }
+        },
+        {
+          "name": "shadow/elevation-1/2/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-1)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 3
+          }
+        },
+        {
+          "name": "shadow/elevation-1/2/spread",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-1)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-2/1/color",
           "type": "COLOR",
+          "scopes": [
+            "EFFECT_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-2)"
+          },
           "values": {
             "Dark": {
-              "r": 0.611764705882353,
-              "g": 0.6509803921568628,
-              "b": 0.7372549019607844,
-              "a": 1
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.5
             },
             "Light": {
-              "r": 0.17254901960784313,
-              "g": 0.19607843137254902,
-              "b": 0.26666666666666666,
-              "a": 1
+              "r": 0.0392156862745098,
+              "g": 0.047058823529411764,
+              "b": 0.0784313725490196,
+              "a": 0.1
             }
           }
         },
         {
-          "name": "text/muted",
+          "name": "shadow/elevation-2/1/offset-x",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-2)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-2/1/offset-y",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-2)"
+          },
+          "values": {
+            "Dark": 4,
+            "Light": 4
+          }
+        },
+        {
+          "name": "shadow/elevation-2/1/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-2)"
+          },
+          "values": {
+            "Dark": 12,
+            "Light": 12
+          }
+        },
+        {
+          "name": "shadow/elevation-2/1/spread",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-2)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-2/2/color",
           "type": "COLOR",
+          "scopes": [
+            "EFFECT_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-2)"
+          },
           "values": {
             "Dark": {
-              "r": 0.3607843137254902,
-              "g": 0.39215686274509803,
-              "b": 0.47058823529411764,
-              "a": 1
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 0.06
             },
             "Light": {
-              "r": 0.3607843137254902,
-              "g": 0.39215686274509803,
-              "b": 0.47058823529411764,
-              "a": 1
+              "r": 0.0392156862745098,
+              "g": 0.047058823529411764,
+              "b": 0.0784313725490196,
+              "a": 0.04
             }
           }
         },
         {
-          "name": "accent/default",
+          "name": "shadow/elevation-2/2/offset-x",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-2)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-2/2/offset-y",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-2)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-2/2/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-2)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-2/2/spread",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-2)"
+          },
+          "values": {
+            "Dark": 1,
+            "Light": 1
+          }
+        },
+        {
+          "name": "shadow/elevation-3/1/color",
           "type": "COLOR",
+          "scopes": [
+            "EFFECT_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-3)"
+          },
+          "values": {
+            "Dark": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.6
+            },
+            "Light": {
+              "r": 0.0392156862745098,
+              "g": 0.047058823529411764,
+              "b": 0.0784313725490196,
+              "a": 0.16
+            }
+          }
+        },
+        {
+          "name": "shadow/elevation-3/1/offset-x",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-3)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-3/1/offset-y",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-3)"
+          },
+          "values": {
+            "Dark": 12,
+            "Light": 12
+          }
+        },
+        {
+          "name": "shadow/elevation-3/1/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-3)"
+          },
+          "values": {
+            "Dark": 32,
+            "Light": 32
+          }
+        },
+        {
+          "name": "shadow/elevation-3/1/spread",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-3)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-3/2/color",
+          "type": "COLOR",
+          "scopes": [
+            "EFFECT_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-3)"
+          },
+          "values": {
+            "Dark": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 0.08
+            },
+            "Light": {
+              "r": 0.0392156862745098,
+              "g": 0.047058823529411764,
+              "b": 0.0784313725490196,
+              "a": 0.06
+            }
+          }
+        },
+        {
+          "name": "shadow/elevation-3/2/offset-x",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-3)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-3/2/offset-y",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-3)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-3/2/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-3)"
+          },
+          "values": {
+            "Dark": 0,
+            "Light": 0
+          }
+        },
+        {
+          "name": "shadow/elevation-3/2/spread",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-elevation-3)"
+          },
+          "values": {
+            "Dark": 1,
+            "Light": 1
+          }
+        },
+        {
+          "name": "shadow/accent-glow/1/color",
+          "type": "COLOR",
+          "scopes": [
+            "EFFECT_COLOR"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-accent-glow)"
+          },
           "values": {
             "Dark": {
               "r": 0.6078431372549019,
               "g": 0.8627450980392157,
               "b": 0.9411764705882353,
-              "a": 1
+              "a": 0.3
             },
             "Light": {
               "r": 0.2235294117647059,
               "g": 0.44313725490196076,
               "b": 0.5254901960784314,
-              "a": 1
+              "a": 0.35
             }
           }
         },
         {
-          "name": "accent/dim",
-          "type": "COLOR",
+          "name": "shadow/accent-glow/1/offset-x",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-accent-glow)"
+          },
           "values": {
-            "Dark": {
-              "r": 0.4196078431372549,
-              "g": 0.7215686274509804,
-              "b": 0.8392156862745098,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.4196078431372549,
-              "g": 0.7215686274509804,
-              "b": 0.8392156862745098,
-              "a": 1
-            }
+            "Dark": 0,
+            "Light": 0
           }
         },
         {
-          "name": "accent/glow",
-          "type": "COLOR",
+          "name": "shadow/accent-glow/1/offset-y",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-accent-glow)"
+          },
           "values": {
-            "Dark": {
-              "r": 0.8313725490196079,
-              "g": 0.9450980392156862,
-              "b": 0.9803921568627451,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.8313725490196079,
-              "g": 0.9450980392156862,
-              "b": 0.9803921568627451,
-              "a": 1
-            }
+            "Dark": 0,
+            "Light": 0
           }
         },
         {
-          "name": "accent-alt/default",
-          "type": "COLOR",
+          "name": "shadow/accent-glow/1/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-accent-glow)"
+          },
           "values": {
-            "Dark": {
-              "r": 0.4196078431372549,
-              "g": 0.2980392156862745,
-              "b": 0.47843137254901963,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.4196078431372549,
-              "g": 0.2980392156862745,
-              "b": 0.47843137254901963,
-              "a": 1
-            }
+            "Dark": 32,
+            "Light": 32
           }
         },
         {
-          "name": "on-accent",
-          "type": "COLOR",
+          "name": "shadow/accent-glow/1/spread",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-shadow-accent-glow)"
+          },
           "values": {
-            "Dark": {
-              "r": 0.0392156862745098,
-              "g": 0.047058823529411764,
-              "b": 0.0784313725490196,
-              "a": 1
-            },
-            "Light": {
-              "r": 1,
-              "g": 1,
-              "b": 1,
-              "a": 1
-            }
+            "Dark": 0,
+            "Light": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "component",
+      "modes": [
+        "Value"
+      ],
+      "variables": [
+        {
+          "name": "control/height/sm",
+          "type": "FLOAT",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-control-height-sm)"
+          },
+          "values": {
+            "Value": 32
           }
         },
         {
-          "name": "focus-ring",
-          "type": "COLOR",
+          "name": "control/height/md",
+          "type": "FLOAT",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-control-height-md)"
+          },
           "values": {
-            "Dark": {
-              "r": 0.6078431372549019,
-              "g": 0.8627450980392157,
-              "b": 0.9411764705882353,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.2235294117647059,
-              "g": 0.44313725490196076,
-              "b": 0.5254901960784314,
-              "a": 1
-            }
+            "Value": 40
           }
         },
         {
-          "name": "status/success/solid",
-          "type": "COLOR",
+          "name": "control/height/lg",
+          "type": "FLOAT",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-control-height-lg)"
+          },
           "values": {
-            "Dark": {
-              "r": 0.4980392156862745,
-              "g": 0.9098039215686274,
-              "b": 0.7215686274509804,
-              "a": 1
-            },
-            "Light": {
-              "r": 0,
-              "g": 0.43529411764705883,
-              "b": 0.27450980392156865,
-              "a": 1
-            }
+            "Value": 48
           }
         },
         {
-          "name": "status/success/subtle-bg",
-          "type": "COLOR",
+          "name": "control/field-padding-x",
+          "type": "FLOAT",
+          "scopes": [
+            "GAP"
+          ],
+          "codeSyntax": {
+            "WEB": "var(--aurora-control-field-padding-x)"
+          },
           "values": {
-            "Dark": {
-              "r": 0,
-              "g": 0.11764705882352941,
-              "b": 0.054901960784313725,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.8352941176470589,
-              "g": 0.9921568627450981,
-              "b": 0.9098039215686274,
-              "a": 1
+            "Value": {
+              "type": "VARIABLE_ALIAS",
+              "collection": "primitive",
+              "name": "space/md"
             }
           }
+        }
+      ]
+    }
+  ],
+  "textStyles": [
+    {
+      "name": "display",
+      "fontFamily": "Geist",
+      "fontStyle": "SemiBold",
+      "fontSize": 48,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 110
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": -2
+      },
+      "bindings": {
+        "fontFamily": "font-family/sans",
+        "fontWeight": "font-weight/semibold"
+      }
+    },
+    {
+      "name": "title",
+      "fontFamily": "Geist",
+      "fontStyle": "SemiBold",
+      "fontSize": 32,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 120
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": -1
+      },
+      "bindings": {
+        "fontFamily": "font-family/sans",
+        "fontWeight": "font-weight/semibold"
+      }
+    },
+    {
+      "name": "heading",
+      "fontFamily": "Geist",
+      "fontStyle": "SemiBold",
+      "fontSize": 24,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 130
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": -1
+      },
+      "bindings": {
+        "fontFamily": "font-family/sans",
+        "fontWeight": "font-weight/semibold"
+      }
+    },
+    {
+      "name": "body-lg",
+      "fontFamily": "Geist",
+      "fontStyle": "Regular",
+      "fontSize": 18,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 160
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "bindings": {
+        "fontFamily": "font-family/sans",
+        "fontWeight": "font-weight/regular"
+      }
+    },
+    {
+      "name": "body",
+      "fontFamily": "Geist",
+      "fontStyle": "Regular",
+      "fontSize": 16,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 160
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "bindings": {
+        "fontFamily": "font-family/sans",
+        "fontWeight": "font-weight/regular"
+      }
+    },
+    {
+      "name": "body-sm",
+      "fontFamily": "Geist",
+      "fontStyle": "Regular",
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "bindings": {
+        "fontFamily": "font-family/sans",
+        "fontWeight": "font-weight/regular"
+      }
+    },
+    {
+      "name": "label",
+      "fontFamily": "Geist",
+      "fontStyle": "Medium",
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 140
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "bindings": {
+        "fontFamily": "font-family/sans",
+        "fontWeight": "font-weight/medium"
+      }
+    },
+    {
+      "name": "caption",
+      "fontFamily": "Geist",
+      "fontStyle": "Regular",
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 140
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 1
+      },
+      "bindings": {
+        "fontFamily": "font-family/sans",
+        "fontWeight": "font-weight/regular"
+      }
+    },
+    {
+      "name": "code",
+      "fontFamily": "Geist Mono",
+      "fontStyle": "Regular",
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 160
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "bindings": {
+        "fontFamily": "font-family/mono",
+        "fontWeight": "font-weight/regular"
+      }
+    }
+  ],
+  "effectStyles": [
+    {
+      "name": "shadow/elevation-1",
+      "layers": [
+        {
+          "color": "shadow/elevation-1/1/color",
+          "offset-x": "shadow/elevation-1/1/offset-x",
+          "offset-y": "shadow/elevation-1/1/offset-y",
+          "blur": "shadow/elevation-1/1/blur",
+          "spread": "shadow/elevation-1/1/spread"
         },
         {
-          "name": "status/success/border",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0,
-              "g": 0.2784313725490196,
-              "b": 0.1568627450980392,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.6039215686274509,
-              "g": 0.8588235294117647,
-              "b": 0.7333333333333333,
-              "a": 1
-            }
-          }
+          "color": "shadow/elevation-1/2/color",
+          "offset-x": "shadow/elevation-1/2/offset-x",
+          "offset-y": "shadow/elevation-1/2/offset-y",
+          "blur": "shadow/elevation-1/2/blur",
+          "spread": "shadow/elevation-1/2/spread"
+        }
+      ]
+    },
+    {
+      "name": "shadow/elevation-2",
+      "layers": [
+        {
+          "color": "shadow/elevation-2/1/color",
+          "offset-x": "shadow/elevation-2/1/offset-x",
+          "offset-y": "shadow/elevation-2/1/offset-y",
+          "blur": "shadow/elevation-2/1/blur",
+          "spread": "shadow/elevation-2/1/spread"
         },
         {
-          "name": "status/danger/solid",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0.9098039215686274,
-              "g": 0.36470588235294116,
-              "b": 0.4196078431372549,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.6313725490196078,
-              "g": 0.1411764705882353,
-              "b": 0.2235294117647059,
-              "a": 1
-            }
-          }
+          "color": "shadow/elevation-2/2/color",
+          "offset-x": "shadow/elevation-2/2/offset-x",
+          "offset-y": "shadow/elevation-2/2/offset-y",
+          "blur": "shadow/elevation-2/2/blur",
+          "spread": "shadow/elevation-2/2/spread"
+        }
+      ]
+    },
+    {
+      "name": "shadow/elevation-3",
+      "layers": [
+        {
+          "color": "shadow/elevation-3/1/color",
+          "offset-x": "shadow/elevation-3/1/offset-x",
+          "offset-y": "shadow/elevation-3/1/offset-y",
+          "blur": "shadow/elevation-3/1/blur",
+          "spread": "shadow/elevation-3/1/spread"
         },
         {
-          "name": "status/danger/subtle-bg",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0.17254901960784313,
-              "g": 0.027450980392156862,
-              "b": 0.047058823529411764,
-              "a": 1
-            },
-            "Light": {
-              "r": 1,
-              "g": 0.8980392156862745,
-              "b": 0.9019607843137255,
-              "a": 1
-            }
-          }
-        },
+          "color": "shadow/elevation-3/2/color",
+          "offset-x": "shadow/elevation-3/2/offset-x",
+          "offset-y": "shadow/elevation-3/2/offset-y",
+          "blur": "shadow/elevation-3/2/blur",
+          "spread": "shadow/elevation-3/2/spread"
+        }
+      ]
+    },
+    {
+      "name": "shadow/accent-glow",
+      "layers": [
         {
-          "name": "status/danger/border",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0.3803921568627451,
-              "g": 0.10980392156862745,
-              "b": 0.1411764705882353,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.9803921568627451,
-              "g": 0.7137254901960784,
-              "b": 0.7215686274509804,
-              "a": 1
-            }
-          }
-        },
-        {
-          "name": "status/warning/solid",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0.9098039215686274,
-              "g": 0.7686274509803922,
-              "b": 0.40784313725490196,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.4627450980392157,
-              "g": 0.3333333333333333,
-              "b": 0,
-              "a": 1
-            }
-          }
-        },
-        {
-          "name": "status/warning/subtle-bg",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0.12941176470588237,
-              "g": 0.07450980392156863,
-              "b": 0,
-              "a": 1
-            },
-            "Light": {
-              "r": 1,
-              "g": 0.9450980392156862,
-              "b": 0.8,
-              "a": 1
-            }
-          }
-        },
-        {
-          "name": "status/warning/border",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0.30196078431372547,
-              "g": 0.2,
-              "b": 0,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.8784313725490196,
-              "g": 0.7843137254901961,
-              "b": 0.5568627450980392,
-              "a": 1
-            }
-          }
-        },
-        {
-          "name": "status/info/solid",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0.4823529411764706,
-              "g": 0.7686274509803922,
-              "b": 0.9098039215686274,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.06274509803921569,
-              "g": 0.38823529411764707,
-              "b": 0.5137254901960784,
-              "a": 1
-            }
-          }
-        },
-        {
-          "name": "status/info/subtle-bg",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0,
-              "g": 0.10196078431372549,
-              "b": 0.17254901960784313,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.8196078431372549,
-              "g": 0.9764705882352941,
-              "b": 1,
-              "a": 1
-            }
-          }
-        },
-        {
-          "name": "status/info/border",
-          "type": "COLOR",
-          "values": {
-            "Dark": {
-              "r": 0,
-              "g": 0.24705882352941178,
-              "b": 0.36470588235294116,
-              "a": 1
-            },
-            "Light": {
-              "r": 0.5803921568627451,
-              "g": 0.8352941176470589,
-              "b": 0.9607843137254902,
-              "a": 1
-            }
-          }
+          "color": "shadow/accent-glow/1/color",
+          "offset-x": "shadow/accent-glow/1/offset-x",
+          "offset-y": "shadow/accent-glow/1/offset-y",
+          "blur": "shadow/accent-glow/1/blur",
+          "spread": "shadow/accent-glow/1/spread"
         }
       ]
     }
